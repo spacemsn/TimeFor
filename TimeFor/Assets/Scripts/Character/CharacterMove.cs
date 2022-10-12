@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CharacterMove : MonoBehaviour
+public class CharacterMove : MonoCache
 {
     [Header("Компоненты")]
     public Joystick joystick;
@@ -49,11 +49,18 @@ public class CharacterMove : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    //private void Update()
+    //{
+    //    if (move == Move.PC) { MovePC(); }
+    //    else if (move == Move.Android) { MoveAndroid(); }
+    //    else if(move == Move.Simple) { SimpleMove(); }
+    //}
+
+    public override void OnTick()
     {
         if (move == Move.PC) { MovePC(); }
         else if (move == Move.Android) { MoveAndroid(); }
-        else if(move == Move.Simple) { SimpleMove(); }
+        else if (move == Move.Simple) { SimpleMove(); }
     }
 
     private void MovePC()

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DamageScript : MonoBehaviour
+public class DamageScript : MonoCache
 {
     public WeaponItem weapon;
 

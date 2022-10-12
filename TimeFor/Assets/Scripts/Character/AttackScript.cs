@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AttackScript : MonoBehaviour
+public class AttackScript : MonoCache
 {
     Animator animator;
   
@@ -10,14 +10,26 @@ public class AttackScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    //void Update()
+    //{
+    //    if(Input.GetButtonDown("Fire1")) 
+    //    { 
+    //        animator.SetBool("isAttack", true);
+    //    }
+    //    else
+    //    { 
+    //        animator.SetBool("isAttack", false);
+    //    }
+    //}
+
+    public override void OnTick()
     {
-        if(Input.GetButtonDown("Fire1")) 
-        { 
+        if (Input.GetButtonDown("Fire1"))
+        {
             animator.SetBool("isAttack", true);
         }
         else
-        { 
+        {
             animator.SetBool("isAttack", false);
         }
     }

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using UnityEngine.EventSystems;
 
-public class Interactions : MonoBehaviour
+public class Interactions : MonoCache
 {
     [Header("Рука")]
     public GameObject armSmall;
@@ -130,13 +130,19 @@ public class Interactions : MonoBehaviour
         }
     }
 
-    private void Update()
+    //private void Update()
+    //{
+    //    if(Input.GetKeyDown(KeyCode.T))
+    //    {
+    //        Release();
+    //    }
+    //}
+
+    public override void OnTick()
     {
-        if(Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             Release();
         }
     }
-
-    
 }

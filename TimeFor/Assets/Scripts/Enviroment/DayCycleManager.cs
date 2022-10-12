@@ -36,7 +36,7 @@ public class DayCycleManager : MonoBehaviour
             TimeOfDay -= 1;
         }
 
-        RenderSettings.skybox = SkyboxCurve.Evaluate(TimeOfDay) > 0.6f ? DaySkybox : NightSkybox;
+        RenderSettings.skybox = SkyboxCurve.Evaluate(TimeOfDay) > 0.5f ? DaySkybox : NightSkybox;
         RenderSettings.sun = SkyboxCurve.Evaluate(TimeOfDay) > 0.5f ? Sun : Moon;
         DynamicGI.UpdateEnvironment();
 

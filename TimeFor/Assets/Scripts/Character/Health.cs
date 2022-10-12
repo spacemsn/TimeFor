@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class Health : MonoBehaviour
+public class Health : MonoCache
 {
     public int health;
     public int maxHealth = 100;
@@ -13,7 +13,13 @@ public class Health : MonoBehaviour
     [SerializeField] Slider healthBar;
     [SerializeField] Slider manaBar;
 
-    private void Update()
+    //private void Update()
+    //{
+    //    healthBar.value = health;
+    //    manaBar.value = mana;
+    //}
+
+    public override void OnTick()
     {
         healthBar.value = health;
         manaBar.value = mana;

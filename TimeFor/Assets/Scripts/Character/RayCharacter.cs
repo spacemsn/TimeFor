@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Cinemachine;
 
-public class RayCharacter : MonoBehaviour
+public class RayCharacter : MonoCache
 {
     [Header("Дальность взаимодействия")]
     [SerializeField] private float maxDistance;
@@ -243,56 +243,113 @@ public class RayCharacter : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        Ray();
-        DrawRay();
-        Interact();
-        Radius();
+    //private void Update()
+    //{
+    //    Ray();
+    //    DrawRay();
+    //    Interact();
+    //    Radius();
 
-        ScrollCamera();
+    //    ScrollCamera();
 
-        if (characterMove.move == CharacterMove.Move.PC)
-        {
-            buttonE.gameObject.SetActive(false);
-            buttonT.gameObject.SetActive(false);
-            imageE.gameObject.SetActive(true);
-            imageT.gameObject.SetActive(true);
+    //    if (characterMove.move == CharacterMove.Move.PC)
+    //    {
+    //        buttonE.gameObject.SetActive(false);
+    //        buttonT.gameObject.SetActive(false);
+    //        imageE.gameObject.SetActive(true);
+    //        imageT.gameObject.SetActive(true);
             
-        }
-        else if (characterMove.move == CharacterMove.Move.Android)
-        {
-            imageE.gameObject.SetActive(false);
-            imageT.gameObject.SetActive(false);
-            buttonE.gameObject.SetActive(true);
-            buttonT.gameObject.SetActive(true);
-        }
+    //    }
+    //    else if (characterMove.move == CharacterMove.Move.Android)
+    //    {
+    //        imageE.gameObject.SetActive(false);
+    //        imageT.gameObject.SetActive(false);
+    //        buttonE.gameObject.SetActive(true);
+    //        buttonT.gameObject.SetActive(true);
+    //    }
 
-        if (Input.GetKeyDown(KeyCode.Tab))
+    //    if (Input.GetKeyDown(KeyCode.Tab))
+    //    {
+    //        if (isOpenPanel == true)
+    //        {
+    //            inventoryPanel.gameObject.SetActive(false);
+    //            isOpenPanel = false;
+    //            freeLook.m_XAxis.m_InputAxisName = "Mouse X";
+    //            freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
+    //            characterMove.charMenegment = true;
+    //            // Видимость курсора
+    //            Cursor.lockState = CursorLockMode.Locked;
+    //            Cursor.visible = false;
+    //        }
+    //        else if (isOpenPanel == false)
+    //        {
+    //            inventoryPanel.gameObject.SetActive(true);
+    //            isOpenPanel = true;
+    //            freeLook.m_XAxis.m_InputAxisName = "";
+    //            freeLook.m_XAxis.m_InputAxisValue = 0;
+    //            freeLook.m_YAxis.m_InputAxisName = "";
+    //            freeLook.m_YAxis.m_InputAxisValue = 0;
+    //            characterMove.charMenegment = false;
+    //            // Видимость курсора
+    //            Cursor.lockState = CursorLockMode.None;
+    //            Cursor.visible = true;
+    //        }
+    //    }
+    //}
+
+    public override void OnTick()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
         {
-            if (isOpenPanel == true)
+            Ray();
+            DrawRay();
+            Interact();
+            Radius();
+
+            ScrollCamera();
+
+            if (characterMove.move == CharacterMove.Move.PC)
             {
-                inventoryPanel.gameObject.SetActive(false);
-                isOpenPanel = false;
-                freeLook.m_XAxis.m_InputAxisName = "Mouse X";
-                freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
-                characterMove.charMenegment = true;
-                // Видимость курсора
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                buttonE.gameObject.SetActive(false);
+                buttonT.gameObject.SetActive(false);
+                imageE.gameObject.SetActive(true);
+                imageT.gameObject.SetActive(true);
+
             }
-            else if (isOpenPanel == false)
+            else if (characterMove.move == CharacterMove.Move.Android)
             {
-                inventoryPanel.gameObject.SetActive(true);
-                isOpenPanel = true;
-                freeLook.m_XAxis.m_InputAxisName = "";
-                freeLook.m_XAxis.m_InputAxisValue = 0;
-                freeLook.m_YAxis.m_InputAxisName = "";
-                freeLook.m_YAxis.m_InputAxisValue = 0;
-                characterMove.charMenegment = false;
-                // Видимость курсора
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                imageE.gameObject.SetActive(false);
+                imageT.gameObject.SetActive(false);
+                buttonE.gameObject.SetActive(true);
+                buttonT.gameObject.SetActive(true);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                if (isOpenPanel == true)
+                {
+                    inventoryPanel.gameObject.SetActive(false);
+                    isOpenPanel = false;
+                    freeLook.m_XAxis.m_InputAxisName = "Mouse X";
+                    freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
+                    characterMove.charMenegment = true;
+                    // Видимость курсора
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
+                else if (isOpenPanel == false)
+                {
+                    inventoryPanel.gameObject.SetActive(true);
+                    isOpenPanel = true;
+                    freeLook.m_XAxis.m_InputAxisName = "";
+                    freeLook.m_XAxis.m_InputAxisValue = 0;
+                    freeLook.m_YAxis.m_InputAxisName = "";
+                    freeLook.m_YAxis.m_InputAxisValue = 0;
+                    characterMove.charMenegment = false;
+                    // Видимость курсора
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
             }
         }
     }
