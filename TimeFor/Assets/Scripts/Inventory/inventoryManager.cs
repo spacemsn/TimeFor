@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class inventoryManager : MonoBehaviour
+public class inventoryManager : MonoCache
 {
     public Transform inventoryPanel;
     public List<Slot> slots = new List<Slot>();

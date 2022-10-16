@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LookAtPlayer : MonoBehaviour
+public class LookAtPlayer : MonoCache
 {
     Transform cameraTransform;
     // Start is called before the first frame update

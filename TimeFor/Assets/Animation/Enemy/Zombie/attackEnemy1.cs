@@ -12,12 +12,15 @@ public class attackEnemy1 : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        animator.transform.LookAt(player);
-
-        float distacne = Vector3.Distance(animator.transform.position, player.transform.position);
-        if(distacne > 3)
+        if (player != null)
         {
-            animator.SetBool("isAttack", false);
+            animator.transform.LookAt(player);
+
+            float distacne = Vector3.Distance(animator.transform.position, player.transform.position);
+            if (distacne > 3)
+            {
+                animator.SetBool("isAttack", false);
+            }
         }
     }
 

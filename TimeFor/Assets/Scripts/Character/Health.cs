@@ -13,11 +13,7 @@ public class Health : MonoCache
     [SerializeField] Slider healthBar;
     [SerializeField] Slider manaBar;
 
-    //private void Update()
-    //{
-    //    healthBar.value = health;
-    //    manaBar.value = mana;
-    //}
+    public DealthCharacter dealthCharacter;
 
     public override void OnTick()
     {
@@ -31,8 +27,9 @@ public class Health : MonoCache
 
         if(health <= 0)
         {
-            Destroy(gameObject);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            //dealthCharacter.SavePosition(gameObject.transform.position, gameObject.transform.rotation);
+            dealthCharacter.OpenMenu();
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 

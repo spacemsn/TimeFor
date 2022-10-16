@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PointLight : MonoBehaviour
+public class PointLight : MonoCache
 {
 
     public Light pointLight;

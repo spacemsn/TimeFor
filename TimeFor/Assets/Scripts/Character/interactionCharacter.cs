@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Cinemachine;
 
-public class RayCharacter : MonoCache
+public class interactionCharacter : MonoCache
 {
     [Header("Дальность взаимодействия")]
     [SerializeField] private float maxDistance;
@@ -258,7 +258,7 @@ public class RayCharacter : MonoCache
     //        buttonT.gameObject.SetActive(false);
     //        imageE.gameObject.SetActive(true);
     //        imageT.gameObject.SetActive(true);
-            
+
     //    }
     //    else if (characterMove.move == CharacterMove.Move.Android)
     //    {
@@ -299,57 +299,54 @@ public class RayCharacter : MonoCache
 
     public override void OnTick()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        Ray();
+        DrawRay();
+        Interact();
+        Radius();
+
+        ScrollCamera();
+
+        if (characterMove.move == CharacterMove.Move.PC)
         {
-            Ray();
-            DrawRay();
-            Interact();
-            Radius();
+            buttonE.gameObject.SetActive(false);
+            buttonT.gameObject.SetActive(false);
+            imageE.gameObject.SetActive(true);
+            imageT.gameObject.SetActive(true);
 
-            ScrollCamera();
+        }
+        else if (characterMove.move == CharacterMove.Move.Android)
+        {
+            imageE.gameObject.SetActive(false);
+            imageT.gameObject.SetActive(false);
+            buttonE.gameObject.SetActive(true);
+            buttonT.gameObject.SetActive(true);
+        }
 
-            if (characterMove.move == CharacterMove.Move.PC)
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (isOpenPanel == true)
             {
-                buttonE.gameObject.SetActive(false);
-                buttonT.gameObject.SetActive(false);
-                imageE.gameObject.SetActive(true);
-                imageT.gameObject.SetActive(true);
-
+                inventoryPanel.gameObject.SetActive(false);
+                isOpenPanel = false;
+                freeLook.m_XAxis.m_InputAxisName = "Mouse X";
+                freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
+                characterMove.charMenegment = true;
+                // Видимость курсора
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
-            else if (characterMove.move == CharacterMove.Move.Android)
+            else if (isOpenPanel == false)
             {
-                imageE.gameObject.SetActive(false);
-                imageT.gameObject.SetActive(false);
-                buttonE.gameObject.SetActive(true);
-                buttonT.gameObject.SetActive(true);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                if (isOpenPanel == true)
-                {
-                    inventoryPanel.gameObject.SetActive(false);
-                    isOpenPanel = false;
-                    freeLook.m_XAxis.m_InputAxisName = "Mouse X";
-                    freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
-                    characterMove.charMenegment = true;
-                    // Видимость курсора
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
-                }
-                else if (isOpenPanel == false)
-                {
-                    inventoryPanel.gameObject.SetActive(true);
-                    isOpenPanel = true;
-                    freeLook.m_XAxis.m_InputAxisName = "";
-                    freeLook.m_XAxis.m_InputAxisValue = 0;
-                    freeLook.m_YAxis.m_InputAxisName = "";
-                    freeLook.m_YAxis.m_InputAxisValue = 0;
-                    characterMove.charMenegment = false;
-                    // Видимость курсора
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
-                }
+                inventoryPanel.gameObject.SetActive(true);
+                isOpenPanel = true;
+                freeLook.m_XAxis.m_InputAxisName = "";
+                freeLook.m_XAxis.m_InputAxisValue = 0;
+                freeLook.m_YAxis.m_InputAxisName = "";
+                freeLook.m_YAxis.m_InputAxisValue = 0;
+                characterMove.charMenegment = false;
+                // Видимость курсора
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
         }
     }

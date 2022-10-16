@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DayCycleManager : MonoBehaviour
+public class DayCycleManager : MonoCache
 {
     [Range(0, 1)]
     public float TimeOfDay;
