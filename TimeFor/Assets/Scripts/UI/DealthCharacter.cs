@@ -17,7 +17,6 @@ public class DealthCharacter : MonoBehaviour
 
     public void OpenMenu()
     {
-        Health health = GetComponent<Health>();
         if (isOpenPanel == false)
         {
             DealthPanel.gameObject.SetActive(true);
@@ -31,12 +30,13 @@ public class DealthCharacter : MonoBehaviour
 
     public void Respawn()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneLoad.SwitchScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1f;
     }
 
     public void ExitToMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneLoad.SwitchScene("Menu");
+        Time.timeScale = 1f;
     }
 }

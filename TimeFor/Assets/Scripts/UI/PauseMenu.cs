@@ -5,7 +5,7 @@ public class PauseMenu : MonoCache
 {
     [Header("Меню Респавна")]
     public Transform PausePanel;
-    [SerializeField] public bool isOpenPanel;
+    [SerializeField] public bool isOpenPanel = false;
 
     public override void OnTick()
     {
@@ -52,6 +52,8 @@ public class PauseMenu : MonoCache
 
     public void Exit()
     {
-        SceneManager.LoadScene(0);
+        //SceneManager.LoadScene(0);
+        SceneLoad.SwitchScene("Menu");
+        Time.timeScale = 1f;
     }
 }

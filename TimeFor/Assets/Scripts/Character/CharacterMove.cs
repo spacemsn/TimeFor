@@ -7,6 +7,7 @@ public class CharacterMove : MonoCache
     private CharacterController controller;
     private Animator animator;
     public Transform _camera;
+    Health health;
 
     private Vector3 moveDirection;
     Vector3 playerVelocity;
@@ -17,6 +18,7 @@ public class CharacterMove : MonoCache
     [SerializeField] private float jumpValue = 8.0f;
     [SerializeField] private float gravity = 20.0f;
     [SerializeField] private float smoothTime;
+    [SerializeField] private float debuff = 0.15f;
     float smoothVelocity;
 
     [Header("Выбор управления")]
@@ -44,17 +46,11 @@ public class CharacterMove : MonoCache
     private void Start()
     {
         _camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        health = GetComponent<Health>();
 
         controller = this.gameObject.GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
     }
-
-    //private void Update()
-    //{
-    //    if (move == Move.PC) { MovePC(); }
-    //    else if (move == Move.Android) { MoveAndroid(); }
-    //    else if(move == Move.Simple) { SimpleMove(); }
-    //}
 
     public override void OnTick()
     {
@@ -86,17 +82,20 @@ public class CharacterMove : MonoCache
 
             if (Input.GetKey(KeyCode.LeftShift)) // Бег
             {
-                controller.Move(moveDirection.normalized * runningSpeed * Time.deltaTime);
-            }
-            else if (Input.GetKey(KeyCode.Mouse0)) // Удар
-            {
-                controller.Move(moveDirection.normalized * 0 * Time.deltaTime);
-                animator.SetBool("isAttack", true);
+                health.TakeStamina(debuff * 2);
+                if (health.stamina > 0)
+                {
+                    controller.Move(moveDirection.normalized * runningSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    controller.Move(moveDirection.normalized * walkingSpeed * Time.deltaTime);
+                }
             }
             else // Обычное состояние
             {
                 controller.Move(moveDirection.normalized * walkingSpeed * Time.deltaTime);
-                animator.SetBool("isAttack", false);
+                health.SetStamina(debuff);
             }
 
             if (Input.GetButton("Jump") && controller.isGrounded) // Прыжок

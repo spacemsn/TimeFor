@@ -10,8 +10,12 @@ public class Health : MonoCache
     public int mana;
     public int maxMana = 100;
 
+    public float stamina;
+    public float maxStamina = 100;
+
     [SerializeField] Slider healthBar;
     [SerializeField] Slider manaBar;
+    [SerializeField] Slider staminaBar;
 
     public DealthCharacter dealthCharacter;
 
@@ -19,6 +23,7 @@ public class Health : MonoCache
     {
         healthBar.value = health;
         manaBar.value = mana;
+        staminaBar.value = stamina;
     }
 
     public void TakeHit(int damage)
@@ -27,9 +32,7 @@ public class Health : MonoCache
 
         if(health <= 0)
         {
-            //dealthCharacter.SavePosition(gameObject.transform.position, gameObject.transform.rotation);
             dealthCharacter.OpenMenu();
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 
@@ -46,17 +49,33 @@ public class Health : MonoCache
     public void TakeMana(int amount)
     {
         mana -= amount;
-
-        
     }
 
-    public void SetMana(int bonushealth)
+    public void SetMana(int bonusmana)
     {
-        mana += bonushealth;
+        mana += bonusmana;
 
         if (mana > maxMana)
         {
             mana = maxMana;
+        }
+    }
+
+    public void TakeStamina(float amount)
+    {
+        if (stamina > 0)
+        {
+            stamina -= amount;
+        }
+    }
+
+    public void SetStamina(float bonusstamina)
+    {
+        stamina += bonusstamina;
+
+        if (stamina > maxStamina)
+        {
+            stamina = maxStamina;
         }
     }
 }

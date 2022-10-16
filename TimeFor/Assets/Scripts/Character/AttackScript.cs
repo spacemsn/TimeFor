@@ -9,22 +9,9 @@ public class AttackScript : MonoCache
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    if(Input.GetButtonDown("Fire1")) 
-    //    { 
-    //        animator.SetBool("isAttack", true);
-    //    }
-    //    else
-    //    { 
-    //        animator.SetBool("isAttack", false);
-    //    }
-    //}
-
     public override void OnTick()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             animator.SetBool("isAttack", true);
         }
