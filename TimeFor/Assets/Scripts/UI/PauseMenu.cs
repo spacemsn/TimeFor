@@ -7,33 +7,26 @@ public class PauseMenu : MonoCache
     public Transform PausePanel;
     [SerializeField] public bool isOpenPanel = false;
 
-    public override void OnTick()
+    public void OpenMenu()
     {
-        OpenMenu();
-    }
 
-    void OpenMenu()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (isOpenPanel == false)
         {
-            if (isOpenPanel == false)
-            {
-                PausePanel.gameObject.SetActive(true);
-                isOpenPanel = true;
-                // Видимость курсора
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-                Time.timeScale = 0f;
-            }
-            else if (isOpenPanel == true)
-            {
-                PausePanel.gameObject.SetActive(false);
-                isOpenPanel = false;
-                // Видимость курсора
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-                Time.timeScale = 1f;
-            }
+            PausePanel.gameObject.SetActive(true);
+            isOpenPanel = true;
+            // Видимость курсора
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0f;
+        }
+        else if (isOpenPanel == true)
+        {
+            PausePanel.gameObject.SetActive(false);
+            isOpenPanel = false;
+            // Видимость курсора
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Time.timeScale = 1f;
         }
     }
     

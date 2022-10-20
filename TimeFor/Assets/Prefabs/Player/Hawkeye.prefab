@@ -347,7 +347,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1446181826}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.2000008, z: 0}
+  m_LocalPosition: {x: 0, y: 1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2185,6 +2185,8 @@ GameObject:
   - component: {fileID: 4728969796412579887}
   - component: {fileID: 1901704207729473592}
   - component: {fileID: 1901704207729473593}
+  - component: {fileID: 1901704207729473594}
+  - component: {fileID: 1901704207729473601}
   m_Layer: 0
   m_Name: Hawkeye
   m_TagString: Player
@@ -2276,6 +2278,7 @@ MonoBehaviour:
   jumpValue: 2
   gravity: -19.62
   smoothTime: 0.075
+  debuff: 0.15
   move: 0
   walkType: 0
   charMenegment: 1
@@ -2387,10 +2390,7 @@ MonoBehaviour:
   buttonT: {fileID: 0}
   radius: 1.1
   isGizmos: 1
-  inventoryPanel: {fileID: 0}
-  slots: []
-  freeLook: {fileID: 0}
-  isOpenPanel: 0
+  GlobalSettings: {fileID: 0}
 --- !u!114 &1901704207729473593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2407,8 +2407,41 @@ MonoBehaviour:
   maxHealth: 100
   mana: 100
   maxMana: 100
+  stamina: 100
+  maxStamina: 100
   healthBar: {fileID: 0}
   manaBar: {fileID: 0}
+  staminaBar: {fileID: 0}
+  dealthCharacter: {fileID: 0}
+--- !u!114 &1901704207729473594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4264133064400335102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f2f88505cfe25f449c9b6798515861d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1901704207729473601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4264133064400335102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230dd283a4d512547bb03b2f92df524a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 100
+  fireBallPref: {fileID: 8088893976511215414, guid: f08c03c9318a2384286e85b8815eef8a, type: 3}
+  InventoryPanel: {fileID: 0}
+  DealthPanel: {fileID: 0}
+  PausePanel: {fileID: 0}
 --- !u!1 &4557005678519134663
 GameObject:
   m_ObjectHideFlags: 0
