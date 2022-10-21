@@ -1,15 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyScript : MonoBehaviour
+public class EnemyScript : MonoCache
 {
     [SerializeField] private float hp = 100;
     [SerializeField] private int enemyDamage;
     public Animator animator;
     public Slider healthBar;
 
-    // Update is called once per frame
-    void Update()
+    public override void OnTick()
     {
         healthBar.value = hp;
     }
@@ -24,7 +23,7 @@ public class EnemyScript : MonoBehaviour
             GetComponent<CapsuleCollider>().enabled = false;
             GetComponent<Rigidbody>().isKinematic = true;
             healthBar.gameObject.SetActive(false);
-            Destroy(this.gameObject, 15f);
+            Destroy(this.gameObject, 10f);
         }
         else
         {

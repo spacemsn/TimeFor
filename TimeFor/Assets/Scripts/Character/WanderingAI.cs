@@ -4,17 +4,18 @@ using UnityEngine.UI;
 public class WanderingAI : MonoCache
 {
     [Header("Характеристики")]
-    [SerializeField] float range;
-    [SerializeField] int consumption;
+    [SerializeField] float timer = 0;
     [SerializeField] GameObject fireBallPref;
-    [SerializeField] GameObject CenterPlayer;
+    [SerializeField] Transform rightHand;
     GameObject _fireball;
 
+    [Header("Интерфейс")]
     [SerializeField] GameObject InventoryPanel;
     [SerializeField] GameObject DealthPanel;
     [SerializeField] GameObject PausePanel;
-
     [SerializeField] Health health;
+
+    [SerializeField] SkillObject skill;
 
     private void Start()
     {
@@ -23,23 +24,27 @@ public class WanderingAI : MonoCache
 
     public override void OnTick()
     {
-        if(InventoryPanel.activeSelf == false && DealthPanel.activeSelf == false && PausePanel.activeSelf == false)
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        timer += Time.deltaTime;
+
+        if (timer >= skill.attackRollback)
         {
-            ThrowFireBall();
+            if (InventoryPanel.activeSelf == false && DealthPanel.activeSelf == false && PausePanel.activeSelf == false)
+            {
+                if (Input.GetKeyDown(KeyCode.Mouse0))
+                {
+                    timer = 0;
+                    ThrowFireBall();
+                }
+            }
         }
     }
 
     void ThrowFireBall()
     {
-        if(health.mana >= consumption)
+        if(health.mana >= skill.consumption)
         {
-            _fireball = Instantiate(fireBallPref);
-            _fireball.transform.position = CenterPlayer.transform.position;
-            _fireball.transform.rotation = CenterPlayer.transform.rotation;
-            _fireball.GetComponent<Rigidbody>().AddForce(transform.forward * range);
-
-            health.TakeMana(consumption);
+            _fireball = Instantiate(skill.objectPrefab, rightHand.position, rightHand.rotation);
+            health.TakeMana(skill.consumption);
         }
     }
 

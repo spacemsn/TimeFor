@@ -4,11 +4,14 @@ using UnityEngine.UI;
 
 public class Health : MonoCache
 {
+    float timer;
+
     public int health;
     public int maxHealth = 100;
 
     public int mana;
     public int maxMana = 100;
+    public int timeRecoveryMana = 1;
 
     public float stamina;
     public float maxStamina = 100;
@@ -24,6 +27,8 @@ public class Health : MonoCache
         healthBar.value = health;
         manaBar.value = mana;
         staminaBar.value = stamina;
+
+        RecoveryMana();
     }
 
     public void TakeHit(int damage)
@@ -58,6 +63,20 @@ public class Health : MonoCache
         if (mana > maxMana)
         {
             mana = maxMana;
+        }
+    }
+
+    public void RecoveryMana()
+    {
+        timer += Time.deltaTime;
+
+        if (timer >= 10)
+        {
+            timer = 0;
+            if (mana < maxMana)
+            {
+                mana += timeRecoveryMana;
+            }
         }
     }
 

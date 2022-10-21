@@ -1,18 +1,43 @@
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FireBall : MonoCache
 {
-    [SerializeField] float speed;
-    [SerializeField] float damage;
+    [SerializeField] SkillObject skill;
 
-    [Header("Взрыв")]
-    [SerializeField] private float raduis;
-    [SerializeField] private float force;
-    [SerializeField] private float second;
+    [Header("Поиск врага")]
+    [SerializeField] Vector3 startPosition;
+    [SerializeField] Vector3 endPosition;
+    [SerializeField] float step;
+    [SerializeField] float progress;
+    [SerializeField] float radius;
+
+    [SerializeField] Collider[] colliders;
+    public Transform rightHand;
 
     public override void OnTick()
     {
-        //transform.Translate(0, 0, speed * Time.deltaTime);
+        colliders = Physics.OverlapSphere(startPosition, radius);
+
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            GameObject enemy = colliders[i].gameObject;
+            if (enemy.tag == "Enemy")
+            {
+                endPosition = enemy.transform.GetChild(0).position;
+
+                transform.position = Vector3.Lerp(startPosition, endPosition, progress);
+                progress += step;
+            }
+        }
+    }
+
+    private void Start()
+    {
+        rightHand = GameObject.Find("ArmSmall").transform;
+        transform.position = rightHand.position;
+        startPosition = rightHand.transform.position;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -20,32 +45,13 @@ public class FireBall : MonoCache
         if (other.GetComponent<EnemyScript>())
         {
             EnemyScript enemy = other.GetComponent<EnemyScript>();
-            if (enemy != null) enemy.TakeDamage(damage);
-        }
-        else Destroy(gameObject);
-    }
-
-    void Explode() // Взрыв
-    {
-        Collider[] overLapped = Physics.OverlapSphere(transform.position, raduis);
-
-        for (int i = 0; i < overLapped.Length; i++)
-        {
-            Rigidbody rigidbody = overLapped[i].attachedRigidbody;
-            if (rigidbody)
+            if (enemy != null)
             {
-                rigidbody.AddExplosionForce(force, transform.position, raduis);
-                Destroy(gameObject, 5f);
+                enemy.TakeDamage(skill.damage);
+                Destroy(gameObject);
             }
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, raduis);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, raduis / 2f);
+        else if(other.tag == "Player") { }
+        //else Destroy(gameObject);
     }
 }
