@@ -104,7 +104,10 @@ public class interactionCharacter : MonoCache
                 }
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    rigidbody.GetComponent<Interactions>().PickUp();
+                    if (rigidbody.GetComponent<Rigidbody>() != null)
+                    {
+                        rigidbody.GetComponent<Interactions>().PickUp();
+                    }
                 }
                 if(Input.GetKeyDown(KeyCode.F))
                 {

@@ -1,6 +1,8 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using static Cinemachine.CinemachineOrbitalTransposer;
 
-public class FireBall : MonoCache
+public class Explosion : MonoCache
 {
     [SerializeField] SkillObject skill;
 
@@ -10,12 +12,22 @@ public class FireBall : MonoCache
     [SerializeField] float step;
     [SerializeField] float progress;
     [SerializeField] float radius;
+    [SerializeField] float force;
 
     [SerializeField] Collider[] colliders;
     public Transform rightHand;
+    Rigidbody rigidbody;
 
     public override void OnTick()
     {
+        Destroy(gameObject, 15f);
+    }
+
+    void Shoot()
+    {
+        transform.position = rightHand.position;
+        startPosition = rightHand.transform.position;
+
         colliders = Physics.OverlapSphere(startPosition, radius);
 
         for (int i = 0; i < colliders.Length; i++)
@@ -24,9 +36,8 @@ public class FireBall : MonoCache
             if (enemy.tag == "Enemy")
             {
                 endPosition = enemy.transform.GetChild(0).position;
-
-                transform.position = Vector3.Lerp(startPosition, endPosition, progress);
-                progress += step;
+                var wave = endPosition - startPosition;
+                rigidbody.velocity = wave;
             }
         }
     }
@@ -34,8 +45,9 @@ public class FireBall : MonoCache
     private void Start()
     {
         rightHand = GameObject.Find("ArmSmall").transform;
-        transform.position = rightHand.position;
-        startPosition = rightHand.transform.position;
+        rigidbody = GetComponent<Rigidbody>();
+
+        Shoot();
     }
 
     private void OnTriggerEnter(Collider other)

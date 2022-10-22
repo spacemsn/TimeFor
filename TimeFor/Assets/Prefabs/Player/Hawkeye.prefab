@@ -2186,7 +2186,6 @@ GameObject:
   - component: {fileID: 1901704207729473592}
   - component: {fileID: 1901704207729473593}
   - component: {fileID: 1901704207729473594}
-  - component: {fileID: 1901704207729473601}
   m_Layer: 0
   m_Name: Hawkeye
   m_TagString: Player
@@ -2426,34 +2425,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f2f88505cfe25f449c9b6798515861d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1901704207729473601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4264133064400335102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 230dd283a4d512547bb03b2f92df524a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 100
-  consumption: 1
-  fireBallPref: {fileID: 8088893976511215414, guid: f08c03c9318a2384286e85b8815eef8a, type: 3}
-  CenterPlayer: {fileID: 1446181826}
-  rightHand: {fileID: 1215280444}
-  InventoryPanel: {fileID: 0}
-  DealthPanel: {fileID: 0}
-  PausePanel: {fileID: 0}
-  health: {fileID: 1901704207729473593}
-  startPosition: {x: 0, y: 0, z: 0}
-  endPosition: {x: 0, y: 0, z: 0}
-  step: 0.005
-  progress: 0
-  enemy: []
-  enemyCollider: []
-  raduis: 10
 --- !u!1 &4557005678519134663
 GameObject:
   m_ObjectHideFlags: 0
