@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,7 +21,7 @@ public class UsingAbilities : MonoCache
     [SerializeField] Health health;
 
     [Header("Виды атак")]
-    [SerializeField] bool aimMode = false;
+    [SerializeField] public bool aimMode = false;
     [SerializeField] SkillObject attackOne;
     [SerializeField] SkillObject attackTwo;
     [SerializeField] SkillObject attackThree;
@@ -113,7 +115,8 @@ public class UsingAbilities : MonoCache
     }
 
     void AimModel()
-    {
+    { 
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             if (aimMode == false)
@@ -121,12 +124,19 @@ public class UsingAbilities : MonoCache
                 aimMode = true;
                 virtualCamera.Priority = 11;
                 CenterScreen.transform.GetChild(0).gameObject.SetActive(true);
+                character.animator.SetBool("aimMode", true);
+                character.normallSpeed = character.walkingSpeed;
+                character.walkingSpeed = character.aimModeSpeed;
+                character.smoothTime = 0.075f;
             }
             else if (aimMode == true)
             {
                 aimMode = false;
                 virtualCamera.Priority = 9;
                 CenterScreen.transform.GetChild(0).gameObject.SetActive(false);
+                character.animator.SetBool("aimMode", false);
+                character.walkingSpeed = character.normallSpeed;
+                character.smoothTime = 0.075f;
             }
         }
 

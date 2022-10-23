@@ -5,7 +5,7 @@ public class QuickslotInventory : MonoCache
 {
     // Объект у которого дети являются слотами
     public Transform quickslotParent;
-    public int currentQuickslotID = 0;
+    public int currentQuickslotID = -1;
     public Sprite selectedSprite;
     public Sprite notSelectedSprite;
 

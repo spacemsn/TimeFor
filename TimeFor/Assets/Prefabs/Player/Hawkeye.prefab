@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 194432172}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.09008813, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -117,6 +117,37 @@ MonoBehaviour:
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0}
     m_Visible: 1
+--- !u!1 &862477418
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 862477419}
+  m_Layer: 0
+  m_Name: SpinePlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &862477419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862477418}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3487737480988600900}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &910778027
 GameObject:
   m_ObjectHideFlags: 0
@@ -2186,6 +2217,7 @@ GameObject:
   - component: {fileID: 1901704207729473592}
   - component: {fileID: 1901704207729473593}
   - component: {fileID: 1901704207729473594}
+  - component: {fileID: 1901704207729473608}
   m_Layer: 0
   m_Name: Hawkeye
   m_TagString: Player
@@ -2217,6 +2249,7 @@ Transform:
   - {fileID: 778743896}
   - {fileID: 1913734697}
   - {fileID: 1446181827}
+  - {fileID: 862477419}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2271,9 +2304,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   joystick: {fileID: 0}
+  animator: {fileID: 0}
   _camera: {fileID: 0}
+  moveDirection: {x: 0, y: 0, z: 0}
+  aimModeSpeed: 4.5
   walkingSpeed: 7.5
   runningSpeed: 11.5
+  normallSpeed: 0
   jumpValue: 2
   gravity: -19.62
   smoothTime: 0.075
@@ -2425,6 +2462,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f2f88505cfe25f449c9b6798515861d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1901704207729473608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4264133064400335102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 230dd283a4d512547bb03b2f92df524a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ButtonTimer: 0
+  timer: 0
+  rightHand: {fileID: 0}
+  InventoryPanel: {fileID: 0}
+  DealthPanel: {fileID: 0}
+  PausePanel: {fileID: 0}
+  CenterScreen: {fileID: 0}
+  ChargeAttack: {fileID: 0}
+  health: {fileID: 1901704207729473593}
+  aimMode: 0
+  attackOne: {fileID: 11400000, guid: 407ea28fff3b8d043ae74c4222335bec, type: 2}
+  attackTwo: {fileID: 11400000, guid: e1b53728e33e43b4bafb67dce3ca1e62, type: 2}
+  attackThree: {fileID: 11400000, guid: 407ea28fff3b8d043ae74c4222335bec, type: 2}
+  attackFour: {fileID: 11400000, guid: 81d6e62b08c3b9148a38be7dceead882, type: 2}
+  _camera: {fileID: 0}
+  virtualCamera: {fileID: 0}
 --- !u!1 &4557005678519134663
 GameObject:
   m_ObjectHideFlags: 0

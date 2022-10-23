@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class CharacterMove : MonoCache
 {
@@ -8,18 +9,21 @@ public class CharacterMove : MonoCache
     [HideInInspector] public Animator animator;
     public Transform _camera;
     Health health;
+    UsingAbilities UsingAbilities;
 
     [HideInInspector] public Vector3 moveDirection;
     Vector3 playerVelocity;
 
     [Header("Характеристики персонажа")]
+    [SerializeField] public float aimModeSpeed = 4.5f;
     [SerializeField] public float walkingSpeed = 7.5f;
     [SerializeField] public float runningSpeed = 11.5f;
+    [SerializeField] public float normallSpeed;
     [SerializeField] private float jumpValue = 8.0f;
     [SerializeField] private float gravity = 20.0f;
-    [SerializeField] private float smoothTime;
+    [SerializeField] public float smoothTime;
     [SerializeField] private float debuff = 0.15f;
-    float smoothVelocity;
+    public float smoothVelocity;
 
     [Header("Выбор управления")]
     public Move move = Move.PC;
@@ -47,6 +51,7 @@ public class CharacterMove : MonoCache
     {
         _camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
         health = GetComponent<Health>();
+        UsingAbilities = GetComponent<UsingAbilities>();    
 
         controller = this.gameObject.GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
@@ -72,12 +77,25 @@ public class CharacterMove : MonoCache
             if (walkType == WalkType.noWeapon) { animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(moveDirection, 1).magnitude); }
             else if (walkType == WalkType.withWeapon) { animator.SetFloat("Sword And Shield", Vector3.ClampMagnitude(moveDirection, 1).magnitude); }
 
-            if (moveDirection.magnitude > Mathf.Abs(0.05f))
+            if (UsingAbilities.aimMode == false)
             {
-                float rotationAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
+                if (moveDirection.magnitude > Mathf.Abs(0.05f))
+                {
+                    float rotationAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
+                    float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationAngle, ref smoothVelocity, smoothTime);
+                    transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                    moveDirection = Quaternion.Euler(0f, rotationAngle, 0f) * Vector3.forward;
+                }
+            }
+            else if (UsingAbilities.aimMode == true)
+            {
+                float rotationAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) + _camera.eulerAngles.y;
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationAngle, ref smoothVelocity, smoothTime);
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
-                moveDirection = Quaternion.Euler(0f, rotationAngle, 0f) * Vector3.forward;
+                if (moveDirection.magnitude > Mathf.Abs(0.05f))
+                {
+                    moveDirection = Quaternion.Euler(0f, rotationAngle, 0f) * Vector3.forward;
+                }
             }
 
             if (Input.GetKey(KeyCode.LeftShift)) // Бег

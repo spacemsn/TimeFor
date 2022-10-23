@@ -7,6 +7,7 @@ public class MouseVisible : MonoCache
     [SerializeField] bool isVisible = true;
 
     public CinemachineFreeLook freeLook;
+    public CinemachineVirtualCamera virtualCamera;
 
     private void Start()
     {
@@ -20,21 +21,29 @@ public class MouseVisible : MonoCache
 
     public void Visible()
     {
-        if(isVisible == false)
+        CinemachinePOV cinemachinePOV = virtualCamera.GetCinemachineComponent<CinemachinePOV>();
+
+        if (isVisible == false)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             isVisible = true;
             freeLook.m_XAxis.m_InputAxisName = "";
-            freeLook.m_XAxis.m_InputAxisValue = 0;
             freeLook.m_YAxis.m_InputAxisName = "";
             freeLook.m_YAxis.m_InputAxisValue = 0;
+            freeLook.m_XAxis.m_InputAxisValue = 0;
+            cinemachinePOV.m_HorizontalAxis.m_InputAxisName = "";
+            cinemachinePOV.m_VerticalAxis.m_InputAxisName = "";
+            cinemachinePOV.m_HorizontalAxis.m_MaxValue = 0;
+            cinemachinePOV.m_VerticalAxis.m_MaxValue = 0;
         }
 
     }
 
     public void notVisible()
     {
+        CinemachinePOV cinemachinePOV = virtualCamera.GetCinemachineComponent<CinemachinePOV>();
+
         if (isVisible)
         {
             Cursor.lockState = CursorLockMode.Locked;
@@ -42,6 +51,8 @@ public class MouseVisible : MonoCache
             isVisible = false;
             freeLook.m_XAxis.m_InputAxisName = "Mouse X";
             freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
+            cinemachinePOV.m_HorizontalAxis.m_InputAxisName = "Mouse X";
+            cinemachinePOV.m_VerticalAxis.m_InputAxisName = "Mouse Y";
         }
     }
 

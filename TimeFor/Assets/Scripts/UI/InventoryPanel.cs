@@ -93,7 +93,7 @@ public class InventoryPanel : MonoCache
             freeLook.m_XAxis.m_InputAxisName = "Mouse X";
             freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
             characterMove.charMenegment = true;
-            MouseVisible.Visible();
+            MouseVisible.notVisible();
         }
         else if (isOpenPanel == false)
         {
