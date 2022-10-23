@@ -123,8 +123,9 @@ GameObject:
   - component: {fileID: 5390733968195112872}
   - component: {fileID: 6066103045379822307}
   - component: {fileID: 1026708027}
+  - component: {fileID: 1081042008393855213}
   m_Layer: 0
-  m_Name: Ballistics
+  m_Name: Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,3 +226,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1081042008393855213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8088893976511215414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb292566aac3ce40910dd28b21c4434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill: {fileID: 11400000, guid: 81d6e62b08c3b9148a38be7dceead882, type: 2}
+  force: 10
+  rb: {fileID: 1026708027}

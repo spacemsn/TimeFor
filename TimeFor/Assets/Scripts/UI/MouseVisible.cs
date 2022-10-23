@@ -10,7 +10,7 @@ public class MouseVisible : MonoCache
 
     private void Start()
     {
-        Visible();
+        notVisible();
     }
 
     public override void OnTick()
@@ -20,15 +20,7 @@ public class MouseVisible : MonoCache
 
     public void Visible()
     {
-        if(isVisible)
-        { 
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            isVisible = false;
-            freeLook.m_XAxis.m_InputAxisName = "Mouse X";
-            freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
-        }
-        else if(!isVisible)
+        if(isVisible == false)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -41,9 +33,21 @@ public class MouseVisible : MonoCache
 
     }
 
-    void OnEnterButton()
+    public void notVisible()
+    {
+        if (isVisible)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            isVisible = false;
+            freeLook.m_XAxis.m_InputAxisName = "Mouse X";
+            freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
+        }
+    }
+
+        void OnEnterButton()
     {
         if (Input.GetKeyDown(KeyCode.LeftAlt)) { Visible(); }
-        else if(Input.GetKeyUp(KeyCode.LeftAlt)) { Visible(); }
+        else if(Input.GetKeyUp(KeyCode.LeftAlt)) { notVisible(); }
     }
 }

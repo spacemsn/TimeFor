@@ -5,11 +5,11 @@ public class CharacterMove : MonoCache
     [Header("Компоненты")]
     public Joystick joystick;
     private CharacterController controller;
-    private Animator animator;
+    [HideInInspector] public Animator animator;
     public Transform _camera;
     Health health;
 
-    private Vector3 moveDirection;
+    [HideInInspector] public Vector3 moveDirection;
     Vector3 playerVelocity;
 
     [Header("Характеристики персонажа")]

@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class FireBall : MonoCache
@@ -46,10 +48,14 @@ public class FireBall : MonoCache
             if (enemy != null)
             {
                 enemy.TakeDamage(skill.damage);
-                Destroy(gameObject);
+                StartCoroutine(Countdown());
             }
         }
-        else if(other.tag == "Player") { }
-        //else Destroy(gameObject);
+    }
+
+    IEnumerator Countdown()
+    {
+        yield return new WaitForSeconds(10);
+        Destroy(gameObject);
     }
 }

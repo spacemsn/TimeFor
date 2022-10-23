@@ -1,6 +1,6 @@
-using Unity.VisualScripting;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using static Cinemachine.CinemachineOrbitalTransposer;
 
 public class Explosion : MonoCache
 {
@@ -18,12 +18,7 @@ public class Explosion : MonoCache
     public Transform rightHand;
     Rigidbody rigidbody;
 
-    public override void OnTick()
-    {
-        Destroy(gameObject, 15f);
-    }
-
-    void Shoot()
+    public void Shoot()
     {
         transform.position = rightHand.position;
         startPosition = rightHand.transform.position;
@@ -46,8 +41,6 @@ public class Explosion : MonoCache
     {
         rightHand = GameObject.Find("ArmSmall").transform;
         rigidbody = GetComponent<Rigidbody>();
-
-        Shoot();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -58,10 +51,14 @@ public class Explosion : MonoCache
             if (enemy != null)
             {
                 enemy.TakeDamage(skill.damage);
-                Destroy(gameObject);
+                StartCoroutine(Countdown());
             }
         }
-        else if(other.tag == "Player") { }
-        //else Destroy(gameObject);
+    }
+
+    IEnumerator Countdown()
+    {
+        yield return new WaitForSeconds(10);
+        Destroy(gameObject);
     }
 }
