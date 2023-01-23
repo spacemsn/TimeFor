@@ -10,8 +10,6 @@ public class interactionCharacter : MonoCache
     [SerializeField] private float maxDistance;
     public Image imageE;
     public Image imageT;
-    public Button buttonE;
-    public Button buttonT;
     private Ray ray;
     private RaycastHit hit;
 
@@ -39,20 +37,12 @@ public class interactionCharacter : MonoCache
         {
             Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.blue);
         }
-        
-        if(hit.transform == null)
-        {
-            if (characterMove.move == CharacterMove.Move.PC)
-            {
-                imageE.enabled = false;
-                imageT.enabled = false;
 
-            }
-            else if (characterMove.move == CharacterMove.Move.Android)
-{
-                buttonE.image.enabled = false;
-                buttonT.image.enabled = false;
-            }
+        if (hit.transform == null)
+        {
+            imageE.enabled = false;
+            imageT.enabled = false;
+
             Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.red);
         }
     }
@@ -61,21 +51,14 @@ public class interactionCharacter : MonoCache
     {
         if (hit.transform != null && hit.transform.GetComponent<Interactions>())
         {
-            if (characterMove.move == CharacterMove.Move.PC)
-            {
-                imageE.enabled = true;
-                imageT.enabled = true;
 
-            }
-            else if (characterMove.move == CharacterMove.Move.Android)
-            {
-                buttonE.image.enabled = true;
-                buttonT.image.enabled = true;
-            }
+            imageE.enabled = true;
+            imageT.enabled = true;
+
             Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.green);
             if (Input.GetKeyDown(KeyCode.E))
             {
-                
+
             }
         }
     }
@@ -89,19 +72,11 @@ public class interactionCharacter : MonoCache
         for(int i = 0; i < colliders.Length; i++)
         {
             Rigidbody rigidbody = colliders[i].attachedRigidbody;
-            if(rigidbody)
+            if (rigidbody && rigidbody.GetComponent<Rigidbody>().GetComponent<Interactions>() != null)
             {
-                if (characterMove.move == CharacterMove.Move.PC)
-                {
-                    imageE.enabled = true;
-                    imageT.enabled = true;
+                imageE.enabled = true;
+                imageT.enabled = true;
 
-                }
-                else if (characterMove.move == CharacterMove.Move.Android)
-                {
-                    buttonE.image.enabled = true;
-                    buttonT.image.enabled = true;
-                }
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     if (rigidbody.GetComponent<Rigidbody>() != null)
@@ -109,9 +84,9 @@ public class interactionCharacter : MonoCache
                         rigidbody.GetComponent<Interactions>().PickUp();
                     }
                 }
-                if(Input.GetKeyDown(KeyCode.F))
+                if (Input.GetKeyDown(KeyCode.F))
                 {
-                    if(rigidbody.gameObject.GetComponent<ItemPrefab>().food != null) { Inventory.AddItemFood(rigidbody.gameObject.GetComponent<ItemPrefab>().food, rigidbody.gameObject.GetComponent<ItemPrefab>().amount); }
+                    if (rigidbody.gameObject.GetComponent<ItemPrefab>().food != null) { Inventory.AddItemFood(rigidbody.gameObject.GetComponent<ItemPrefab>().food, rigidbody.gameObject.GetComponent<ItemPrefab>().amount); }
                     else { Inventory.AddItem(rigidbody.gameObject.GetComponent<ItemPrefab>().item, rigidbody.gameObject.GetComponent<ItemPrefab>().amount); }
                     Destroy(rigidbody.gameObject);
                 }
@@ -165,20 +140,7 @@ public class interactionCharacter : MonoCache
         Interact();
         Radius();
 
-        if (characterMove.move == CharacterMove.Move.PC)
-        {
-            buttonE.gameObject.SetActive(false);
-            buttonT.gameObject.SetActive(false);
-            imageE.gameObject.SetActive(true);
-            imageT.gameObject.SetActive(true);
-
-        }
-        else if (characterMove.move == CharacterMove.Move.Android)
-        {
-            imageE.gameObject.SetActive(false);
-            imageT.gameObject.SetActive(false);
-            buttonE.gameObject.SetActive(true);
-            buttonT.gameObject.SetActive(true);
-        }
+        imageE.gameObject.SetActive(true);
+        imageT.gameObject.SetActive(true);
     }
 }

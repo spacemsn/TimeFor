@@ -179,7 +179,7 @@ public class UsingAbilities : MonoCache
         {
             _attack = Instantiate(attackTwo.objectPrefab, rightHand.position, rightHand.rotation);
             health.TakeMana(attackTwo.consumption);
-            _attack.GetComponent<Explosion>().Shoot();
+            _attack.GetComponent<Explosion>();
         }
     }
 

@@ -4,7 +4,6 @@ using UnityEngine.TextCore.Text;
 public class CharacterMove : MonoCache
 {
     [Header("Компоненты")]
-    public Joystick joystick;
     private CharacterController controller;
     [HideInInspector] public Animator animator;
     public Transform _camera;
@@ -36,9 +35,8 @@ public class CharacterMove : MonoCache
 
     public enum Move
     {
-        PC = 0,
-        Android = 1, 
-        Simple = 2
+        PC = 0, 
+        Simple = 1
     }
 
     public enum WalkType
@@ -60,7 +58,6 @@ public class CharacterMove : MonoCache
     public override void OnTick()
     {
         if (move == Move.PC) { MovePC(); }
-        else if (move == Move.Android) { MoveAndroid(); }
         else if (move == Move.Simple) { SimpleMove(); }
     }
 
@@ -70,7 +67,6 @@ public class CharacterMove : MonoCache
         {
             deltaH = Input.GetAxisRaw("Horizontal");
             deltaV = Input.GetAxisRaw("Vertical");
-            joystick.gameObject.SetActive(false);
 
             moveDirection = new Vector3(deltaH, 0, deltaV).normalized;
 
@@ -135,63 +131,12 @@ public class CharacterMove : MonoCache
 
     } // Движение персонажа ПК версии
 
-    private void MoveAndroid()
-    {
-        deltaH = joystick.Horizontal;
-        deltaV = joystick.Vertical;
-        joystick.gameObject.SetActive(true);
-
-        float movementDirectionY = moveDirection.y;
-
-        moveDirection = new Vector3(deltaH, 0, deltaV).normalized;
-        animator.SetFloat("isRun", Vector3.ClampMagnitude(moveDirection, 1).magnitude);
-
-        if (moveDirection.magnitude > Mathf.Abs(0.05f))
-        {
-            float rotationAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationAngle, ref smoothVelocity, smoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            moveDirection = Quaternion.Euler(0f, rotationAngle, 0f) * Vector3.forward;
-        }
-
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            controller.Move(moveDirection.normalized * runningSpeed * Time.deltaTime);
-        }
-        else { controller.Move(moveDirection.normalized * walkingSpeed * Time.deltaTime); }
-
-        if (Input.GetButton("Jump") && controller.isGrounded)
-        {
-            playerVelocity.y = Mathf.Sqrt(jumpValue * -2.0f * gravity);
-        }
-
-        if (Input.GetKey(KeyCode.LeftControl))
-        {
-            controller.height = 1;
-        }
-        else
-        {
-            controller.height = 2;
-        }
-
-        playerVelocity.y += gravity * Time.deltaTime;
-        controller.Move(playerVelocity * Time.deltaTime);
-
-    } // Движение персонажа андройд версии
-
     private void SimpleMove() // Управление персонажем без прыжков и тд
     {
         if (move == Move.PC)
         {
             deltaH = Input.GetAxisRaw("Horizontal");
             deltaV = Input.GetAxisRaw("Vertical");
-            joystick.gameObject.SetActive(false);
-        }
-        else if (move == Move.Android)
-        {
-            deltaH = joystick.Horizontal;
-            deltaV = joystick.Vertical;
-            joystick.gameObject.SetActive(true);
         }
 
         Vector3 moveDirection = new Vector3(deltaH, 0, deltaV);

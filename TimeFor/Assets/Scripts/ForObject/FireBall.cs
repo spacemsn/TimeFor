@@ -13,7 +13,7 @@ public class FireBall : MonoCache
     [SerializeField] float progress;
     [SerializeField] float radius;
 
-    [SerializeField] Collider[] colliders;
+    Collider[] colliders;
     public Transform rightHand;
 
     public override void OnTick()
@@ -48,7 +48,8 @@ public class FireBall : MonoCache
             if (enemy != null)
             {
                 enemy.TakeDamage(skill.damage);
-                StartCoroutine(Countdown());
+                Destroy(gameObject);
+                //StartCoroutine(Countdown());
             }
         }
     }

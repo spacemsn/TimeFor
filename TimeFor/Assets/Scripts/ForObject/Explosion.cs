@@ -14,15 +14,12 @@ public class Explosion : MonoCache
     [SerializeField] float radius;
     [SerializeField] float force;
 
-    [SerializeField] Collider[] colliders;
-    public Transform rightHand;
+    Collider[] colliders;
+    Transform rightHand;
     Rigidbody rigidbody;
 
-    public void Shoot()
+    public override void OnTick()
     {
-        transform.position = rightHand.position;
-        startPosition = rightHand.transform.position;
-
         colliders = Physics.OverlapSphere(startPosition, radius);
 
         for (int i = 0; i < colliders.Length; i++)
@@ -40,6 +37,8 @@ public class Explosion : MonoCache
     private void Start()
     {
         rightHand = GameObject.Find("ArmSmall").transform;
+        transform.position = rightHand.position;
+        startPosition = rightHand.transform.position;
         rigidbody = GetComponent<Rigidbody>();
     }
 
@@ -51,7 +50,8 @@ public class Explosion : MonoCache
             if (enemy != null)
             {
                 enemy.TakeDamage(skill.damage);
-                StartCoroutine(Countdown());
+                Destroy(gameObject);
+                //StartCoroutine(Countdown());
             }
         }
     }
