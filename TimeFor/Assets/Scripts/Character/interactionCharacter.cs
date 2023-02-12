@@ -1,15 +1,12 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Cinemachine;
-using UnityEditor.SceneManagement;
 
 public class interactionCharacter : MonoCache
 {
     [Header("Дальность взаимодействия")]
-    [SerializeField] private float maxDistance;
-    public Image imageE;
-    public Image imageT;
+    private float maxDistance;
+    [SerializeField] private Image imageE;
+    [SerializeField] private Image imageT;
     private Ray ray;
     private RaycastHit hit;
 
@@ -24,6 +21,9 @@ public class interactionCharacter : MonoCache
     {
         characterMove = GetComponent<CharacterMove>();
         GlobalSettings = GameObject.Find("Global Settings");
+
+        imageE = GameObject.Find("Button E").GetComponent<Image>();
+        imageT = GameObject.Find("Button T").GetComponent<Image>();
     }
 
     private void Ray()
@@ -51,7 +51,6 @@ public class interactionCharacter : MonoCache
     {
         if (hit.transform != null && hit.transform.GetComponent<Interactions>())
         {
-
             imageE.enabled = true;
             imageT.enabled = true;
 
@@ -139,8 +138,5 @@ public class interactionCharacter : MonoCache
         DrawRay();
         Interact();
         Radius();
-
-        imageE.gameObject.SetActive(true);
-        imageT.gameObject.SetActive(true);
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,19 +26,26 @@ public class UsingAbilities : MonoCache
     [SerializeField] SkillObject attackFour;
 
     QuickslotInventory inventory;
-    CharacterMove character;
-    [SerializeField] Camera _camera;
+    [SerializeField] GameObject GlobalSettings;
 
-    [SerializeField] CinemachineVirtualCamera virtualCamera;
+    [HideInInspector] public CharacterMove character;
+    [HideInInspector] public Camera _camera;
+    [HideInInspector] public CinemachineVirtualCamera virtualCamera;
 
     private void Start()
     {
         health = GetComponent<Health>();
-        character = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMove>();
-        inventory = GameObject.Find("SkillsPanel").GetComponent<QuickslotInventory>();        
+        character = this.gameObject.GetComponent<CharacterMove>();
+        inventory = GameObject.Find("SkillsPanel").GetComponent<QuickslotInventory>();
+        ChargeAttack = GameObject.Find("ChargeAttack").GetComponent<Slider>();
         CenterScreen = GameObject.Find("CenterScreen");
         rightHand = GameObject.Find("ArmSmall").transform;
         _camera = GameObject.Find("Main Camera").GetComponent<Camera>();
+
+        GlobalSettings = GameObject.Find("Global Settings");
+        InventoryPanel = GlobalSettings.GetComponent<InventoryPanel>().inventoryPanel.gameObject;
+        DealthPanel = GlobalSettings.GetComponent<DealthCharacter>().DealthPanel.gameObject;
+        PausePanel = GlobalSettings.GetComponent<PauseMenu>().PausePanel.gameObject;
     }
 
     public override void OnTick()

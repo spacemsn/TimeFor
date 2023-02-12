@@ -48,7 +48,7 @@ public class Interactions : MonoCache
             {
                 if (this.gameObject.GetComponent<ItemPrefab>().item.type == ItemType.Weapon)
                 {
-                    player.GetComponent<CharacterMove>().walkType = CharacterMove.WalkType.withWeapon;
+                    //player.GetComponent<CharacterMove>().walkType = CharacterMove.WalkType.withWeapon;
                     player.GetComponent<Animator>().SetBool("GetWeapon", true);
                     boxCollider.isTrigger = true;
                 }
@@ -68,7 +68,7 @@ public class Interactions : MonoCache
             {
                 if(this.gameObject.GetComponent<ItemPrefab>().item.type == ItemType.Weapon)
                 {
-                    player.GetComponent<CharacterMove>().walkType = CharacterMove.WalkType.withWeapon;
+                    //splayer.GetComponent<CharacterMove>().walkType = CharacterMove.WalkType.withWeapon;
                     player.GetComponent<Animator>().SetBool("GetWeapon", true);
                     boxCollider.isTrigger = true;
 
@@ -93,7 +93,7 @@ public class Interactions : MonoCache
         {
             if (this.gameObject.GetComponent<ItemPrefab>().item.type == ItemType.Weapon)
             {
-                player.GetComponent<CharacterMove>().walkType = CharacterMove.WalkType.noWeapon;
+                //player.GetComponent<CharacterMove>().walkType = CharacterMove.WalkType.noWeapon;
                 player.GetComponent<Animator>().SetBool("GetWeapon", false);
                 boxCollider.isTrigger = false;
             }
@@ -114,7 +114,7 @@ public class Interactions : MonoCache
         {
             if (this.gameObject.GetComponent<ItemPrefab>().item.type == ItemType.Weapon)
             {
-                player.GetComponent<CharacterMove>().walkType = CharacterMove.WalkType.noWeapon;
+                //player.GetComponent<CharacterMove>().walkType = CharacterMove.WalkType.noWeapon;
                 player.GetComponent<Animator>().SetBool("GetWeapon", false);
                 boxCollider.isTrigger = false;
             }

@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Health : MonoCache
@@ -19,10 +18,18 @@ public class Health : MonoCache
     [SerializeField] Slider healthBar;
     [SerializeField] Slider manaBar;
     [SerializeField] Slider staminaBar;
+    [SerializeField] DealthCharacter dealthCharacter;
+    [HideInInspector] public float debuff = 0.15f;
 
-    public DealthCharacter dealthCharacter;
+    private void Start()
+    {
+        healthBar = GameObject.Find("HealthBar").GetComponent<Slider>();
+        manaBar = GameObject.Find("ManaBar").GetComponent<Slider>();
+        staminaBar = GameObject.Find("StaminaBar").GetComponent<Slider>();
+        dealthCharacter = GameObject.Find("Global Settings").GetComponent<DealthCharacter>();
+    }
 
-    public override void OnTick()
+    private void Update()
     {
         healthBar.value = health;
         manaBar.value = mana;
@@ -35,7 +42,7 @@ public class Health : MonoCache
     {
         health -= damage;
 
-        if(health <= 0)
+        if (health <= 0)
         {
             dealthCharacter.OpenMenu();
         }
@@ -45,7 +52,7 @@ public class Health : MonoCache
     {
         health += bonushealth;
 
-        if(health > maxHealth)
+        if (health > maxHealth)
         {
             health = maxHealth;
         }
