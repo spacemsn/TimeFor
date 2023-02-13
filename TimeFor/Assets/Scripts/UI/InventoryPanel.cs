@@ -10,7 +10,7 @@ public class InventoryPanel : MonoCache
     public CinemachineFreeLook freeLook;
     [SerializeField] public bool isOpenPanel;
 
-    public CharacterMove characterMove;
+    public CharacterStatus status;
     MouseVisible MouseVisible;
 
     private void Start()
@@ -92,7 +92,7 @@ public class InventoryPanel : MonoCache
             isOpenPanel = false;
             freeLook.m_XAxis.m_InputAxisName = "Mouse X";
             freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
-            characterMove.charMenegment = true;
+            status.charMenegment = true;
             MouseVisible.notVisible();
         }
         else if (isOpenPanel == false)
@@ -103,7 +103,7 @@ public class InventoryPanel : MonoCache
             freeLook.m_XAxis.m_InputAxisValue = 0;
             freeLook.m_YAxis.m_InputAxisName = "";
             freeLook.m_YAxis.m_InputAxisValue = 0;
-            characterMove.charMenegment = false;
+            status.charMenegment = false;
             MouseVisible.Visible();
         }
     }

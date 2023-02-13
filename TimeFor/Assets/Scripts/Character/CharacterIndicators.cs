@@ -5,20 +5,21 @@ public class CharacterIndicators : MonoCache
 {
     float timer;
 
-    public int health;
+    private int health;
     public int maxHealth = 100;
 
-    public int mana;
-    public int maxMana = 100;
-    public int timeRecoveryMana = 1;
+    private int mana;
+    public int maxMana = 1000;
+    public int timeRecoveryMana = 10;
 
-    public float stamina;
+    private float stamina;
     public float maxStamina = 100;
 
     [SerializeField] Slider healthBar;
     [SerializeField] Slider manaBar;
     [SerializeField] Slider staminaBar;
     [SerializeField] DealthCharacter dealthCharacter;
+    [SerializeField] CharacterStatus status;
 
     private void Start()
     {
@@ -26,22 +27,22 @@ public class CharacterIndicators : MonoCache
         manaBar = GameObject.Find("ManaBar").GetComponent<Slider>();
         staminaBar = GameObject.Find("StaminaBar").GetComponent<Slider>();
         dealthCharacter = GameObject.Find("Global Settings").GetComponent<DealthCharacter>();
+        status = GetComponent<CharacterStatus>();
     }
 
-    private void Update()
+    public void Indicators(int health, int mana, float stamina)
     {
-        healthBar.value = health;
-        manaBar.value = mana;
-        staminaBar.value = stamina;
+        this.health = health; this.mana = mana; this.stamina = stamina;
+        healthBar.value = health; manaBar.value = mana; staminaBar.value = stamina;
 
         RecoveryMana();
     }
 
     public void TakeHit(int damage)
     {
-        health -= damage;
+        status.health -= damage;
 
-        if (health <= 0)
+        if (status.health <= 0)
         {
             dealthCharacter.OpenMenu();
         }
@@ -49,26 +50,26 @@ public class CharacterIndicators : MonoCache
 
     public void SetHealth(int bonushealth)
     {
-        health += bonushealth;
+        status.health += bonushealth;
 
-        if (health > maxHealth)
+        if (status.health > maxHealth)
         {
-            health = maxHealth;
+            status.health = maxHealth;
         }
     }
 
     public void TakeMana(int amount)
     {
-        mana -= amount;
+        status.mana -= amount;
     }
 
     public void SetMana(int bonusmana)
     {
-        mana += bonusmana;
+        status.mana += bonusmana;
 
-        if (mana > maxMana)
+        if (status.mana > maxMana)
         {
-            mana = maxMana;
+            status.mana = maxMana;
         }
     }
 
@@ -79,28 +80,28 @@ public class CharacterIndicators : MonoCache
         if (timer >= 10)
         {
             timer = 0;
-            if (mana < maxMana)
+            if (status.mana < maxMana)
             {
-                mana += timeRecoveryMana;
+                status.mana += timeRecoveryMana;
             }
         }
     }
 
     public void TakeStamina(float amount)
     {
-        if (stamina > 0)
+        if (status.stamina > 0)
         {
-            stamina -= amount;
+            status.stamina -= amount;
         }
     }
 
     public void SetStamina(float bonusstamina)
     {
-        stamina += bonusstamina;
+        status.stamina += bonusstamina;
 
-        if (stamina > maxStamina)
+        if (status.stamina > maxStamina)
         {
-            stamina = maxStamina;
+            status.stamina = maxStamina;
         }
     }
 }

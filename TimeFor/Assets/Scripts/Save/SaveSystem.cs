@@ -8,12 +8,12 @@ public static class SaveSystem
         PlayerData data = new PlayerData(status);
         string json = JsonUtility.ToJson(data);
 
-        File.WriteAllText(Application.dataPath + "/saveStatusPlayer.json", json);
+        File.WriteAllText(Application.dataPath + "/status.json", json);
     }
 
     public static PlayerData loadPlayer()
     {
-        string json = File.ReadAllText(Application.dataPath + "/saveStatusPlayer.json");
+        string json = File.ReadAllText(Application.dataPath + "/status.json");
         PlayerData data = JsonUtility.FromJson<PlayerData>(json);
 
         return data;

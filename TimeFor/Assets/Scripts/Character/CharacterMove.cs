@@ -3,50 +3,32 @@ using UnityEngine;
 public class CharacterMove : MonoCache
 {
     [Header("Компоненты")]
-    [HideInInspector] private CharacterController controller;
-    [HideInInspector] public Animator animator;
-    [HideInInspector] public Transform _camera;
-    [HideInInspector] CharacterIndicators indicators;
-    [HideInInspector] UsingAbilities UsingAbilities;
-    [HideInInspector] Vector3 moveDirection;
-    [HideInInspector] Vector3 playerVelocity;
-
-    [Header("Характеристики персонажа")]
-    [HideInInspector] public float aimModeSpeed = 4.5f;
-    [HideInInspector] public float walkingSpeed = 7.5f;
-    [HideInInspector] public float runningSpeed = 11.5f;
-    [HideInInspector] public float normallSpeed;
-    [HideInInspector] public float jumpValue = 8.0f;
-    [HideInInspector] public float gravity = 20.0f;
-    [HideInInspector] public float smoothTime;
-    [HideInInspector] public float debuff = 0.15f;
-    [HideInInspector] public float smoothVelocity;
-    [HideInInspector] public bool charMenegment = true;
+    [SerializeField] CharacterStatus status;
+    [SerializeField] CharacterController controller;
+    [SerializeField] Animator animator;
+    [SerializeField] Transform _camera;
+    [SerializeField] CharacterIndicators indicators;
+    [SerializeField] CharacterAbilities abilities;
+    [SerializeField] CameraManager cameraManager;
+    [SerializeField] Vector3 playerVelocity;
 
     private void Start()
     {
         indicators = GetComponent<CharacterIndicators>();
-        UsingAbilities = GetComponent<UsingAbilities>();    
-        controller = this.gameObject.GetComponent<CharacterController>();
+        abilities = GetComponent<CharacterAbilities>();    
+        controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        cameraManager = GetComponent<CameraManager>();
+        _camera = cameraManager._camera.transform;
     }
 
-    public override void OnTick()
-    {
-        MovePC();
-    }
-
-    public void MovePC()
+    public void MovePC(Vector3 moveDirection, float stamina, float jumpValue, float gravity, float smoothTime, float smoothVelocity, float walkingSpeed, float runningSpeed, float normallSpeed, float debuff, bool charMenegment)
     {
         if (charMenegment == true)
         {
-            float deltaH = Input.GetAxisRaw("Horizontal");
-            float deltaV = Input.GetAxisRaw("Vertical");
-
-            moveDirection = new Vector3(deltaH, 0, deltaV).normalized;
             animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(moveDirection, 1).magnitude);
 
-            if (UsingAbilities.aimMode == false)
+            if (abilities.aimMode == false)
             {
                 if (moveDirection.magnitude > Mathf.Abs(0.05f))
                 {
@@ -56,7 +38,7 @@ public class CharacterMove : MonoCache
                     moveDirection = Quaternion.Euler(0f, rotationAngle, 0f) * Vector3.forward;
                 }
             }
-            else if (UsingAbilities.aimMode == true)
+            else if (abilities.aimMode == true)
             {
                 float rotationAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) + _camera.eulerAngles.y;
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationAngle, ref smoothVelocity, smoothTime);
@@ -67,10 +49,10 @@ public class CharacterMove : MonoCache
                 }
             }
 
-            if (Input.GetKey(KeyCode.LeftShift)) // Бег
+            if (Input.GetKey(KeyCode.LeftShift) && moveDirection.magnitude > Mathf.Abs(0.05f)) // Бег
             {
                 indicators.TakeStamina(debuff * 2);
-                if (indicators.stamina > 0)
+                if (stamina > 0)
                 {
                     controller.Move(moveDirection.normalized * runningSpeed * Time.deltaTime);
                 }

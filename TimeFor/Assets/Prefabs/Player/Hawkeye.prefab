@@ -2552,13 +2552,13 @@ GameObject:
   - component: {fileID: 3487737480988600900}
   - component: {fileID: 252394489002761576}
   - component: {fileID: 6899575808398277543}
-  - component: {fileID: 3983473006369607287}
   - component: {fileID: 1901704207729473588}
   - component: {fileID: 4728969796412579887}
-  - component: {fileID: 1901704207729473593}
-  - component: {fileID: 1901704207729473594}
   - component: {fileID: 1901704207729473608}
+  - component: {fileID: 1901704207729473594}
   - component: {fileID: -6752494367657235968}
+  - component: {fileID: 1901704207729473593}
+  - component: {fileID: 3983473006369607287}
   - component: {fileID: 1980999507}
   m_Layer: 0
   m_Name: Hawkeye
@@ -2633,30 +2633,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3983473006369607287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4264133064400335102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09e195d482ec2444cb83502abd7c6d28, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  _camera: {fileID: 0}
-  aimModeSpeed: 4.5
-  walkingSpeed: 7.5
-  runningSpeed: 11.5
-  normallSpeed: 0
-  jumpValue: 2
-  gravity: -19.62
-  smoothTime: 0.075
-  debuff: 0.15
-  smoothVelocity: 0
-  charMenegment: 1
 --- !u!114 &1901704207729473588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2746,41 +2722,6 @@ MonoBehaviour:
   - {fileID: 4090768394319775482}
   - {fileID: 8064954209614402211}
   - {fileID: 1984324048028005557}
---- !u!114 &1901704207729473593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4264133064400335102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5c5c2caaa4a837449767e83150b4736, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 100
-  maxHealth: 100
-  mana: 100
-  maxMana: 100
-  timeRecoveryMana: 1
-  stamina: 100
-  maxStamina: 100
-  healthBar: {fileID: 0}
-  manaBar: {fileID: 0}
-  staminaBar: {fileID: 0}
-  dealthCharacter: {fileID: 0}
---- !u!114 &1901704207729473594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4264133064400335102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f2f88505cfe25f449c9b6798515861d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1901704207729473608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2788,7 +2729,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4264133064400335102}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 230dd283a4d512547bb03b2f92df524a, type: 3}
   m_Name: 
@@ -2808,9 +2749,21 @@ MonoBehaviour:
   attackThree: {fileID: 11400000, guid: 407ea28fff3b8d043ae74c4222335bec, type: 2}
   attackFour: {fileID: 11400000, guid: 81d6e62b08c3b9148a38be7dceead882, type: 2}
   GlobalSettings: {fileID: 0}
-  character: {fileID: 0}
+  status: {fileID: 0}
   _camera: {fileID: 0}
   virtualCamera: {fileID: 0}
+--- !u!114 &1901704207729473594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4264133064400335102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f2f88505cfe25f449c9b6798515861d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &-6752494367657235968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2828,8 +2781,48 @@ MonoBehaviour:
   _virtualCamera: {fileID: 0}
   CenterPlayer: {fileID: 0}
   SpinePlayer: {fileID: 0}
-  character: {fileID: 0}
+  status: {fileID: 0}
   abilities: {fileID: 0}
+--- !u!114 &1901704207729473593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4264133064400335102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5c5c2caaa4a837449767e83150b4736, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  maxMana: 100
+  timeRecoveryMana: 10
+  maxStamina: 1000
+  healthBar: {fileID: 0}
+  manaBar: {fileID: 0}
+  staminaBar: {fileID: 0}
+  dealthCharacter: {fileID: 0}
+--- !u!114 &3983473006369607287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4264133064400335102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09e195d482ec2444cb83502abd7c6d28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  status: {fileID: 0}
+  controller: {fileID: 0}
+  animator: {fileID: 0}
+  _camera: {fileID: 0}
+  indicators: {fileID: 0}
+  abilities: {fileID: 0}
+  cameraManager: {fileID: 0}
+  playerVelocity: {x: 0, y: 0, z: 0}
 --- !u!114 &1980999507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2842,24 +2835,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d675610ed505114dbeb8391f160a143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _position: {x: 0, y: 0, z: 0}
+  _animator: {fileID: 0}
+  position: {x: 0, y: 0, z: 0}
   _characterPrefab: {fileID: 4264133064400335102}
-  _levelId: 0
-  _indicators: {fileID: 0}
-  _health: 0
-  _mana: 0
-  _stamina: 0
+  levelId: 0
+  _indicators: {fileID: 1901704207729473593}
+  health: 0
+  mana: 0
+  stamina: 0
   _move: {fileID: 0}
-  _aimModeSpeed: 0
-  _walkingSpeed: 0
-  _runningSpeed: 0
-  _normallSpeed: 0
-  _jumpValue: 0
-  _gravity: 0
-  _smoothTime: 0
-  _debuff: 0
-  _smoothVelocity: 0
-  _charMenegment: 0
+  aimModeSpeed: 4.5
+  walkingSpeed: 7.5
+  runningSpeed: 11.5
+  normallSpeed: 0
+  jumpValue: 8
+  gravity: -20
+  smoothTime: 0
+  debuff: 0.15
+  smoothVelocity: 0
+  charMenegment: 1
 --- !u!1 &4557005678519134663
 GameObject:
   m_ObjectHideFlags: 0

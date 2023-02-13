@@ -2,7 +2,7 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UsingAbilities : MonoCache
+public class CharacterAbilities : MonoCache
 {
     [Header("Характеристики")]
     [SerializeField] float ButtonTimer = 0;
@@ -28,14 +28,14 @@ public class UsingAbilities : MonoCache
     QuickslotInventory inventory;
     [SerializeField] GameObject GlobalSettings;
 
-    [HideInInspector] public CharacterMove character;
+    [HideInInspector] public CharacterStatus status;
     [HideInInspector] public Camera _camera;
     [HideInInspector] public CinemachineVirtualCamera virtualCamera;
 
     private void Start()
     {
         indicators = GetComponent<CharacterIndicators>();
-        character = this.gameObject.GetComponent<CharacterMove>();
+        status = GetComponent<CharacterStatus>();
         //inventory = GameObject.Find("SkillsPanel").GetComponent<QuickslotInventory>();
         //ChargeAttack = GameObject.Find("ChargeAttack").GetComponent<Slider>();
         CenterScreen = GameObject.Find("CenterScreen");
@@ -129,19 +129,19 @@ public class UsingAbilities : MonoCache
                 aimMode = true;
                 virtualCamera.Priority = 11;
                 CenterScreen.transform.GetChild(0).gameObject.SetActive(true);
-                character.animator.SetBool("aimMode", true);
-                character.normallSpeed = character.walkingSpeed;
-                character.walkingSpeed = character.aimModeSpeed;
-                character.smoothTime = 0.075f;
+                status._animator.SetBool("aimMode", true);
+                status.normallSpeed = status.walkingSpeed;
+                status.walkingSpeed = status.aimModeSpeed;
+                status.smoothTime = 0.075f;
             }
             else if (aimMode == true)
             {
                 aimMode = false;
                 virtualCamera.Priority = 9;
                 CenterScreen.transform.GetChild(0).gameObject.SetActive(false);
-                character.animator.SetBool("aimMode", false);
-                character.walkingSpeed = character.normallSpeed;
-                character.smoothTime = 0.075f;
+                status._animator.SetBool("aimMode", false);
+                status.walkingSpeed = status.normallSpeed;
+                status.smoothTime = 0.075f;
             }
         }
 
@@ -170,7 +170,7 @@ public class UsingAbilities : MonoCache
 
     void ThrowFireBall()
     {
-        if (indicators.mana >= attackOne.consumption)
+        if (status.mana >= attackOne.consumption)
         {
             _attack = Instantiate(attackOne.objectPrefab, rightHand.position, rightHand.rotation);
             indicators.TakeMana(attackOne.consumption);
@@ -180,7 +180,7 @@ public class UsingAbilities : MonoCache
 
     void ThrowRay()
     {
-        if (indicators.mana >= attackTwo.consumption)
+        if (status.mana >= attackTwo.consumption)
         {
             _attack = Instantiate(attackTwo.objectPrefab, rightHand.position, rightHand.rotation);
             indicators.TakeMana(attackTwo.consumption);
@@ -190,7 +190,7 @@ public class UsingAbilities : MonoCache
 
     void SuperAttack()
     {
-        if (indicators.mana >= attackThree.consumption)
+        if (status.mana >= attackThree.consumption)
         {
             _attack = Instantiate(attackThree.objectPrefab, rightHand.position, rightHand.rotation);
             indicators.TakeMana(attackThree.consumption);
@@ -200,7 +200,7 @@ public class UsingAbilities : MonoCache
 
     void AimAttack()
     {
-        if (indicators.mana >= attackFour.consumption)
+        if (status.mana >= attackFour.consumption)
         {
             _attack = Instantiate(attackFour.objectPrefab, rightHand.position, _camera.transform.rotation);
             indicators.TakeMana(attackFour.consumption);
@@ -210,11 +210,11 @@ public class UsingAbilities : MonoCache
 
     public void StartAnimation()
     {
-        character.charMenegment = false;
+        status.charMenegment = false;
     }   
     
     public void EndAnimation()
     {
-        character.charMenegment = true;
+        status.charMenegment = true;
     }
 }
