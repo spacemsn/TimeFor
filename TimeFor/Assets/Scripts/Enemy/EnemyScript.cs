@@ -5,6 +5,8 @@ public class EnemyScript : MonoCache
 {
     [SerializeField] private float hp = 100;
     [SerializeField] private int enemyDamage;
+    [SerializeField] private CapsuleCollider rightHand;
+    [SerializeField] private CapsuleCollider leftHand;
     public Animator animator;
     public Slider healthBar;
 
@@ -33,10 +35,10 @@ public class EnemyScript : MonoCache
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if(other.tag == "Player" || rightHand && other.tag == "Player" || leftHand)
         {
-            Health health = other.gameObject.GetComponent<Health>();
-            health.TakeHit(enemyDamage);
+            CharacterIndicators indicators = other.gameObject.GetComponent<CharacterIndicators>();
+            indicators.TakeHit(enemyDamage);
         }
     }
 }

@@ -16,7 +16,7 @@ public class UsingAbilities : MonoCache
     [SerializeField] GameObject PausePanel;
     [SerializeField] GameObject CenterScreen;
     [SerializeField] Slider ChargeAttack;
-    [SerializeField] Health health;
+    [SerializeField] CharacterIndicators indicators;
 
     [Header("Виды атак")]
     [SerializeField] public bool aimMode = false;
@@ -34,10 +34,10 @@ public class UsingAbilities : MonoCache
 
     private void Start()
     {
-        health = GetComponent<Health>();
+        indicators = GetComponent<CharacterIndicators>();
         character = this.gameObject.GetComponent<CharacterMove>();
-        inventory = GameObject.Find("SkillsPanel").GetComponent<QuickslotInventory>();
-        ChargeAttack = GameObject.Find("ChargeAttack").GetComponent<Slider>();
+        //inventory = GameObject.Find("SkillsPanel").GetComponent<QuickslotInventory>();
+        //ChargeAttack = GameObject.Find("ChargeAttack").GetComponent<Slider>();
         CenterScreen = GameObject.Find("CenterScreen");
         rightHand = GameObject.Find("ArmSmall").transform;
         _camera = GameObject.Find("Main Camera").GetComponent<Camera>();
@@ -48,15 +48,15 @@ public class UsingAbilities : MonoCache
         PausePanel = GlobalSettings.GetComponent<PauseMenu>().PausePanel.gameObject;
     }
 
-    public override void OnTick()
-    {
-        ChargeAttack.value = ButtonTimer;
+    //public override void OnTick()
+    //{
+    //    ChargeAttack.value = ButtonTimer;
 
-        if (inventory.currentQuickslotID == 0) { ShootOne(); }
-        else if (inventory.currentQuickslotID == 1) { ShootTwo(); }
-        else if (inventory.currentQuickslotID == 2) { ShootThree(); }
-        else if(inventory.currentQuickslotID == 3) { AimModel(); }
-    }
+    //    if (inventory.currentQuickslotID == 0) { ShootOne(); }
+    //    else if (inventory.currentQuickslotID == 1) { ShootTwo(); }
+    //    else if (inventory.currentQuickslotID == 2) { ShootThree(); }
+    //    else if(inventory.currentQuickslotID == 3) { AimModel(); }
+    //}
 
     void ShootOne()
     {
@@ -170,40 +170,40 @@ public class UsingAbilities : MonoCache
 
     void ThrowFireBall()
     {
-        if (health.mana >= attackOne.consumption)
+        if (indicators.mana >= attackOne.consumption)
         {
             _attack = Instantiate(attackOne.objectPrefab, rightHand.position, rightHand.rotation);
-            health.TakeMana(attackOne.consumption);
+            indicators.TakeMana(attackOne.consumption);
             _attack.GetComponent<FireBall>();
         }
     }
 
     void ThrowRay()
     {
-        if (health.mana >= attackTwo.consumption)
+        if (indicators.mana >= attackTwo.consumption)
         {
             _attack = Instantiate(attackTwo.objectPrefab, rightHand.position, rightHand.rotation);
-            health.TakeMana(attackTwo.consumption);
+            indicators.TakeMana(attackTwo.consumption);
             _attack.GetComponent<Explosion>();
         }
     }
 
     void SuperAttack()
     {
-        if (health.mana >= attackThree.consumption)
+        if (indicators.mana >= attackThree.consumption)
         {
             _attack = Instantiate(attackThree.objectPrefab, rightHand.position, rightHand.rotation);
-            health.TakeMana(attackThree.consumption);
+            indicators.TakeMana(attackThree.consumption);
             _attack.GetComponent<FireBall>();
         }
     }
 
     void AimAttack()
     {
-        if (health.mana >= attackFour.consumption)
+        if (indicators.mana >= attackFour.consumption)
         {
             _attack = Instantiate(attackFour.objectPrefab, rightHand.position, _camera.transform.rotation);
-            health.TakeMana(attackFour.consumption);
+            indicators.TakeMana(attackFour.consumption);
             _attack.GetComponent<Aimball>().Fire();
         }
     }

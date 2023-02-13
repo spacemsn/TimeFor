@@ -327,7 +327,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &805753330
 Transform:
   m_ObjectHideFlags: 0
@@ -353,7 +353,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 805753329}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b463b11b8411208499ec7c54a303cbaa, type: 3}
   m_Name: 
@@ -2555,13 +2555,11 @@ GameObject:
   - component: {fileID: 3983473006369607287}
   - component: {fileID: 1901704207729473588}
   - component: {fileID: 4728969796412579887}
-  - component: {fileID: 1901704207729473592}
   - component: {fileID: 1901704207729473593}
   - component: {fileID: 1901704207729473594}
   - component: {fileID: 1901704207729473608}
   - component: {fileID: -6752494367657235968}
-  - component: {fileID: 8938919482907131037}
-  - component: {fileID: 8314960872099462590}
+  - component: {fileID: 1980999507}
   m_Layer: 0
   m_Name: Hawkeye
   m_TagString: Player
@@ -2647,9 +2645,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09e195d482ec2444cb83502abd7c6d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
   animator: {fileID: 0}
   _camera: {fileID: 0}
   aimModeSpeed: 4.5
@@ -2660,6 +2655,7 @@ MonoBehaviour:
   gravity: -19.62
   smoothTime: 0.075
   debuff: 0.15
+  smoothVelocity: 0
   charMenegment: 1
 --- !u!114 &1901704207729473588
 MonoBehaviour:
@@ -2750,23 +2746,6 @@ MonoBehaviour:
   - {fileID: 4090768394319775482}
   - {fileID: 8064954209614402211}
   - {fileID: 1984324048028005557}
---- !u!114 &1901704207729473592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4264133064400335102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 738f064d1c176b44b81940a6cb5896af, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  imageE: {fileID: 0}
-  imageT: {fileID: 0}
-  radius: 1.1
-  isGizmos: 1
-  GlobalSettings: {fileID: 0}
 --- !u!114 &1901704207729473593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2779,9 +2758,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5c5c2caaa4a837449767e83150b4736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0.1
   health: 100
   maxHealth: 100
   mana: 100
@@ -2825,7 +2801,7 @@ MonoBehaviour:
   PausePanel: {fileID: 0}
   CenterScreen: {fileID: 0}
   ChargeAttack: {fileID: 0}
-  health: {fileID: 1901704207729473593}
+  indicators: {fileID: 0}
   aimMode: 0
   attackOne: {fileID: 11400000, guid: 407ea28fff3b8d043ae74c4222335bec, type: 2}
   attackTwo: {fileID: 11400000, guid: e1b53728e33e43b4bafb67dce3ca1e62, type: 2}
@@ -2854,7 +2830,7 @@ MonoBehaviour:
   SpinePlayer: {fileID: 0}
   character: {fileID: 0}
   abilities: {fileID: 0}
---- !u!114 &8938919482907131037
+--- !u!114 &1980999507
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2863,43 +2839,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 4264133064400335102}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Script: {fileID: 11500000, guid: 4d675610ed505114dbeb8391f160a143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneId: 0
-  _assetId: 3802946333
-  serverOnly: 0
-  visible: 0
-  hasSpawned: 0
---- !u!114 &8314960872099462590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4264133064400335102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
-  target: {fileID: 3487737480988600900}
-  clientAuthority: 0
-  syncPosition: 1
-  syncRotation: 1
-  syncScale: 0
-  showGizmos: 0
-  showOverlay: 0
-  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
-  onlySyncOnChange: 1
-  onlySyncOnChangeCorrectionMultiplier: 2
-  rotationSensitivity: 0.01
-  compressRotation: 0
-  positionPrecision: 0.01
-  scalePrecision: 0.01
+  _position: {x: 0, y: 0, z: 0}
+  _characterPrefab: {fileID: 4264133064400335102}
+  _levelId: 0
+  _indicators: {fileID: 0}
+  _health: 0
+  _mana: 0
+  _stamina: 0
+  _move: {fileID: 0}
+  _aimModeSpeed: 0
+  _walkingSpeed: 0
+  _runningSpeed: 0
+  _normallSpeed: 0
+  _jumpValue: 0
+  _gravity: 0
+  _smoothTime: 0
+  _debuff: 0
+  _smoothVelocity: 0
+  _charMenegment: 0
 --- !u!1 &4557005678519134663
 GameObject:
   m_ObjectHideFlags: 0

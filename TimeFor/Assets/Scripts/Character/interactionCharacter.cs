@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class interactionCharacter : MonoCache
+public class CharacterInteraction : MonoCache
 {
     [Header("Дальность взаимодействия")]
     private float maxDistance;
@@ -15,11 +15,11 @@ public class interactionCharacter : MonoCache
     [SerializeField] private bool isGizmos = true;
 
     [SerializeField] GameObject GlobalSettings;
-    private CharacterMove characterMove;
+    private CharacterMove character;
 
     private void Start()
     {
-        characterMove = GetComponent<CharacterMove>();
+        character = GetComponent<CharacterMove>();
         GlobalSettings = GameObject.Find("Global Settings");
 
         imageE = GameObject.Find("Button E").GetComponent<Image>();

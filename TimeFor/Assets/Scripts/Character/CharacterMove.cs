@@ -6,26 +6,26 @@ public class CharacterMove : MonoCache
     [HideInInspector] private CharacterController controller;
     [HideInInspector] public Animator animator;
     [HideInInspector] public Transform _camera;
-    [HideInInspector] Health health;
+    [HideInInspector] CharacterIndicators indicators;
     [HideInInspector] UsingAbilities UsingAbilities;
     [HideInInspector] Vector3 moveDirection;
     [HideInInspector] Vector3 playerVelocity;
 
     [Header("Характеристики персонажа")]
-    [SerializeField] public float aimModeSpeed = 4.5f;
-    [SerializeField] public float walkingSpeed = 7.5f;
-    [SerializeField] float runningSpeed = 11.5f;
-    [SerializeField] public float normallSpeed;
-    [SerializeField] float jumpValue = 8.0f;
-    [SerializeField] float gravity = 20.0f;
-    [SerializeField] public float smoothTime;
+    [HideInInspector] public float aimModeSpeed = 4.5f;
+    [HideInInspector] public float walkingSpeed = 7.5f;
+    [HideInInspector] public float runningSpeed = 11.5f;
+    [HideInInspector] public float normallSpeed;
+    [HideInInspector] public float jumpValue = 8.0f;
+    [HideInInspector] public float gravity = 20.0f;
+    [HideInInspector] public float smoothTime;
     [HideInInspector] public float debuff = 0.15f;
-    [HideInInspector] float smoothVelocity;
+    [HideInInspector] public float smoothVelocity;
     [HideInInspector] public bool charMenegment = true;
 
     private void Start()
     {
-        health = GetComponent<Health>();
+        indicators = GetComponent<CharacterIndicators>();
         UsingAbilities = GetComponent<UsingAbilities>();    
         controller = this.gameObject.GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
@@ -69,8 +69,8 @@ public class CharacterMove : MonoCache
 
             if (Input.GetKey(KeyCode.LeftShift)) // Бег
             {
-                health.TakeStamina(debuff * 2);
-                if (health.stamina > 0)
+                indicators.TakeStamina(debuff * 2);
+                if (indicators.stamina > 0)
                 {
                     controller.Move(moveDirection.normalized * runningSpeed * Time.deltaTime);
                 }
@@ -82,7 +82,7 @@ public class CharacterMove : MonoCache
             else // Обычное состояние
             {
                 controller.Move(moveDirection.normalized * walkingSpeed * Time.deltaTime);
-                health.SetStamina(debuff);
+                indicators.SetStamina(debuff);
             }
 
             if (Input.GetButton("Jump") && controller.isGrounded) // Прыжок

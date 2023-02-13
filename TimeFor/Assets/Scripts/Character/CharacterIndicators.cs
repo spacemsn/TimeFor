@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Health : MonoCache
+public class CharacterIndicators : MonoCache
 {
     float timer;
 
@@ -19,7 +19,6 @@ public class Health : MonoCache
     [SerializeField] Slider manaBar;
     [SerializeField] Slider staminaBar;
     [SerializeField] DealthCharacter dealthCharacter;
-    [HideInInspector] public float debuff = 0.15f;
 
     private void Start()
     {
