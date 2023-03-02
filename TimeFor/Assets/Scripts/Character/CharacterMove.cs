@@ -1,12 +1,13 @@
 using UnityEngine;
+using System.Collections;
 
 public class CharacterMove : MonoCache
 {
     [Header("Компоненты")]
     [SerializeField] CharacterStatus status;
-    [SerializeField] CharacterController controller;
+    [SerializeField] public CharacterController controller;
     [SerializeField] Animator animator;
-    [SerializeField] Transform _camera;
+    [SerializeField] Camera _camera;
     [SerializeField] CharacterIndicators indicators;
     [SerializeField] CharacterAbilities abilities;
     [SerializeField] CameraManager cameraManager;
@@ -15,15 +16,16 @@ public class CharacterMove : MonoCache
     private void Start()
     {
         indicators = GetComponent<CharacterIndicators>();
-        abilities = GetComponent<CharacterAbilities>();    
+        abilities = GetComponent<CharacterAbilities>();
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        status = GetComponent<CharacterStatus>();
         cameraManager = GetComponent<CameraManager>();
-        _camera = cameraManager._camera.transform;
     }
 
-    public void MovePC(Vector3 moveDirection, float stamina, float jumpValue, float gravity, float smoothTime, float smoothVelocity, float walkingSpeed, float runningSpeed, float normallSpeed, float debuff, bool charMenegment)
+    public void Move(Vector3 moveDirection, float stamina, float jumpValue, float gravity, float smoothTime, float smoothVelocity, float walkingSpeed, float runningSpeed, float normallSpeed, float debuff, bool charMenegment)
     {
+        _camera = cameraManager._camera;
         if (charMenegment == true)
         {
             animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(moveDirection, 1).magnitude);
@@ -32,7 +34,7 @@ public class CharacterMove : MonoCache
             {
                 if (moveDirection.magnitude > Mathf.Abs(0.05f))
                 {
-                    float rotationAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
+                    float rotationAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + _camera.transform.eulerAngles.y;
                     float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationAngle, ref smoothVelocity, smoothTime);
                     transform.rotation = Quaternion.Euler(0f, angle, 0f);
                     moveDirection = Quaternion.Euler(0f, rotationAngle, 0f) * Vector3.forward;
@@ -40,7 +42,7 @@ public class CharacterMove : MonoCache
             }
             else if (abilities.aimMode == true)
             {
-                float rotationAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) + _camera.eulerAngles.y;
+                float rotationAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) + _camera.transform.eulerAngles.y;
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationAngle, ref smoothVelocity, smoothTime);
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
                 if (moveDirection.magnitude > Mathf.Abs(0.05f))
@@ -66,17 +68,6 @@ public class CharacterMove : MonoCache
                 controller.Move(moveDirection.normalized * walkingSpeed * Time.deltaTime);
                 indicators.SetStamina(debuff);
             }
-
-            if (Input.GetButton("Jump") && controller.isGrounded) // Прыжок
-            {
-                playerVelocity.y = Mathf.Sqrt(jumpValue * -2.0f * gravity);
-                controller.Move(playerVelocity * Time.deltaTime);
-            }
-            else
-            {
-                playerVelocity.y += gravity * Time.deltaTime;
-                controller.Move(playerVelocity * Time.deltaTime);
-            }
         }
         else if (charMenegment == false)
         {
@@ -84,6 +75,14 @@ public class CharacterMove : MonoCache
         }
 
     } // Движение персонажа ПК версии
+
+    public void Jump(Vector3 playerVelocity, bool charMenegment)
+    {
+        if (charMenegment == true)
+        {
+            controller.Move(playerVelocity * Time.deltaTime);
+        }
+    }
 
     //private void SimpleMove() // Управление персонажем без прыжков и тд
     //{

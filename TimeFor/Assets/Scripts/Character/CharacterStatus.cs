@@ -39,6 +39,7 @@ public class CharacterStatus : MonoCache
     public bool charMenegment = true;
 
     [HideInInspector] Vector3 moveDirection;
+    [SerializeField] Vector3 playerVelocity;
 
     private void Start()
     {
@@ -112,6 +113,7 @@ public class CharacterStatus : MonoCache
         Movement();
         Status();
         UpdateStatus();
+        JumpInput();
     }
 
     private void Movement()
@@ -120,7 +122,21 @@ public class CharacterStatus : MonoCache
         float deltaV = Input.GetAxisRaw("Vertical");
 
         moveDirection = new Vector3(deltaH, 0, deltaV).normalized;
-        _move.MovePC(moveDirection, stamina, jumpValue, gravity, smoothTime, smoothVelocity, walkingSpeed, runningSpeed, normallSpeed, debuff, charMenegment);
+        _move.Move(moveDirection, stamina, jumpValue, gravity, smoothTime, smoothVelocity, walkingSpeed, runningSpeed, normallSpeed, debuff, charMenegment);
+    }
+
+    private void JumpInput()
+    {
+        if (Input.GetButton("Jump") && _move.controller.isGrounded) // Ïðûæîê
+        {
+            playerVelocity.y = Mathf.Sqrt(jumpValue * -2.0f * gravity);
+            _move.Jump(playerVelocity, charMenegment);
+        }
+        else
+        {
+            playerVelocity.y += gravity * Time.deltaTime;
+            _move.Jump(playerVelocity, charMenegment);
+        }
     }
 
     private void Status()

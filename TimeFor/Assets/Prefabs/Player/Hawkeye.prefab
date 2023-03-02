@@ -2803,6 +2803,7 @@ MonoBehaviour:
   manaBar: {fileID: 0}
   staminaBar: {fileID: 0}
   dealthCharacter: {fileID: 0}
+  status: {fileID: 0}
 --- !u!114 &3983473006369607287
 MonoBehaviour:
   m_ObjectHideFlags: 0
