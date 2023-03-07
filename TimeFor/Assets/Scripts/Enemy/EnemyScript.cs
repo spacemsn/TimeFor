@@ -5,10 +5,16 @@ public class EnemyScript : MonoCache
 {
     [SerializeField] private float hp = 100;
     [SerializeField] private int enemyDamage;
-    [SerializeField] private CapsuleCollider rightHand;
-    [SerializeField] private CapsuleCollider leftHand;
+    public CapsuleCollider rightHand;
+    public CapsuleCollider leftHand;
     public Animator animator;
     public Slider healthBar;
+
+    private void Start()
+    {
+        rightHand.enabled = false;
+        leftHand.enabled = false;
+    }
 
     public override void OnTick()
     {
@@ -40,5 +46,17 @@ public class EnemyScript : MonoCache
             CharacterIndicators indicators = other.gameObject.GetComponent<CharacterIndicators>();
             indicators.TakeHit(enemyDamage);
         }
+    }
+
+    public void CollidersTrue()
+    {
+        //rightHand.enabled = true;
+        leftHand.enabled = true;
+    }
+
+    public void CollidersFalse()
+    {
+        //rightHand.enabled = false;
+        leftHand.enabled = false;
     }
 }

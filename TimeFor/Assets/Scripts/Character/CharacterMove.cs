@@ -6,6 +6,7 @@ public class CharacterMove : MonoCache
     [Header("Компоненты")]
     [SerializeField] CharacterStatus status;
     [SerializeField] public CharacterController controller;
+    [SerializeField] public Rigidbody rb;
     [SerializeField] Animator animator;
     [SerializeField] Camera _camera;
     [SerializeField] CharacterIndicators indicators;
@@ -18,6 +19,7 @@ public class CharacterMove : MonoCache
         indicators = GetComponent<CharacterIndicators>();
         abilities = GetComponent<CharacterAbilities>();
         controller = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         status = GetComponent<CharacterStatus>();
         cameraManager = GetComponent<CameraManager>();
@@ -51,7 +53,7 @@ public class CharacterMove : MonoCache
                 }
             }
 
-            if (Input.GetKey(KeyCode.LeftShift) && moveDirection.magnitude > Mathf.Abs(0.05f)) // Бег
+            if (Input.GetKey(KeyCode.LeftShift) && moveDirection.magnitude > Mathf.Abs(0.05f) && controller.isGrounded) // Бег
             {
                 indicators.TakeStamina(debuff * 2);
                 if (stamina > 0)
@@ -63,7 +65,7 @@ public class CharacterMove : MonoCache
                     controller.Move(moveDirection.normalized * walkingSpeed * Time.deltaTime);
                 }
             }
-            else // Обычное состояние
+            else if(controller.isGrounded)// Обычное состояние
             {
                 controller.Move(moveDirection.normalized * walkingSpeed * Time.deltaTime);
                 indicators.SetStamina(debuff);

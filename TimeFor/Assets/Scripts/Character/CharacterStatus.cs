@@ -127,7 +127,7 @@ public class CharacterStatus : MonoCache
 
     private void JumpInput()
     {
-        if (Input.GetButton("Jump") && _move.controller.isGrounded) // Прыжок
+        if (Input.GetButtonDown("Jump") && _move.controller.isGrounded) // Прыжок
         {
             playerVelocity.y = Mathf.Sqrt(jumpValue * -2.0f * gravity);
             _move.Jump(playerVelocity, charMenegment);

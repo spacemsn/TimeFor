@@ -5,7 +5,6 @@ public class CameraManager : MonoBehaviour
 {
     [SerializeField] public Camera _camera;
     [SerializeField] public CinemachineFreeLook _freeCamera;
-    [SerializeField] public CinemachineVirtualCamera _virtualCamera;
 
     [SerializeField] private GameObject CenterPlayer;
     [SerializeField] private GameObject SpinePlayer;
@@ -22,26 +21,24 @@ public class CameraManager : MonoBehaviour
 
         _camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         _freeCamera = GameObject.Find("CM FreeLook1").GetComponent<CinemachineFreeLook>();
-        _virtualCamera = GameObject.Find("CM vcam1").GetComponent<CinemachineVirtualCamera>();
 
 
         abilities._camera = this._camera;
         abilities.status = this.status;
-        abilities.virtualCamera = this._virtualCamera;
 
         #endregion
 
-        #region Cinemachine follow
+        //#region Cinemachine follow
 
-        CenterPlayer = status.GetComponent<Transform>().GetChild(0).gameObject;
-        SpinePlayer = status.GetComponent<Transform>().GetChild(1).gameObject;
+        //CenterPlayer = status.GetComponent<Transform>().GetChild(0).gameObject;
+        //SpinePlayer = status.GetComponent<Transform>().GetChild(1).gameObject;
 
-        _freeCamera.Follow = CenterPlayer.transform;
-        _freeCamera.LookAt = CenterPlayer.transform;
+        //_freeCamera.Follow = CenterPlayer.transform;
+        //_freeCamera.LookAt = CenterPlayer.transform;
 
-        _virtualCamera.Follow = SpinePlayer.transform;
-        _virtualCamera.LookAt = SpinePlayer.transform;
+        //_virtualCamera.Follow = SpinePlayer.transform;
+        //_virtualCamera.LookAt = SpinePlayer.transform;
 
-        #endregion
+        //#endregion
     }
 }
