@@ -38,8 +38,15 @@ public class CharacterStatus : MonoCache
     public float smoothVelocity;
     public bool charMenegment = true;
 
-    [HideInInspector] Vector3 moveDirection;
+    [SerializeField] Vector3 moveDirection;
     [SerializeField] Vector3 playerVelocity;
+
+    private CharacterController controller;
+    private Vector3 _playerVelocity;
+    private bool groundedPlayer;
+    private float playerSpeed = 2.0f;
+    private float jumpHeight = 1.0f;
+    private float gravityValue = -9.81f;
 
     private void Start()
     {
@@ -118,25 +125,31 @@ public class CharacterStatus : MonoCache
 
     private void Movement()
     {
-        float deltaH = Input.GetAxisRaw("Horizontal");
-        float deltaV = Input.GetAxisRaw("Vertical");
+        moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        if (Input.GetKeyDown(KeyCode.Space) && _move.controller.isGrounded) // Прыжок
+        {
+            playerVelocity.y += Mathf.Sqrt(jumpValue * -3.0f * gravity);
+        }
 
-        moveDirection = new Vector3(deltaH, 0, deltaV).normalized;
-        _move.Move(moveDirection, stamina, jumpValue, gravity, smoothTime, smoothVelocity, walkingSpeed, runningSpeed, normallSpeed, debuff, charMenegment);
+        _move.Move(moveDirection, playerVelocity, stamina, jumpValue, gravity, smoothTime, smoothVelocity, walkingSpeed, runningSpeed, normallSpeed, debuff, charMenegment);
     }
 
     private void JumpInput()
     {
-        if (Input.GetButtonDown("Jump") && _move.controller.isGrounded) // Прыжок
+        if (_move.controller.isGrounded && playerVelocity.y < 0)
         {
-            playerVelocity.y = Mathf.Sqrt(jumpValue * -2.0f * gravity);
+            playerVelocity.y = 0f;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && _move.controller.isGrounded) // Прыжок
+        {
+            playerVelocity.y = 0f;
+            playerVelocity.y += Mathf.Sqrt(jumpValue * -3.0f * gravity);
             _move.Jump(playerVelocity, charMenegment);
         }
-        else
-        {
-            playerVelocity.y += gravity * Time.deltaTime;
-            _move.Jump(playerVelocity, charMenegment);
-        }
+
+        playerVelocity.y += gravity * Time.deltaTime;
+        _move.Jump(playerVelocity, charMenegment);
     }
 
     private void Status()

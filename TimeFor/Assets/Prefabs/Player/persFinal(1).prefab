@@ -1277,7 +1277,7 @@ CharacterController:
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.5, z: 0}
+  m_Center: {x: 0, y: 1.37, z: 0}
 --- !u!95 &7866213678889492259
 Animator:
   serializedVersion: 4
@@ -1291,7 +1291,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 79c4a95ec8ae32847a1d8e8e7d03748f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -1422,10 +1422,10 @@ MonoBehaviour:
   stamina: 100
   _move: {fileID: 0}
   aimModeSpeed: 4.5
-  walkingSpeed: 7.5
+  walkingSpeed: 4.5
   runningSpeed: 11.5
   normallSpeed: 0
-  jumpValue: 25
+  jumpValue: 2
   gravity: -19.6
   smoothTime: 0.045
   debuff: 0.15

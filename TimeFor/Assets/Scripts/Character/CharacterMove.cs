@@ -13,6 +13,7 @@ public class CharacterMove : MonoCache
     [SerializeField] CharacterAbilities abilities;
     [SerializeField] CameraManager cameraManager;
     [SerializeField] Vector3 playerVelocity;
+    private bool groundedPlayer;
 
     private void Start()
     {
@@ -25,32 +26,26 @@ public class CharacterMove : MonoCache
         cameraManager = GetComponent<CameraManager>();
     }
 
-    public void Move(Vector3 moveDirection, float stamina, float jumpValue, float gravity, float smoothTime, float smoothVelocity, float walkingSpeed, float runningSpeed, float normallSpeed, float debuff, bool charMenegment)
+    public void Move(Vector3 moveDirection, Vector3 playerVelocity, float stamina, float jumpValue, float gravity, float smoothTime, float smoothVelocity, float walkingSpeed, float runningSpeed, float normallSpeed, float debuff, bool charMenegment)
     {
+        groundedPlayer = controller.isGrounded;
         _camera = cameraManager._camera;
+
+        if (groundedPlayer && playerVelocity.y < 0)
+        {
+            playerVelocity.y = 0f;
+        }
+
         if (charMenegment == true)
         {
-            animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(moveDirection, 1).magnitude);
+            animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(moveDirection, 0.35f).magnitude);
 
-            if (abilities.aimMode == false)
+            if (moveDirection.magnitude > Mathf.Abs(0.05f))
             {
-                if (moveDirection.magnitude > Mathf.Abs(0.05f))
-                {
-                    float rotationAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + _camera.transform.eulerAngles.y;
-                    float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationAngle, ref smoothVelocity, smoothTime);
-                    transform.rotation = Quaternion.Euler(0f, angle, 0f);
-                    moveDirection = Quaternion.Euler(0f, rotationAngle, 0f) * Vector3.forward;
-                }
-            }
-            else if (abilities.aimMode == true)
-            {
-                float rotationAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) + _camera.transform.eulerAngles.y;
+                float rotationAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + _camera.transform.eulerAngles.y;
                 float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationAngle, ref smoothVelocity, smoothTime);
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
-                if (moveDirection.magnitude > Mathf.Abs(0.05f))
-                {
-                    moveDirection = Quaternion.Euler(0f, rotationAngle, 0f) * Vector3.forward;
-                }
+                moveDirection = Quaternion.Euler(0f, rotationAngle, 0f) * Vector3.forward;
             }
 
             if (Input.GetKey(KeyCode.LeftShift) && moveDirection.magnitude > Mathf.Abs(0.05f) && controller.isGrounded) // Бег
@@ -58,22 +53,36 @@ public class CharacterMove : MonoCache
                 indicators.TakeStamina(debuff * 2);
                 if (stamina > 0)
                 {
-                    controller.Move(moveDirection.normalized * runningSpeed * Time.deltaTime);
+                    controller.Move(moveDirection * runningSpeed * Time.deltaTime);
+                    animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(moveDirection, 1).magnitude);
                 }
                 else
                 {
-                    controller.Move(moveDirection.normalized * walkingSpeed * Time.deltaTime);
+                    controller.Move(moveDirection * walkingSpeed * Time.deltaTime);
+                    animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(moveDirection, 0.35f).magnitude);
                 }
             }
-            else if(controller.isGrounded)// Обычное состояние
+            else // Обычное состояние
             {
-                controller.Move(moveDirection.normalized * walkingSpeed * Time.deltaTime);
+                controller.Move(moveDirection * walkingSpeed * Time.deltaTime);
                 indicators.SetStamina(debuff);
             }
+
+            if (moveDirection != Vector3.zero)
+            {
+                gameObject.transform.forward = moveDirection;
+            }
+
+            if (Input.GetButtonDown("Jump") && groundedPlayer)
+            {
+                playerVelocity.y += Mathf.Sqrt(jumpValue * -3.0f * gravity);
+            }
+            playerVelocity.y += gravity * Time.deltaTime;
+            controller.Move(playerVelocity * Time.deltaTime);
         }
         else if (charMenegment == false)
         {
-            
+
         }
 
     } // Движение персонажа ПК версии
@@ -83,6 +92,7 @@ public class CharacterMove : MonoCache
         if (charMenegment == true)
         {
             controller.Move(playerVelocity * Time.deltaTime);
+
         }
     }
 
