@@ -120,37 +120,44 @@ public class CharacterStatus : MonoCache
         Movement();
         Status();
         UpdateStatus();
-        JumpInput();
+        //JumpInput();
     }
 
     private void Movement()
-    {
-        moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        if (Input.GetKeyDown(KeyCode.Space) && _move.controller.isGrounded) // Прыжок
-        {
-            playerVelocity.y += Mathf.Sqrt(jumpValue * -3.0f * gravity);
-        }
-
-        _move.Move(moveDirection, playerVelocity, stamina, jumpValue, gravity, smoothTime, smoothVelocity, walkingSpeed, runningSpeed, normallSpeed, debuff, charMenegment);
-    }
-
-    private void JumpInput()
     {
         if (_move.controller.isGrounded && playerVelocity.y < 0)
         {
             playerVelocity.y = 0f;
         }
 
+        moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         if (Input.GetKeyDown(KeyCode.Space) && _move.controller.isGrounded) // Прыжок
         {
             playerVelocity.y = 0f;
             playerVelocity.y += Mathf.Sqrt(jumpValue * -3.0f * gravity);
-            _move.Jump(playerVelocity, charMenegment);
         }
 
         playerVelocity.y += gravity * Time.deltaTime;
-        _move.Jump(playerVelocity, charMenegment);
+        _move.Move(moveDirection, playerVelocity, stamina, jumpValue, gravity, smoothTime, smoothVelocity, walkingSpeed, runningSpeed, normallSpeed, debuff, charMenegment);
     }
+
+    //private void JumpInput()
+    //{
+    //    if (_move.controller.isGrounded && playerVelocity.y < 0)
+    //    {
+    //        playerVelocity.y = 0f;
+    //    }
+
+    //    if (Input.GetKeyDown(KeyCode.Space) && _move.controller.isGrounded) // Прыжок
+    //    {
+    //        playerVelocity.y = 0f;
+    //        playerVelocity.y += Mathf.Sqrt(jumpValue * -3.0f * gravity);
+    //        _move.Jump(playerVelocity, charMenegment);
+    //    }
+
+    //    playerVelocity.y += gravity * Time.deltaTime;
+    //    _move.Jump(playerVelocity, charMenegment);
+    //}
 
     private void Status()
     {

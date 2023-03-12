@@ -48,17 +48,17 @@ public class CharacterMove : MonoCache
                 moveDirection = Quaternion.Euler(0f, rotationAngle, 0f) * Vector3.forward;
             }
 
-            if (Input.GetKey(KeyCode.LeftShift) && moveDirection.magnitude > Mathf.Abs(0.05f) && controller.isGrounded) // Бег
+            if (Input.GetKey(KeyCode.LeftShift) && moveDirection.magnitude > Mathf.Abs(0.05f)) // Бег
             {
                 indicators.TakeStamina(debuff * 2);
                 if (stamina > 0)
                 {
-                    controller.Move(moveDirection * runningSpeed * Time.deltaTime);
+                    controller.Move(moveDirection.normalized * runningSpeed * Time.deltaTime);
                     animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(moveDirection, 1).magnitude);
                 }
                 else
                 {
-                    controller.Move(moveDirection * walkingSpeed * Time.deltaTime);
+                    controller.Move(moveDirection.normalized * walkingSpeed * Time.deltaTime);
                     animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(moveDirection, 0.35f).magnitude);
                 }
             }
@@ -87,14 +87,14 @@ public class CharacterMove : MonoCache
 
     } // Движение персонажа ПК версии
 
-    public void Jump(Vector3 playerVelocity, bool charMenegment)
-    {
-        if (charMenegment == true)
-        {
-            controller.Move(playerVelocity * Time.deltaTime);
+    //public void Jump(Vector3 playerVelocity, bool charMenegment)
+    //{
+    //    if (charMenegment == true)
+    //    {
+    //        controller.Move(playerVelocity * Time.deltaTime);
 
-        }
-    }
+    //    }
+    //}
 
     //private void SimpleMove() // Управление персонажем без прыжков и тд
     //{

@@ -7091,31 +7091,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5987614928283285959, guid: 517f27566212ae246b8286f76931784a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.5954971
       objectReference: {fileID: 0}
     - target: {fileID: 5987614928283285959, guid: 517f27566212ae246b8286f76931784a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2.25
       objectReference: {fileID: 0}
     - target: {fileID: 5987614928283285959, guid: 517f27566212ae246b8286f76931784a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -9.738609
       objectReference: {fileID: 0}
     - target: {fileID: 5987614928283285959, guid: 517f27566212ae246b8286f76931784a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.15920092
+      value: 0.9994221
       objectReference: {fileID: 0}
     - target: {fileID: 5987614928283285959, guid: 517f27566212ae246b8286f76931784a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.028185483
+      value: -0.033992402
       objectReference: {fileID: 0}
     - target: {fileID: 5987614928283285959, guid: 517f27566212ae246b8286f76931784a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.97173214
+      value: -0.00000009913505
       objectReference: {fileID: 0}
     - target: {fileID: 5987614928283285959, guid: 517f27566212ae246b8286f76931784a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.17203884
+      value: -8.421235e-10
       objectReference: {fileID: 0}
     - target: {fileID: 5987614928620003245, guid: 517f27566212ae246b8286f76931784a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7549,11 +7549,11 @@ PrefabInstance:
       objectReference: {fileID: 1465111575}
     - target: {fileID: 7866213678889492255, guid: 2e88bfe9ee9b2734ba23a1ef53c6b9ae, type: 3}
       propertyPath: gravity
-      value: -9.81
+      value: -19.62
       objectReference: {fileID: 0}
     - target: {fileID: 7866213678889492255, guid: 2e88bfe9ee9b2734ba23a1ef53c6b9ae, type: 3}
       propertyPath: jumpValue
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7866213678889492259, guid: 2e88bfe9ee9b2734ba23a1ef53c6b9ae, type: 3}
       propertyPath: m_ApplyRootMotion
