@@ -48,6 +48,8 @@ public class CharacterStatus : MonoCache
     private float jumpHeight = 1.0f;
     private float gravityValue = -9.81f;
 
+    public GameObject cube;
+
     private void Start()
     {
         #region Components
@@ -120,7 +122,6 @@ public class CharacterStatus : MonoCache
         Movement();
         Status();
         UpdateStatus();
-        //JumpInput();
     }
 
     private void Movement()
@@ -141,24 +142,6 @@ public class CharacterStatus : MonoCache
         _move.Move(moveDirection, playerVelocity, stamina, jumpValue, gravity, smoothTime, smoothVelocity, walkingSpeed, runningSpeed, normallSpeed, debuff, charMenegment);
     }
 
-    //private void JumpInput()
-    //{
-    //    if (_move.controller.isGrounded && playerVelocity.y < 0)
-    //    {
-    //        playerVelocity.y = 0f;
-    //    }
-
-    //    if (Input.GetKeyDown(KeyCode.Space) && _move.controller.isGrounded) // Ïðûæîê
-    //    {
-    //        playerVelocity.y = 0f;
-    //        playerVelocity.y += Mathf.Sqrt(jumpValue * -3.0f * gravity);
-    //        _move.Jump(playerVelocity, charMenegment);
-    //    }
-
-    //    playerVelocity.y += gravity * Time.deltaTime;
-    //    _move.Jump(playerVelocity, charMenegment);
-    //}
-
     private void Status()
     {
         _indicators.Indicators(health, mana, stamina);
@@ -178,8 +161,7 @@ public class CharacterStatus : MonoCache
         health = data.health;
         mana = data.mana;
         stamina = data.stamina;
-        position = data.position;
-        transform.position = data.position;
+        _move.TransportPlayer(data.position);
     }
     #endregion
 }

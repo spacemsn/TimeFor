@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class CharacterMove : MonoCache
 {
@@ -68,15 +69,16 @@ public class CharacterMove : MonoCache
                 indicators.SetStamina(debuff);
             }
 
-            if (moveDirection != Vector3.zero)
-            {
-                gameObject.transform.forward = moveDirection;
-            }
+            //if (moveDirection != Vector3.zero)
+            //{
+            //    gameObject.transform.forward = moveDirection;
+            //}
 
             if (Input.GetButtonDown("Jump") && groundedPlayer)
             {
+                animator.SetBool("Jump", true);
                 playerVelocity.y += Mathf.Sqrt(jumpValue * -3.0f * gravity);
-            }
+            } else { animator.SetBool("Jump", false); }
             playerVelocity.y += gravity * Time.deltaTime;
             controller.Move(playerVelocity * Time.deltaTime);
         }
@@ -87,14 +89,12 @@ public class CharacterMove : MonoCache
 
     } // Движение персонажа ПК версии
 
-    //public void Jump(Vector3 playerVelocity, bool charMenegment)
-    //{
-    //    if (charMenegment == true)
-    //    {
-    //        controller.Move(playerVelocity * Time.deltaTime);
-
-    //    }
-    //}
+    public void TransportPlayer(Vector3 _position)
+    {
+        controller.enabled = false;
+        this.transform.position = _position;
+        controller.enabled = true;
+    }
 
     //private void SimpleMove() // Управление персонажем без прыжков и тд
     //{
