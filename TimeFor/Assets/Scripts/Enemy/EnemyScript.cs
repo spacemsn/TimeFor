@@ -41,9 +41,9 @@ public class EnemyScript : MonoCache
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" || rightHand && other.tag == "Player" || leftHand)
+        CharacterIndicators indicators = other.gameObject.GetComponent<CharacterIndicators>();
+        if (indicators)
         {
-            CharacterIndicators indicators = other.gameObject.GetComponent<CharacterIndicators>();
             indicators.TakeHit(enemyDamage);
         }
     }

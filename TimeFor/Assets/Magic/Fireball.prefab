@@ -243,6 +243,5 @@ MonoBehaviour:
   endPosition: {x: 0, y: 0, z: 0}
   step: 0.005
   progress: 0
-  radius: 500
-  colliders: []
+  radius: 10
   rightHand: {fileID: 0}

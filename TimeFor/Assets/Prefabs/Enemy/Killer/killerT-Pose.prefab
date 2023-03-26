@@ -2411,6 +2411,8 @@ GameObject:
   - component: {fileID: 280306909857158415}
   - component: {fileID: 7074375188631702814}
   - component: {fileID: 4096911251643151683}
+  - component: {fileID: 2749512913004203868}
+  - component: {fileID: 8617769349183322480}
   - component: {fileID: -4636334262704600785}
   - component: {fileID: 6732924340809983765}
   m_Layer: 0
@@ -2494,6 +2496,45 @@ CapsuleCollider:
   m_Height: 1.8
   m_Direction: 1
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &2749512913004203868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6793721673868776911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89926801a8bf2b64bb99e8b8865ed3c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  panel_GaveOver: {fileID: 0}
+  WayPoints: []
+  Current_Patch: 0
+  AI_Enemy: 0
+--- !u!114 &8617769349183322480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6793721673868776911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bccdfe096cbf2f743bc3758de388cff4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 0
+  angle: 0
+  player: {fileID: 0}
+  enemy: {fileID: 0}
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 0
+  ObstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
+  canSeePlayer: 0
 --- !u!114 &-4636334262704600785
 MonoBehaviour:
   m_ObjectHideFlags: 0

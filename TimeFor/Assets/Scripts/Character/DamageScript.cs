@@ -8,7 +8,7 @@ public class DamageScript : MonoCache
     {
         if(other.tag == "Enemy")
         {
-            other.GetComponent<EnemyScript>().TakeDamage(weapon.damage);
+            other.GetComponent<AI_Monster>().TakeDamage(weapon.damage);
         }
     }
 }

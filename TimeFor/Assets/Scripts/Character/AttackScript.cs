@@ -13,11 +13,11 @@ public class AttackScript : MonoCache
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            animator.SetBool("isAttack", true);
+            animator.SetBool("Attack1", true);
         }
-        else
-        {
-            animator.SetBool("isAttack", false);
-        }
+        //else
+        //{
+        //    animator.SetBool("Attack1", false);
+        //}
     }
 }

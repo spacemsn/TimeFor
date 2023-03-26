@@ -19,11 +19,13 @@ public class CharacterAbilities : MonoCache
     [SerializeField] CharacterIndicators indicators;
 
     [Header("Виды атак")]
-    [SerializeField] public bool aimMode = false;
     [SerializeField] SkillObject attackOne;
     [SerializeField] SkillObject attackTwo;
     [SerializeField] SkillObject attackThree;
     [SerializeField] SkillObject attackFour;
+
+    [Header("Враги")]
+    [SerializeField] Collider[] colliders;
 
     QuickslotInventory inventory;
     [SerializeField] GameObject GlobalSettings;
@@ -31,6 +33,8 @@ public class CharacterAbilities : MonoCache
     [HideInInspector] public CharacterStatus status;
     [HideInInspector] public Camera _camera;
     [HideInInspector] public CinemachineVirtualCamera virtualCamera;
+    Animator animator;
+
 
     private void Start()
     {
@@ -46,17 +50,23 @@ public class CharacterAbilities : MonoCache
         InventoryPanel = GlobalSettings.GetComponent<InventoryPanel>().inventoryPanel.gameObject;
         DealthPanel = GlobalSettings.GetComponent<DealthCharacter>().DealthPanel.gameObject;
         PausePanel = GlobalSettings.GetComponent<PauseMenu>().PausePanel.gameObject;
+        animator = GetComponent<Animator>();
     }
 
-    //public override void OnTick()
-    //{
-    //    ChargeAttack.value = ButtonTimer;
+    public override void OnTick()
+    {
+        //    ChargeAttack.value = ButtonTimer;
 
-    //    if (inventory.currentQuickslotID == 0) { ShootOne(); }
-    //    else if (inventory.currentQuickslotID == 1) { ShootTwo(); }
-    //    else if (inventory.currentQuickslotID == 2) { ShootThree(); }
-    //    else if(inventory.currentQuickslotID == 3) { AimModel(); }
-    //}
+        //    if (inventory.currentQuickslotID == 0) { ShootOne(); }
+        //    else if (inventory.currentQuickslotID == 1) { ShootTwo(); }
+        //    else if (inventory.currentQuickslotID == 2) { ShootThree(); }
+        //    else if(inventory.currentQuickslotID == 3) { AimModel(); }
+
+
+        ShootOne();
+        colliders = Physics.OverlapSphere(gameObject.transform.position, 10f);
+
+    }
 
     void ShootOne()
     {
@@ -69,7 +79,7 @@ public class CharacterAbilities : MonoCache
                 if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
                     timer = 0;
-                    ThrowFireBall();
+                    animator.SetBool("Attack1", true);
                 }
             }
         }
@@ -122,28 +132,28 @@ public class CharacterAbilities : MonoCache
     void AimModel()
     { 
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            if (aimMode == false)
-            {
-                aimMode = true;
-                virtualCamera.Priority = 11;
-                CenterScreen.transform.GetChild(0).gameObject.SetActive(true);
-                status._animator.SetBool("aimMode", true);
-                status.normallSpeed = status.walkingSpeed;
-                status.walkingSpeed = status.aimModeSpeed;
-                status.smoothTime = 0.075f;
-            }
-            else if (aimMode == true)
-            {
-                aimMode = false;
-                virtualCamera.Priority = 9;
-                CenterScreen.transform.GetChild(0).gameObject.SetActive(false);
-                status._animator.SetBool("aimMode", false);
-                status.walkingSpeed = status.normallSpeed;
-                status.smoothTime = 0.075f;
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    if (aimMode == false)
+        //    {
+        //        aimMode = true;
+        //        virtualCamera.Priority = 11;
+        //        CenterScreen.transform.GetChild(0).gameObject.SetActive(true);
+        //        status._animator.SetBool("aimMode", true);
+        //        status.normallSpeed = status.walkingSpeed;
+        //        status.walkingSpeed = status.aimModeSpeed;
+        //        status.smoothTime = 0.075f;
+        //    }
+        //    else if (aimMode == true)
+        //    {
+        //        aimMode = false;
+        //        virtualCamera.Priority = 9;
+        //        CenterScreen.transform.GetChild(0).gameObject.SetActive(false);
+        //        status._animator.SetBool("aimMode", false);
+        //        status.walkingSpeed = status.normallSpeed;
+        //        status.smoothTime = 0.075f;
+        //    }
+        //}
 
         Cinemachine3rdPersonFollow PersonFollow = virtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
 
@@ -168,13 +178,14 @@ public class CharacterAbilities : MonoCache
         }
     }
 
-    void ThrowFireBall()
+    public void ThrowFireBall()
     {
         if (status.mana >= attackOne.consumption)
         {
             _attack = Instantiate(attackOne.objectPrefab, rightHand.position, rightHand.rotation);
             indicators.TakeMana(attackOne.consumption);
             _attack.GetComponent<FireBall>();
+            animator.SetBool("Attack1", false);
         }
     }
 

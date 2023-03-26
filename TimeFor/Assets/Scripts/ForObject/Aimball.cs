@@ -20,9 +20,9 @@ public class Aimball : MonoCache
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<EnemyScript>())
+        if (other.GetComponent<AI_Monster>())
         {
-            EnemyScript enemy = other.GetComponent<EnemyScript>();
+            AI_Monster enemy = other.GetComponent<AI_Monster>();
         if (enemy != null)
         {
                 enemy.TakeDamage(skill.damage);

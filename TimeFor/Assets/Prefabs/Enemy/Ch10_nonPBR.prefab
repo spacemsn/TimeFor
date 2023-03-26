@@ -665,6 +665,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 100
   enemyDamage: 100
+  rightHand: {fileID: 0}
+  leftHand: {fileID: 0}
   animator: {fileID: 5899672728512251718}
   healthBar: {fileID: 446266949}
 --- !u!54 &1010496519912123679
