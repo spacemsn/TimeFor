@@ -4,60 +4,75 @@ using UnityEngine;
 
 public class FireBall : MonoCache
 {
-    [SerializeField] SkillObject skill;
+    [SerializeField] private SkillObject skill;
+    [SerializeField] private Transform target;
+    [SerializeField] private GameObject explosionPrefab;
+    [SerializeField] private AnimationCurve ScaleCurve;
+    [SerializeField] private Vector3 originalScale;
 
-    [Header("Поиск врага")]
-    [SerializeField] Vector3 startPosition;
-    [SerializeField] Vector3 endPosition;
-    [SerializeField] float step;
-    [SerializeField] float progress;
-    [SerializeField] float radius;
+    [Range(0, 1)]
+    [SerializeField] private float timeOfScale;
+    [SerializeField] private float scaleDuraction;
+    [SerializeField] private float speed;
+    [SerializeField] private float liveTime;
+    [SerializeField] private Vector3 EnemyPos;
 
-    Collider[] colliders;
-    public Transform rightHand;
-
-    public override void OnTick()
+    public void SetTarget(Transform target, float speed)
     {
-        colliders = Physics.OverlapSphere(startPosition, radius);
-        StartCoroutine(Countdown());
-        
-        for (int i = 0; i < colliders.Length; i++)
-        {
-            GameObject enemy = colliders[i].gameObject;
-            if (enemy.tag == "Enemy")
-            {
-                endPosition = enemy.transform.position;
-
-                transform.position = Vector3.Lerp(startPosition, endPosition, progress);
-                progress += step;
-            }
-        }
+        this.target = target;
+        this.speed = speed;
     }
 
     private void Start()
     {
-        rightHand = GameObject.Find("ArmSmall").transform;
-        transform.position = rightHand.position;
-        startPosition = rightHand.transform.position;
+        originalScale = transform.localScale;
+        Destroy(gameObject, liveTime);
+    }
+
+    private void FixedUpdate()
+    {
+        if (target != null)
+        {
+            timeOfScale += Time.deltaTime / scaleDuraction;
+
+            if (timeOfScale >= 1)
+            {
+                timeOfScale = 1;
+            }
+
+            originalScale = originalScale * ScaleCurve.Evaluate(timeOfScale);
+
+            Vector3 direction = target.position - transform.position;
+            transform.LookAt(target.position);
+            //transform.Translate(direction.normalized * speed * Time.deltaTime);
+            transform.position += (direction * speed * Time.deltaTime).normalized;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<AI_Monster>())
+        if (other.CompareTag("Enemy"))
         {
-            AI_Monster enemy = other.GetComponent<AI_Monster>();
-            if (enemy != null)
+            EnemyGTP enemyHealth = other.GetComponent<EnemyGTP>();
+            if (enemyHealth != null)
             {
-                enemy.TakeDamage(skill.damage);
-                Destroy(gameObject);
-                StartCoroutine(Countdown());
+                enemyHealth.TakeDamage(skill.damage);
             }
-        }
-    }
 
-    IEnumerator Countdown()
-    {
-        yield return new WaitForSeconds(5f);
-        Destroy(gameObject);
+            if (explosionPrefab != null)
+            {
+                Instantiate(explosionPrefab, transform.position, transform.rotation);
+            }
+
+            Destroy(gameObject);
+        }
+        else if(!other.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

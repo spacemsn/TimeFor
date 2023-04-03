@@ -15,7 +15,6 @@ public class PlayerData
     {
         level = status.levelId;
         health = status.health;
-        mana = status.mana;
         stamina = status.stamina;
         position = status.position;
     }

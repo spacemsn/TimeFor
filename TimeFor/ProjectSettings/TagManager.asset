@@ -8,6 +8,8 @@ TagManager:
   - Points
   - Enemy
   - StaticObject
+  - Ground
+  - FreeLook
   layers:
   - Default
   - TransparentFX
@@ -15,8 +17,8 @@ TagManager:
   - 
   - Water
   - UI
-  - Player
-  - Obstacle
+  - Ground
+  - Enemy
   - 
   - 
   - 

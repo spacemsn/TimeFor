@@ -5,17 +5,19 @@ using UnityEngine;
 public class InventoryPanel : MonoCache
 {
     [Header("Инвентарь")]
-    public Transform inventoryPanel;
-    public List<Slot> slots = new List<Slot>();
-    public CinemachineFreeLook freeLook;
+    [SerializeField] private Transform inventoryPanel;
+    [SerializeField] private List<Slot> slots = new List<Slot>();
+    [SerializeField] private CinemachineFreeLook freeLook;
     [SerializeField] public bool isOpenPanel;
 
-    public CharacterStatus status;
-    MouseVisible MouseVisible;
-
+    [SerializeField] private CharacterStatus status;
+    [SerializeField] private GloballSetting globallSetting;
+ 
     private void Start()
     {
-        MouseVisible = GetComponent<MouseVisible>();
+        globallSetting = GetComponent<GloballSetting>();
+        status = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterStatus>();
+        freeLook = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CinemachineFreeLook>();
 
         for (int i = 0; i < inventoryPanel.childCount; i++)
         {
@@ -93,7 +95,7 @@ public class InventoryPanel : MonoCache
             freeLook.m_XAxis.m_InputAxisName = "Mouse X";
             freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
             status.charMenegment = true;
-            MouseVisible.notVisible();
+            globallSetting.notVisible();
         }
         else if (isOpenPanel == false)
         {
@@ -104,7 +106,7 @@ public class InventoryPanel : MonoCache
             freeLook.m_YAxis.m_InputAxisName = "";
             freeLook.m_YAxis.m_InputAxisValue = 0;
             status.charMenegment = false;
-            MouseVisible.Visible();
+            globallSetting.Visible();
         }
     }
 }

@@ -20,5 +20,6 @@ MonoBehaviour:
     \u0444\u0430\u0435\u0440\u0431\u043E\u043B"
   icon: {fileID: 0}
   consumption: 1
-  damage: 80
-  attackRollback: 2
+  damage: 20
+  attackRollback: 1
+  speed: 2

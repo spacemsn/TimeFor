@@ -1,7 +1,7 @@
 using Cinemachine;
 using UnityEngine;
 
-public class MouseVisible : MonoCache
+public class Mouse : MonoCache
 {
     [Header("Видимость мыши")]
     [SerializeField] bool isVisible = true;
@@ -47,9 +47,9 @@ public class MouseVisible : MonoCache
         }
     }
 
-        void OnEnterButton()
+    void OnEnterButton()
     {
         if (Input.GetKeyDown(KeyCode.LeftAlt)) { Visible(); }
-        else if(Input.GetKeyUp(KeyCode.LeftAlt)) { notVisible(); }
+        else if (Input.GetKeyUp(KeyCode.LeftAlt)) { notVisible(); }
     }
 }

@@ -10,4 +10,6 @@ public class SkillObject : ItemObject
     public float damage;
     [Header("Откат способности")]
     public float attackRollback;
+    [Header("Скорость")]
+    public float speed;
 }

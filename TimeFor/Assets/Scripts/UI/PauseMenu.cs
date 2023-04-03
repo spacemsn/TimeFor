@@ -7,14 +7,19 @@ public class PauseMenu : MonoCache
     public Transform PausePanel;
     [SerializeField] public bool isOpenPanel = false;
 
+    [SerializeField] private SettingsMenu settingsMenu;
+
+    private void Start()
+    {
+        settingsMenu = GetComponent<SettingsMenu>();
+    }
+
     public void OpenMenu()
     {
-
         if (isOpenPanel == false)
         {
             PausePanel.gameObject.SetActive(true);
             isOpenPanel = true;
-            // Видимость курсора
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             Time.timeScale = 0f;
@@ -23,10 +28,9 @@ public class PauseMenu : MonoCache
         {
             PausePanel.gameObject.SetActive(false);
             isOpenPanel = false;
-            // Видимость курсора
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            Time.timeScale = 1f;
+            //Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.visible = false;
+            //Time.timeScale = 1f;
         }
     }
     
@@ -36,7 +40,6 @@ public class PauseMenu : MonoCache
         {
             PausePanel.gameObject.SetActive(false);
             isOpenPanel = false;
-            // Видимость курсора
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Time.timeScale = 1f;
@@ -45,8 +48,13 @@ public class PauseMenu : MonoCache
 
     public void Exit()
     {
-        //SceneManager.LoadScene(0);
         SceneLoad.SwitchScene("Menu");
         Time.timeScale = 1f;
+    }
+
+    public void Settings()
+    {
+        settingsMenu.OpenMenu();
+        OpenMenu();
     }
 }

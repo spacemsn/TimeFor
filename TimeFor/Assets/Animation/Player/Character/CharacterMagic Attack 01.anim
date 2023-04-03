@@ -41113,8 +41113,8 @@ AnimationClip:
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
     m_StopTime: 2.3000002
-    m_OrientationOffsetY: -60
-    m_Level: 0
+    m_OrientationOffsetY: 0
+    m_Level: -0.08
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
     m_LoopTime: 0
@@ -41122,10 +41122,10 @@ AnimationClip:
     m_LoopBlendOrientation: 1
     m_LoopBlendPositionY: 0
     m_LoopBlendPositionXZ: 1
-    m_KeepOriginalOrientation: 0
-    m_KeepOriginalPositionY: 1
+    m_KeepOriginalOrientation: 1
+    m_KeepOriginalPositionY: 0
     m_KeepOriginalPositionXZ: 0
-    m_HeightFromFeet: 0
+    m_HeightFromFeet: 1
     m_Mirror: 0
   m_EditorCurves:
   - curve:
@@ -81303,10 +81303,17 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.9
-    functionName: ThrowFireBall
+  - time: 1
+    functionName: StartAnimation
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 970037715054327440, guid: 2e88bfe9ee9b2734ba23a1ef53c6b9ae, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 2.2
+    functionName: EndAnimation
+    data: 
+    objectReferenceParameter: {fileID: 970037715054327440, guid: 2e88bfe9ee9b2734ba23a1ef53c6b9ae, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

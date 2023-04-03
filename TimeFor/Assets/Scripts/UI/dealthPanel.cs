@@ -1,18 +1,25 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DealthCharacter : MonoBehaviour
+public class dealthPanel : MonoBehaviour
 {
-    public GameObject CharacterPrefab;
+    [SerializeField] private GameObject Character;
+    [SerializeField] private GloballSetting globallSetting;
 
-    [Header("Меню Респавна")]
+    [Header("Меню Смерти")]
     public Transform DealthPanel;
     [SerializeField] public bool isOpenPanel;
 
+    private void Start()
+    {
+        globallSetting = GetComponent<GloballSetting>();
+        Character = GameObject.FindGameObjectWithTag("Player");
+    }
+
     public void SavePosition(Vector3 transform, Quaternion rotate)
     {
-        CharacterPrefab.transform.position = transform;
-        CharacterPrefab.transform.rotation = rotate;
+        Character.transform.position = transform;
+        Character.transform.rotation = rotate;
     }
 
     public void OpenMenu()
@@ -21,7 +28,6 @@ public class DealthCharacter : MonoBehaviour
         {
             DealthPanel.gameObject.SetActive(true);
             isOpenPanel = true;
-            // Видимость курсора
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             Time.timeScale = 0f;

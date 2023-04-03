@@ -1,231 +1,144 @@
-using Cinemachine;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class CharacterAbilities : MonoCache
 {
     [Header("Характеристики")]
-    [SerializeField] float ButtonTimer = 0;
-    [SerializeField] float timer = 0;
-    [SerializeField] Transform rightHand;
-    GameObject _attack;
-
-    [Header("Интерфейс")]
-    [SerializeField] GameObject InventoryPanel;
-    [SerializeField] GameObject DealthPanel;
-    [SerializeField] GameObject PausePanel;
-    [SerializeField] GameObject CenterScreen;
-    [SerializeField] Slider ChargeAttack;
-    [SerializeField] CharacterIndicators indicators;
-
-    [Header("Виды атак")]
-    [SerializeField] SkillObject attackOne;
-    [SerializeField] SkillObject attackTwo;
-    [SerializeField] SkillObject attackThree;
-    [SerializeField] SkillObject attackFour;
+    private float timer = 0;
+    private Transform rightHand;
+    private bool attacking; // буль переменная атаки
+    [SerializeField] private float maxDistance; // дисстанция ближайщего противника
 
     [Header("Враги")]
-    [SerializeField] Collider[] colliders;
+    [SerializeField] Collider[] enemies;
+    [SerializeField] LayerMask enemyLayer;
 
-    QuickslotInventory inventory;
-    [SerializeField] GameObject GlobalSettings;
 
-    [HideInInspector] public CharacterStatus status;
-    [HideInInspector] public Camera _camera;
-    [HideInInspector] public CinemachineVirtualCamera virtualCamera;
-    Animator animator;
+    [Header("Интерфейс")]
+    [SerializeField] private GameObject InventoryPanel;
+    [SerializeField] private GameObject DealthPanel;
+    [SerializeField] private GameObject PausePanel;
+    [SerializeField] private CharacterStatus status;
+    [SerializeField] private CharacterIndicators indicators;
+    [SerializeField] private QuickslotInventory inventory;
+    [SerializeField] private GameObject GlobalSettings;
+    [SerializeField] private Animator animator;
 
+    [Header("Виды атак")]
+    [SerializeField] private SkillObject attackOne;
+    [SerializeField] private SkillObject attackTwo;
+    [SerializeField] private SkillObject attackThree;
+    [SerializeField] private SkillObject attackFour;
+    private Collider currentEnemy;
+    private SkillObject currentAttack;
+    private GameObject currentSpell;
+
+    private enum listSpells { Fire, Water, Air, Ground, }
+    [SerializeField] private listSpells spells;
 
     private void Start()
     {
+        GlobalSettings = GameObject.Find("Global Settings");
+        if (GlobalSettings != null)
+        {
+            InventoryPanel = GlobalSettings.GetComponent<GloballSetting>().inventoryPanel.gameObject;
+            DealthPanel = GlobalSettings.GetComponent<GloballSetting>().dealthPanel.gameObject;
+            PausePanel = GlobalSettings.GetComponent<GloballSetting>().pausePanel.gameObject;
+        }
+        rightHand = GameObject.Find("ArmSmall").transform;
+        //inventory = GameObject.Find("SkillsPanel").GetComponent<QuickslotInventory>();
+
         indicators = GetComponent<CharacterIndicators>();
         status = GetComponent<CharacterStatus>();
-        //inventory = GameObject.Find("SkillsPanel").GetComponent<QuickslotInventory>();
-        //ChargeAttack = GameObject.Find("ChargeAttack").GetComponent<Slider>();
-        CenterScreen = GameObject.Find("CenterScreen");
-        rightHand = GameObject.Find("ArmSmall").transform;
-        _camera = GameObject.Find("Main Camera").GetComponent<Camera>();
-
-        GlobalSettings = GameObject.Find("Global Settings");
-        InventoryPanel = GlobalSettings.GetComponent<InventoryPanel>().inventoryPanel.gameObject;
-        DealthPanel = GlobalSettings.GetComponent<DealthCharacter>().DealthPanel.gameObject;
-        PausePanel = GlobalSettings.GetComponent<PauseMenu>().PausePanel.gameObject;
         animator = GetComponent<Animator>();
     }
 
-    public override void OnTick()
-    {
-        //    ChargeAttack.value = ButtonTimer;
-
-        //    if (inventory.currentQuickslotID == 0) { ShootOne(); }
-        //    else if (inventory.currentQuickslotID == 1) { ShootTwo(); }
-        //    else if (inventory.currentQuickslotID == 2) { ShootThree(); }
-        //    else if(inventory.currentQuickslotID == 3) { AimModel(); }
-
-
-        ShootOne();
-        colliders = Physics.OverlapSphere(gameObject.transform.position, 10f);
-
-    }
-
-    void ShootOne()
+    private void FixedUpdate()
     {
         timer += Time.deltaTime;
 
-        if (timer >= attackOne.attackRollback)
+        switch (spells)
         {
-            if (InventoryPanel.activeSelf == false && DealthPanel.activeSelf == false && PausePanel.activeSelf == false)
-            {
-                if (Input.GetKeyDown(KeyCode.Mouse0))
+            case listSpells.Fire:
                 {
-                    timer = 0;
-                    animator.SetBool("Attack1", true);
+                    currentAttack = attackOne; Shoot();
                 }
-            }
+                break;
+
+            case listSpells.Water:
+                {
+                    currentAttack = attackTwo; Shoot();
+                }
+                break;
+
+            case listSpells.Air:
+                {
+                    currentAttack = attackThree; Shoot();
+                }
+                break;
+
+            case listSpells.Ground:
+                {
+                    currentAttack = attackFour; Shoot();
+                }
+                break;
+
+            default: { break; }
         }
     }
 
-    void ShootTwo()
+    private void Shoot()
     {
-        timer += Time.deltaTime;
-
-        if (timer >= attackTwo.attackRollback)
+        if (!attacking && timer > currentAttack.attackRollback)
         {
-            if (InventoryPanel.activeSelf == false && DealthPanel.activeSelf == false && PausePanel.activeSelf == false)
+            // Поиск ближайшего врага
+            enemies = Physics.OverlapSphere(transform.position, maxDistance, enemyLayer);
+            if (enemies.Length > 0)
             {
-                if (Input.GetKeyDown(KeyCode.Mouse0))
+                currentEnemy = enemies[0];
+                float closestDistance = Vector3.Distance(transform.position, currentEnemy.transform.position);
+                foreach (Collider enemy in enemies)
                 {
-                    timer = 0;
-                    ThrowRay();
-                }
-            }
-        }
-    }
-
-    void ShootThree()
-    {
-        timer += Time.deltaTime;
-
-        if (timer >= attackThree.attackRollback)
-        {
-            if (InventoryPanel.activeSelf == false && DealthPanel.activeSelf == false && PausePanel.activeSelf == false)
-            {
-                if (Input.GetKey(KeyCode.Mouse0))
-                {
-                    ButtonTimer += Time.deltaTime * 33.3f;
-                    if (ChargeAttack.value == 100)
+                    float distance = Vector3.Distance(transform.position, enemy.transform.position);
+                    if (distance < closestDistance)
                     {
-                        timer = 0;
-                        ButtonTimer = 0;
-                        SuperAttack();
+                        currentEnemy = enemy;
+                        closestDistance = distance;
                     }
                 }
-                else if (Input.GetKeyUp(KeyCode.Mouse0))
-                {
-                    timer = 0;
-                    ButtonTimer = 0;
-                }
-            }
-        }
-    }
 
-    void AimModel()
-    { 
-
-        //if (Input.GetKeyDown(KeyCode.R))
-        //{
-        //    if (aimMode == false)
-        //    {
-        //        aimMode = true;
-        //        virtualCamera.Priority = 11;
-        //        CenterScreen.transform.GetChild(0).gameObject.SetActive(true);
-        //        status._animator.SetBool("aimMode", true);
-        //        status.normallSpeed = status.walkingSpeed;
-        //        status.walkingSpeed = status.aimModeSpeed;
-        //        status.smoothTime = 0.075f;
-        //    }
-        //    else if (aimMode == true)
-        //    {
-        //        aimMode = false;
-        //        virtualCamera.Priority = 9;
-        //        CenterScreen.transform.GetChild(0).gameObject.SetActive(false);
-        //        status._animator.SetBool("aimMode", false);
-        //        status.walkingSpeed = status.normallSpeed;
-        //        status.smoothTime = 0.075f;
-        //    }
-        //}
-
-        Cinemachine3rdPersonFollow PersonFollow = virtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            if (PersonFollow.CameraSide == 0) { PersonFollow.CameraSide = 1; }
-            else if (PersonFollow.CameraSide == 1) { PersonFollow.CameraSide = 0; }
-        }
-
-        timer += Time.deltaTime;
-
-        if (timer >= attackTwo.attackRollback)
-        {
-            if (InventoryPanel.activeSelf == false && DealthPanel.activeSelf == false && PausePanel.activeSelf == false)
-            {
                 if (Input.GetKeyDown(KeyCode.Mouse0))
                 {
-                    timer = 0;
-                    AimAttack();
+                    timer = 0f;
+                    status.charMenegment = false;
+                    transform.LookAt(currentEnemy.transform.position, Vector3.up);
+                    animator.SetBool("Attack1", true);
                 }
+
+                Invoke("ResetAttack", currentAttack.attackRollback);
             }
         }
     }
 
-    public void ThrowFireBall()
+    private void ResetAttack()
     {
-        if (status.mana >= attackOne.consumption)
-        {
-            _attack = Instantiate(attackOne.objectPrefab, rightHand.position, rightHand.rotation);
-            indicators.TakeMana(attackOne.consumption);
-            _attack.GetComponent<FireBall>();
-            animator.SetBool("Attack1", false);
-        }
-    }
-
-    void ThrowRay()
-    {
-        if (status.mana >= attackTwo.consumption)
-        {
-            _attack = Instantiate(attackTwo.objectPrefab, rightHand.position, rightHand.rotation);
-            indicators.TakeMana(attackTwo.consumption);
-            _attack.GetComponent<Explosion>();
-        }
-    }
-
-    void SuperAttack()
-    {
-        if (status.mana >= attackThree.consumption)
-        {
-            _attack = Instantiate(attackThree.objectPrefab, rightHand.position, rightHand.rotation);
-            indicators.TakeMana(attackThree.consumption);
-            _attack.GetComponent<FireBall>();
-        }
-    }
-
-    void AimAttack()
-    {
-        if (status.mana >= attackFour.consumption)
-        {
-            _attack = Instantiate(attackFour.objectPrefab, rightHand.position, _camera.transform.rotation);
-            indicators.TakeMana(attackFour.consumption);
-            _attack.GetComponent<Aimball>().Fire();
-        }
+        attacking = false;
     }
 
     public void StartAnimation()
     {
-        status.charMenegment = false;
+        // Выстрел самонаводящегося снаряда в ближайшего врага
+        GameObject centerOfEnemy = currentEnemy.GetComponent<EnemyGTP>().centerOfEnemy.gameObject;
+        currentSpell = Instantiate(attackOne.objectPrefab, rightHand.position, rightHand.transform.rotation);
+        currentSpell.GetComponent<FireBall>().SetTarget(centerOfEnemy.transform, currentAttack.speed);
+
+        // Запуск таймера для следующей атаки
+        attacking = true;
     }   
     
     public void EndAnimation()
     {
         status.charMenegment = true;
+        animator.SetBool("Attack1", false);
     }
 }

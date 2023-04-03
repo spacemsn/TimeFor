@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.IO;
-using UnityEngine.EventSystems;
 
 public class CharacterStatus : MonoCache
 {
     [Header("Компоненты игрока")]
-    [HideInInspector] public Animator _animator;
+    [SerializeField] private Animator animator;
+    [SerializeField] public Camera camera;
+    [SerializeField] private Rigidbody rb;
 
     [Header("CharacterStatus")]
     public Vector3 position;
@@ -20,41 +20,34 @@ public class CharacterStatus : MonoCache
     [Header("CharacterIndicators")]
     public CharacterIndicators _indicators;
     public int health;
-    public int mana;
     public float stamina;
 
-    [Header("CharacterMove")]
-    public CharacterMove _move;
+    [Header("PlayerMove")]
+    public CharacterMove move;
+
+    [Header("CharacterAbilities")]
+    public CharacterAbilities characterAbilities;
 
     [Header("Характеристики персонажа")]
-    public float aimModeSpeed = 4.5f;
-    public float walkingSpeed = 7.5f;
-    public float runningSpeed = 11.5f;
-    public float normallSpeed;
-    public float jumpValue = 8.0f;
-    public float gravity = 20.0f;
-    public float smoothTime;
-    public float debuff = 0.15f;
-    public float smoothVelocity;
-    public bool charMenegment = true;
-
-    [SerializeField] Vector3 moveDirection;
-    [SerializeField] Vector3 playerVelocity;
-
-    private CharacterController controller;
-    private Vector3 _playerVelocity;
-    private bool groundedPlayer;
-    private float playerSpeed = 2.0f;
-    private float jumpHeight = 1.0f;
-    private float gravityValue = -9.81f;
-
-    public GameObject cube;
+    [SerializeField] Vector3 movement;
+    [SerializeField] private float moveSpeed = 1.5f;
+    [SerializeField] private float runSpeed = 3.5f;
+    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] private float maxStamina = 100f;
+    [SerializeField] private float debuff = 0.15f;
+    [SerializeField] private float minStaminaToRun = 25f;
+    [SerializeField] public float smoothTime;
+    [SerializeField] private float smoothVelocity;
+    [HideInInspector] public bool charMenegment = true;
+    [SerializeField] private bool isGrounded = true;
 
     private void Start()
     {
         #region Components
 
-        _animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
+        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
         #endregion
 
@@ -82,12 +75,17 @@ public class CharacterStatus : MonoCache
 
         #endregion
 
-        #region CharacterMove
+        #region CharacterAbilities
 
-        _move = this.GetComponent<CharacterMove>();
+        characterAbilities = this.GetComponent<CharacterAbilities>();
 
         #endregion
 
+        #region PlayerGtp
+
+        move = this.GetComponent<CharacterMove>();
+
+        #endregion
     }
 
     private void UpdateStatus()
@@ -110,41 +108,104 @@ public class CharacterStatus : MonoCache
 
         #endregion
 
-        #region CharacterMove
+        #region PlayerGtp
 
-        _move = this.GetComponent<CharacterMove>();
+        move = this.GetComponent<CharacterMove>();
 
         #endregion
     }
 
-    public override void OnTick()
+    private void Update()
+    {
+        Status();
+    }
+
+    private void FixedUpdate()
     {
         Movement();
-        Status();
         UpdateStatus();
     }
 
-    private void Movement()
+    private void Movement() // for rigidbody
     {
-        if (_move.controller.isGrounded && playerVelocity.y < 0)
+        if (charMenegment)
         {
-            playerVelocity.y = 0f;
-        }
+            movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
-        moveDirection = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        if (Input.GetKeyDown(KeyCode.Space) && _move.controller.isGrounded) // Прыжок
+            if (movement.magnitude > Mathf.Abs(0.05f))
+            {
+                float rotationAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + camera.transform.eulerAngles.y;
+                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationAngle, ref smoothVelocity, smoothTime);
+                transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                movement = Quaternion.Euler(0f, rotationAngle, 0f) * Vector3.forward;
+            }
+
+            // Прыжок
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            {
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                animator.SetBool("Jump", true);
+                isGrounded = false;
+            }
+
+            move.Move(movement, stamina, runSpeed, moveSpeed, debuff, maxStamina);
+        }
+        else
         {
-            playerVelocity.y = 0f;
-            playerVelocity.y += Mathf.Sqrt(jumpValue * -3.0f * gravity);
-        }
+            //Stop Moving/Translating
+            rb.velocity = Vector3.zero;
 
-        playerVelocity.y += gravity * Time.deltaTime;
-        _move.Move(moveDirection, playerVelocity, stamina, jumpValue, gravity, smoothTime, smoothVelocity, walkingSpeed, runningSpeed, normallSpeed, debuff, charMenegment);
+            //Stop rotating
+            rb.angularVelocity = Vector3.zero;
+        }
+    }
+
+    public void LookAt(GameObject currentEnemy)
+    {
+        if (charMenegment)
+        {
+            movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+
+            if (movement.magnitude > Mathf.Abs(0.05f))
+            {
+                float rotationAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + currentEnemy.transform.eulerAngles.y;
+                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationAngle, ref smoothVelocity, smoothTime);
+                transform.rotation = Quaternion.Euler(0f, angle, 0f);
+                movement = Quaternion.Euler(0f, rotationAngle, 0f) * Vector3.forward;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            {
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                animator.SetBool("Jump", true);
+                isGrounded = false;
+            }
+
+            //transform.LookAt(currentEnemy.transform.position, Vector3.up);
+            move.Move(movement, stamina, runSpeed, moveSpeed, debuff, maxStamina);
+        }
+        else
+        {
+            //Stop Moving/Translating
+            rb.velocity = Vector3.zero;
+
+            //Stop rotating
+            rb.angularVelocity = Vector3.zero;
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            animator.SetBool("Jump", false);
+            isGrounded = true;
+        }
     }
 
     private void Status()
     {
-        _indicators.Indicators(health, mana, stamina);
+        _indicators.Indicators(health, stamina);
     }
 
     #region Save and Load Json
@@ -159,9 +220,8 @@ public class CharacterStatus : MonoCache
 
         levelId = data.level;
         health = data.health;
-        mana = data.mana;
         stamina = data.stamina;
-        _move.TransportPlayer(data.position);
+        move.TransportPlayer(data.position);
     }
     #endregion
 }

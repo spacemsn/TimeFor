@@ -1,119 +1,49 @@
 using UnityEngine;
-using System.Collections;
-using Unity.VisualScripting;
 
-public class CharacterMove : MonoCache
+public class CharacterMove : MonoBehaviour
 {
     [Header("Компоненты")]
-    [SerializeField] CharacterStatus status;
-    [SerializeField] public CharacterController controller;
-    [SerializeField] public Rigidbody rb;
-    [SerializeField] Animator animator;
-    [SerializeField] Camera _camera;
-    [SerializeField] CharacterIndicators indicators;
-    [SerializeField] CharacterAbilities abilities;
-    [SerializeField] CameraManager cameraManager;
-    [SerializeField] Vector3 playerVelocity;
-    private bool groundedPlayer;
+    [SerializeField] private CharacterStatus status;
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Animator animator;
+    [SerializeField] private CharacterIndicators indicators;
+    [SerializeField] private CharacterAbilities abilities;
 
-    private void Start()
+    void Start()
     {
         indicators = GetComponent<CharacterIndicators>();
         abilities = GetComponent<CharacterAbilities>();
-        controller = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         status = GetComponent<CharacterStatus>();
-        cameraManager = GetComponent<CameraManager>();
     }
 
-    public void Move(Vector3 moveDirection, Vector3 playerVelocity, float stamina, float jumpValue, float gravity, float smoothTime, float smoothVelocity, float walkingSpeed, float runningSpeed, float normallSpeed, float debuff, bool charMenegment)
+    public void Move(Vector3 movement, float stamina, float runSpeed, float moveSpeed, float debuff, float maxStamina)
     {
-        groundedPlayer = controller.isGrounded;
-        _camera = cameraManager._camera;
+        animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(movement, 0.35f).magnitude);
 
-        if (groundedPlayer && playerVelocity.y < 0)
+        // Ускоряемся, если бежим
+        float speed = Input.GetKey(KeyCode.LeftShift) && stamina > 0 ? runSpeed : moveSpeed;
+
+        // Тратим выносливость при беге
+        if (Input.GetKey(KeyCode.LeftShift) && stamina > 0 && movement.magnitude > 0)
         {
-            playerVelocity.y = 0f;
+            indicators.TakeStamina(debuff * 2);
+            animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(movement, 1).magnitude);
+        }
+        // Восстанавливаем выносливость при беге, если не бежим
+        else if (stamina < maxStamina)
+        {
+            indicators.SetStamina(debuff);
+            animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(movement, 0.35f).magnitude);
         }
 
-        if (charMenegment == true)
-        {
-            animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(moveDirection, 0.35f).magnitude);
-
-            if (moveDirection.magnitude > Mathf.Abs(0.05f))
-            {
-                float rotationAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + _camera.transform.eulerAngles.y;
-                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationAngle, ref smoothVelocity, smoothTime);
-                transform.rotation = Quaternion.Euler(0f, angle, 0f);
-                moveDirection = Quaternion.Euler(0f, rotationAngle, 0f) * Vector3.forward;
-            }
-
-            if (Input.GetKey(KeyCode.LeftShift) && moveDirection.magnitude > Mathf.Abs(0.05f)) // Бег
-            {
-                indicators.TakeStamina(debuff * 2);
-                if (stamina > 0)
-                {
-                    controller.Move(moveDirection.normalized * runningSpeed * Time.deltaTime);
-                    animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(moveDirection, 1).magnitude);
-                }
-                else
-                {
-                    controller.Move(moveDirection.normalized * walkingSpeed * Time.deltaTime);
-                    animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(moveDirection, 0.35f).magnitude);
-                }
-            }
-            else // Обычное состояние
-            {
-                controller.Move(moveDirection * walkingSpeed * Time.deltaTime);
-                indicators.SetStamina(debuff);
-            }
-
-            //if (moveDirection != Vector3.zero)
-            //{
-            //    gameObject.transform.forward = moveDirection;
-            //}
-
-            if (Input.GetButtonDown("Jump") && groundedPlayer)
-            {
-                animator.SetBool("Jump", true);
-                playerVelocity.y += Mathf.Sqrt(jumpValue * -3.0f * gravity);
-            } else { animator.SetBool("Jump", false); }
-            playerVelocity.y += gravity * Time.deltaTime;
-            controller.Move(playerVelocity * Time.deltaTime);
-        }
-        else if (charMenegment == false)
-        {
-
-        }
-
-    } // Движение персонажа ПК версии
+        // Двигаем персонажа
+        Vector3 velocity = movement.normalized * speed; velocity.y = rb.velocity.y; rb.velocity = velocity;
+    }
 
     public void TransportPlayer(Vector3 _position)
     {
-        controller.enabled = false;
         this.transform.position = _position;
-        controller.enabled = true;
     }
-
-    //private void SimpleMove() // Управление персонажем без прыжков и тд
-    //{
-
-    //    deltaH = Input.GetAxisRaw("Horizontal");
-    //    deltaV = Input.GetAxisRaw("Vertical");
-
-
-    //    Vector3 moveDirection = new Vector3(deltaH, 0, deltaV);
-    //    animator.SetFloat("isRun", Vector3.ClampMagnitude(moveDirection, 1).magnitude);
-
-    //    if (moveDirection.magnitude > Mathf.Abs(0.05f))
-    //    {
-    //        float rotationAngle = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
-    //        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationAngle, ref smoothVelocity, smoothTime);
-    //        transform.rotation = Quaternion.Euler(0f, angle, 0f);
-    //        Vector3 moveCharacter = Quaternion.Euler(0f, rotationAngle, 0f) * Vector3.forward;
-
-    //        controller.SimpleMove(Vector3.ClampMagnitude(moveCharacter, 1) * walkingSpeed);
-    //    }
-    //}
 }

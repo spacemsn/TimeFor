@@ -1,31 +1,85 @@
-using System.Collections;
-using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GloballSetting : MonoCache
 {
-    InventoryPanel inventoryPanel;
-    PauseMenu pauseMenu;
+    [Header("Панели")]
+    [SerializeField] public PauseMenu pausePanel;
+    [SerializeField] public InventoryPanel inventoryPanel;
+    [SerializeField] public dealthPanel dealthPanel;
+    [SerializeField] public ScrollCamera scrollCamera;
+    [SerializeField] public SettingsMenu settingsMenu;
+
+    [Header("Объекты")]
+    public GameObject character;
+
+    [Header("Управление курсором")]
+    [SerializeField] bool isVisible = true;
+    [SerializeField] private CinemachineFreeLook freeLook;
 
     private void Start()
     {
+        pausePanel = GetComponent<PauseMenu>();
         inventoryPanel = GetComponent<InventoryPanel>();
-        pauseMenu = GetComponent<PauseMenu>();
+        dealthPanel = GetComponent<dealthPanel>();
+        scrollCamera = GetComponent<ScrollCamera>();
+
+        character = GameObject.FindGameObjectWithTag("Player");
+        freeLook = GameObject.FindGameObjectWithTag("FreeLook").GetComponent<CinemachineFreeLook>();
+
+        notVisible();
     }
 
     public override void OnTick()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) OpenPause();
-        else if (Input.GetKeyDown(KeyCode.Tab)) OpenInventory(); 
+        if (Input.GetKeyDown(KeyCode.Escape) && pausePanel.isOpenPanel == false)
+        {
+            pausePanel.OpenMenu();
+        }
+        else if (Input.GetKeyDown(KeyCode.Tab) && pausePanel.isOpenPanel == false)
+        {
+            inventoryPanel.OpenInventory();
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftAlt)) 
+        { 
+            Visible();
+        }
+        else if (Input.GetKeyUp(KeyCode.LeftAlt)) 
+        { 
+            notVisible();
+        }
     }
 
-    void OpenPause()
+    public void Visible()
     {
-        pauseMenu.OpenMenu();
+        if (isVisible == false)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            isVisible = true;
+            freeLook.m_XAxis.m_InputAxisName = "";
+            freeLook.m_YAxis.m_InputAxisName = "";
+            freeLook.m_YAxis.m_InputAxisValue = 0;
+            freeLook.m_XAxis.m_InputAxisValue = 0;
+        }
     }
 
-    void OpenInventory()
+    public void notVisible()
     {
-        if (pauseMenu.isOpenPanel == false) inventoryPanel.OpenInventory();
+        if (isVisible)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            isVisible = false;
+            freeLook.m_XAxis.m_InputAxisName = "Mouse X";
+            freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
+        }
+    }
+
+    private void OnEnterButton()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftAlt)) { Visible(); }
+        else if (Input.GetKeyUp(KeyCode.LeftAlt)) { notVisible(); }
     }
 }

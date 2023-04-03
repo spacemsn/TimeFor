@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum ObjectType { Default, Potion, Attack, Instrument }
+public enum ObjectType { Default, Potion, Attack, Instrument, Enemies }
 public class ItemObject: ScriptableObject
 {
     [Header("Характеристики стандартного предмета")]
