@@ -64,7 +64,7 @@ public class CharacterInteraction : MonoCache
 
     private void Radius() // Метод взаимодействия с объектами для передвижения
     {
-        var Inventory = GlobalSettings.GetComponent<InventoryPanel>();
+        var Inventory = GlobalSettings.GetComponent<InventoryScript>();
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
 

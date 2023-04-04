@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class CharacterAbilities : MonoCache
 {
@@ -15,14 +14,15 @@ public class CharacterAbilities : MonoCache
 
 
     [Header("Интерфейс")]
-    [SerializeField] private GameObject InventoryPanel;
-    [SerializeField] private GameObject DealthPanel;
-    [SerializeField] private GameObject PausePanel;
-    [SerializeField] private CharacterStatus status;
-    [SerializeField] private CharacterIndicators indicators;
-    [SerializeField] private QuickslotInventory inventory;
-    [SerializeField] private GameObject GlobalSettings;
-    [SerializeField] private Animator animator;
+    [SerializeField] public CharacterIndicators indicators;
+    [SerializeField] public GloballSetting globalSettings;
+    [SerializeField] public CharacterStatus status;
+    [SerializeField] public Animator animator;
+
+    [Header("UI")]
+    [SerializeField] public GameObject InventoryPanel;
+    [SerializeField] public GameObject DealthPanel;
+    [SerializeField] public GameObject PausePanel;
 
     [Header("Виды атак")]
     [SerializeField] private SkillObject attackOne;
@@ -38,19 +38,20 @@ public class CharacterAbilities : MonoCache
 
     private void Start()
     {
-        GlobalSettings = GameObject.Find("Global Settings");
-        if (GlobalSettings != null)
-        {
-            InventoryPanel = GlobalSettings.GetComponent<GloballSetting>().inventoryPanel.gameObject;
-            DealthPanel = GlobalSettings.GetComponent<GloballSetting>().dealthPanel.gameObject;
-            PausePanel = GlobalSettings.GetComponent<GloballSetting>().pausePanel.gameObject;
-        }
-        rightHand = GameObject.Find("ArmSmall").transform;
-        //inventory = GameObject.Find("SkillsPanel").GetComponent<QuickslotInventory>();
-
         indicators = GetComponent<CharacterIndicators>();
         status = GetComponent<CharacterStatus>();
         animator = GetComponent<Animator>();
+
+        globalSettings = GameObject.Find("Global Settings").GetComponent<GloballSetting>();
+        //inventory = GameObject.Find("SkillsPanel").GetComponent<QuickslotInventory>();
+        if (globalSettings != null)
+        {
+            InventoryPanel = globalSettings.InventoryPanel;
+            DealthPanel = globalSettings.DeathPanel;
+            PausePanel = globalSettings.PausePanel;
+        }
+        rightHand = GameObject.Find("ArmSmall").transform;
+
     }
 
     private void FixedUpdate()

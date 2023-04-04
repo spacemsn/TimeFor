@@ -5,48 +5,83 @@ using UnityEngine.UI;
 public class GloballSetting : MonoCache
 {
     [Header("Панели")]
-    [SerializeField] public PauseMenu pausePanel;
-    [SerializeField] public InventoryPanel inventoryPanel;
-    [SerializeField] public dealthPanel dealthPanel;
-    [SerializeField] public ScrollCamera scrollCamera;
-    [SerializeField] public SettingsMenu settingsMenu;
+    [SerializeField] public PauseScript pauseScript;
+    [SerializeField] public InventoryScript inventoryScript;
+    [SerializeField] public DeathScript deathScript;
+    [SerializeField] public ScrollScript scrollScript;
+    [SerializeField] public SettingsScript settingsScript;
+
+    [Header("UI")]
+    public GameObject InventoryPanel;
+    public GameObject IndecatorPanel;
+    public GameObject DeathPanel;
+    public GameObject PausePanel;
+    public GameObject SettingPanel;
+
+    private Slider SensitivityYSlider;
+    private Slider SensitivityXSlider;
 
     [Header("Объекты")]
     public GameObject character;
 
     [Header("Управление курсором")]
     [SerializeField] bool isVisible = true;
-    [SerializeField] private CinemachineFreeLook freeLook;
+    [SerializeField] public CinemachineFreeLook freeLook;
 
     private void Start()
     {
-        pausePanel = GetComponent<PauseMenu>();
-        inventoryPanel = GetComponent<InventoryPanel>();
-        dealthPanel = GetComponent<dealthPanel>();
-        scrollCamera = GetComponent<ScrollCamera>();
+        #region Find Component
+
+        pauseScript = GetComponent<PauseScript>();
+        inventoryScript = GetComponent<InventoryScript>();
+        deathScript = GetComponent<DeathScript>();
+        scrollScript = GetComponent<ScrollScript>();
+        settingsScript = GetComponent<SettingsScript>();
 
         character = GameObject.FindGameObjectWithTag("Player");
         freeLook = GameObject.FindGameObjectWithTag("FreeLook").GetComponent<CinemachineFreeLook>();
 
+        #endregion
+
+        #region Find UI
+
+        InventoryPanel = GameObject.Find("InventoryPanel");
+        IndecatorPanel = GameObject.Find("IndecatorsPanel");
+        DeathPanel = GameObject.Find("DeathPanel");
+        PausePanel = GameObject.Find("PausePanel");
+        SettingPanel = GameObject.Find("SettingPanel");
+
+        SensitivityYSlider = GameObject.Find("SensitivityY").GetComponent<Slider>();
+        SensitivityXSlider = GameObject.Find("SensitivityX").GetComponent<Slider>();
+
+        #endregion 
+
         notVisible();
+
+        settingsScript.SetComponent(SettingPanel, PausePanel, freeLook, SensitivityYSlider, SensitivityXSlider);
+        scrollScript.SetComponent(freeLook);
+        inventoryScript.SetComponent(InventoryPanel, character.GetComponent<CharacterStatus>(), freeLook);
+        deathScript.SetComponent(DeathPanel);
+        pauseScript.SetComponent(PausePanel);
+
     }
 
     public override void OnTick()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && pausePanel.isOpenPanel == false)
+        if (Input.GetKeyDown(KeyCode.Escape) && pauseScript.isOpenPanel == false)
         {
-            pausePanel.OpenMenu();
+            pauseScript.OpenMenu();
         }
-        else if (Input.GetKeyDown(KeyCode.Tab) && pausePanel.isOpenPanel == false)
+        else if (Input.GetKeyDown(KeyCode.Tab) && pauseScript.isOpenPanel == false)
         {
-            inventoryPanel.OpenInventory();
+            inventoryScript.OpenInventory();
         }
-        else if (Input.GetKeyDown(KeyCode.LeftAlt)) 
-        { 
+        else if (Input.GetKeyDown(KeyCode.LeftAlt))
+        {
             Visible();
         }
-        else if (Input.GetKeyUp(KeyCode.LeftAlt)) 
-        { 
+        else if (Input.GetKeyUp(KeyCode.LeftAlt))
+        {
             notVisible();
         }
     }

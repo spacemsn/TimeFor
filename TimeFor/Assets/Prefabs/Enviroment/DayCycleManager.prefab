@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeOfDay: 0
-  DayDuraction: 1200
+  DayDuraction: 120
   SunCurve:
     serializedVersion: 2
     m_Curve:
@@ -230,7 +230,7 @@ MonoBehaviour:
     m_PostInfinity: 1
     m_RotationOrder: 4
   DaySkybox: {fileID: 2100000, guid: 59573b088aaea0442bf29e0a0e9d1339, type: 2}
-  NightSkybox: {fileID: 2100000, guid: e2ba30730d84c6c4796b58a20673ff2e, type: 2}
+  NightSkybox: {fileID: 2100000, guid: 59ee870bea4845b49a9e94963a88f9d5, type: 2}
   Sun: {fileID: 1349466593345409402}
   Moon: {fileID: 8713997135349806930}
   Stars: {fileID: 5176426190299098309}

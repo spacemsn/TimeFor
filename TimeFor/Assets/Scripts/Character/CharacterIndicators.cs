@@ -13,14 +13,14 @@ public class CharacterIndicators : MonoCache
 
     [SerializeField] Slider healthBar;
     [SerializeField] Slider staminaBar;
-    [SerializeField] dealthPanel dealthCharacter;
+    [SerializeField] DeathScript dealthCharacter;
     [SerializeField] CharacterStatus status;
 
     private void Start()
     {
         healthBar = GameObject.Find("HealthBar").GetComponent<Slider>();
         staminaBar = GameObject.Find("StaminaBar").GetComponent<Slider>();
-        dealthCharacter = GameObject.Find("Global Settings").GetComponent<dealthPanel>();
+        dealthCharacter = GameObject.Find("Global Settings").GetComponent<DeathScript>();
         status = GetComponent<CharacterStatus>();
     }
 
