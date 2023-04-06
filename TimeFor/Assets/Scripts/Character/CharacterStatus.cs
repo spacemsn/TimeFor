@@ -30,16 +30,19 @@ public class CharacterStatus : MonoCache
 
     [Header("Характеристики персонажа")]
     [SerializeField] Vector3 movement;
-    [SerializeField] private float moveSpeed = 1.5f;
-    [SerializeField] private float runSpeed = 3.5f;
-    [SerializeField] private float jumpForce = 5f;
+    [SerializeField] public float moveSpeed = 1.5f;
+    [SerializeField] public float runSpeed = 3.5f;
+    [SerializeField] public float jumpForce = 5f;
     [SerializeField] private float maxStamina = 100f;
-    [SerializeField] private float debuff = 0.15f;
+    [SerializeField] public float debuff = 0.15f;
     [SerializeField] private float minStaminaToRun = 25f;
     [SerializeField] public float smoothTime;
     [SerializeField] private float smoothVelocity;
     [HideInInspector] public bool charMenegment = true;
     [SerializeField] private bool isGrounded = true;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundDistance = 0.4f;
+    [SerializeField] private LayerMask groundMask;
 
     private void Start()
     {
@@ -130,6 +133,7 @@ public class CharacterStatus : MonoCache
     {
         if (charMenegment)
         {
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
             movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
             if (movement.magnitude > Mathf.Abs(0.05f))
@@ -145,61 +149,15 @@ public class CharacterStatus : MonoCache
             {
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 animator.SetBool("Jump", true);
-                isGrounded = false;
             }
+            else { animator.SetBool("Jump", false); }
 
             move.Move(movement, stamina, runSpeed, moveSpeed, debuff, maxStamina);
         }
         else
         {
-            //Stop Moving/Translating
             rb.velocity = Vector3.zero;
-
-            //Stop rotating
             rb.angularVelocity = Vector3.zero;
-        }
-    }
-
-    public void LookAt(GameObject currentEnemy)
-    {
-        if (charMenegment)
-        {
-            movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-
-            if (movement.magnitude > Mathf.Abs(0.05f))
-            {
-                float rotationAngle = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg + currentEnemy.transform.eulerAngles.y;
-                float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, rotationAngle, ref smoothVelocity, smoothTime);
-                transform.rotation = Quaternion.Euler(0f, angle, 0f);
-                movement = Quaternion.Euler(0f, rotationAngle, 0f) * Vector3.forward;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-            {
-                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                animator.SetBool("Jump", true);
-                isGrounded = false;
-            }
-
-            //transform.LookAt(currentEnemy.transform.position, Vector3.up);
-            move.Move(movement, stamina, runSpeed, moveSpeed, debuff, maxStamina);
-        }
-        else
-        {
-            //Stop Moving/Translating
-            rb.velocity = Vector3.zero;
-
-            //Stop rotating
-            rb.angularVelocity = Vector3.zero;
-        }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            animator.SetBool("Jump", false);
-            isGrounded = true;
         }
     }
 

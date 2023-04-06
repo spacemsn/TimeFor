@@ -174,7 +174,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 560b2baf9d305b146897aa8463fecbcb, type: 2}
+  - {fileID: 2100000, guid: 09858ef0801d33d489b54b7eb4f0e8b2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -253,3 +253,4 @@ MonoBehaviour:
   scaleDuraction: 0.015
   speed: 3
   liveTime: 10
+  EnemyPos: {x: 0, y: 0, z: 0}

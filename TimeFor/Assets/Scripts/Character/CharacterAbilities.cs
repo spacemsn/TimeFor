@@ -129,7 +129,7 @@ public class CharacterAbilities : MonoCache
     public void StartAnimation()
     {
         // Выстрел самонаводящегося снаряда в ближайшего врага
-        GameObject centerOfEnemy = currentEnemy.GetComponent<EnemyGTP>().centerOfEnemy.gameObject;
+        GameObject centerOfEnemy = currentEnemy.GetComponent<EnemyBehavior>().centerOfEnemy.gameObject;
         currentSpell = Instantiate(attackOne.objectPrefab, rightHand.position, rightHand.transform.rotation);
         currentSpell.GetComponent<FireBall>().SetTarget(centerOfEnemy.transform, currentAttack.speed);
 

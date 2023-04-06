@@ -22,23 +22,19 @@ public class CharacterMove : MonoBehaviour
     {
         animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(movement, 0.35f).magnitude);
 
-        // Ускоряемся, если бежим
         float speed = Input.GetKey(KeyCode.LeftShift) && stamina > 0 ? runSpeed : moveSpeed;
 
-        // Тратим выносливость при беге
         if (Input.GetKey(KeyCode.LeftShift) && stamina > 0 && movement.magnitude > 0)
         {
             indicators.TakeStamina(debuff * 2);
             animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(movement, 1).magnitude);
         }
-        // Восстанавливаем выносливость при беге, если не бежим
-        else if (stamina < maxStamina)
+        else if (!Input.GetKey(KeyCode.LeftShift) && stamina < maxStamina)
         {
             indicators.SetStamina(debuff);
             animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(movement, 0.35f).magnitude);
         }
 
-        // Двигаем персонажа
         Vector3 velocity = movement.normalized * speed; velocity.y = rb.velocity.y; rb.velocity = velocity;
     }
 

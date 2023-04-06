@@ -2570,9 +2570,10 @@ MonoBehaviour:
   currentPoint: 0
   distanceMax: 10
   chaseTime: 5
+  attackTime: 10
   originPos: 0
   playerPos: 0
-  enemyBehavior: 0
+  enemyStage: 0
 --- !u!1 &6860551720061837384
 GameObject:
   m_ObjectHideFlags: 0
