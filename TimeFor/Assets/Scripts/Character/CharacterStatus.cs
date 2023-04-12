@@ -3,6 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class CharacterStatus : MonoCache
 {
+    [Header("Игрок")]
+    public string playerName;
+
     [Header("Компоненты игрока")]
     [SerializeField] private Animator animator;
     [SerializeField] public Camera camera;
@@ -11,8 +14,11 @@ public class CharacterStatus : MonoCache
     [Header("CharacterStatus")]
     public Vector3 position;
 
-    [Header("CharacterPrefab")]
-    public GameObject _characterPrefab; 
+    [Header("Сохранение")]
+    [SerializeField] private CharacterObject player;
+
+    [Header("Инвентарь")]
+    public InventoryScript inventory;
 
     [Header("CharacterLevel")]
     public int levelId;
@@ -54,12 +60,6 @@ public class CharacterStatus : MonoCache
 
         #endregion
 
-        #region GameObject
-
-        _characterPrefab = this.gameObject;
-
-        #endregion
-
         #region CharacterLevel
 
         levelId = SceneManager.GetActiveScene().buildIndex;
@@ -69,6 +69,12 @@ public class CharacterStatus : MonoCache
         #region CharacterStatus
 
         position = this.transform.position;
+
+        #endregion
+
+        #region InventoryScript
+
+        inventory = GetComponent<InventoryScript>();
 
         #endregion
 
@@ -84,7 +90,7 @@ public class CharacterStatus : MonoCache
 
         #endregion
 
-        #region PlayerGtp
+        #region CharacterMove
 
         move = this.GetComponent<CharacterMove>();
 
@@ -166,20 +172,18 @@ public class CharacterStatus : MonoCache
         _indicators.Indicators(health, stamina);
     }
 
-    #region Save and Load Json
+    #region Save and Load
     public void SavePlayer()
     {
-        SaveSystem.SavePlayer(this);
+        //SaveSystem.SavePlayer(this);
+        player.Save(this);
     }
 
     public void LoadPlayer()
     {
-        PlayerData data = SaveSystem.loadPlayer();
-
-        levelId = data.level;
-        health = data.health;
-        stamina = data.stamina;
-        move.TransportPlayer(data.position);
+        //PlayerData data = SaveSystem.loadPlayer();
+        player.Load(this);
+        move.TransportPlayer(player.position);
     }
     #endregion
 }

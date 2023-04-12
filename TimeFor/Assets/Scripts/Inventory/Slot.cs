@@ -6,6 +6,7 @@ public class Slot : MonoBehaviour
 {
     public Item item;
     public FoodItem foodItem;
+    public int Id;
     public int amount;
     public bool isEmpty = true;
     public GameObject drag;

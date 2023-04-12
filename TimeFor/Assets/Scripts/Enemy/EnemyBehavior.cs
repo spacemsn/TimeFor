@@ -70,7 +70,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         healthBar.value = hp;
         originPos = Vector3.Distance(transform.position, originalPosition);
-        playerPos = Vector3.Distance(transform.position, player.position);
+        if (player != null) { playerPos = Vector3.Distance(transform.position, player.position); }
 
         switch (enemyStage)
         {
@@ -168,19 +168,23 @@ public class EnemyBehavior : MonoBehaviour
 
     private EnemyStage CanSeePlayer()
     {
-        //Находим направление до игрока
-        Vector3 direction = player.position - transform.position;
-
-        //Находим угол между направлением до игрока и направлением взгляда врага
-        float angle = Vector3.Angle(direction, transform.forward);
-
-        //Если угол меньше или равен углу обзора и расстояние до игрока меньше или равно расстоянию обнаружения, то игрок обнаружен
-        if (angle <= viewAngle && Vector3.Distance(transform.position, player.position) <= viewDistance || Vector3.Distance(transform.position, player.position) <= viewDistance)
+        if (player != null)
         {
-            return EnemyStage.Chase;
-        }
+            //Находим направление до игрока
+            Vector3 direction = player.position - transform.position;
 
-        return EnemyStage.Patrolling;
+            //Находим угол между направлением до игрока и направлением взгляда врага
+            float angle = Vector3.Angle(direction, transform.forward);
+
+            //Если угол меньше или равен углу обзора и расстояние до игрока меньше или равно расстоянию обнаружения, то игрок обнаружен
+            if (angle <= viewAngle && Vector3.Distance(transform.position, player.position) <= viewDistance || Vector3.Distance(transform.position, player.position) <= viewDistance)
+            {
+                return EnemyStage.Chase;
+            }
+
+            return EnemyStage.Patrolling;
+        }
+        else { return EnemyStage.Patrolling; }
     }
 
     public void TakeDamage(float damageAmount)

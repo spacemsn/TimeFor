@@ -32,14 +32,13 @@ public class GloballSetting : MonoCache
     {
         #region Find Component
 
+        character = GameObject.FindGameObjectWithTag("Player");
+        freeLook = GameObject.FindGameObjectWithTag("FreeLook").GetComponent<CinemachineFreeLook>();
+        inventoryScript = character.GetComponent<InventoryScript>();
         pauseScript = GetComponent<PauseScript>();
-        inventoryScript = GetComponent<InventoryScript>();
         deathScript = GetComponent<DeathScript>();
         scrollScript = GetComponent<ScrollScript>();
         settingsScript = GetComponent<SettingsScript>();
-
-        character = GameObject.FindGameObjectWithTag("Player");
-        freeLook = GameObject.FindGameObjectWithTag("FreeLook").GetComponent<CinemachineFreeLook>();
 
         #endregion
 

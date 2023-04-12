@@ -1,12 +1,13 @@
 using Cinemachine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InventoryScript : MonoCache
 {
     [Header("Инвентарь")]
-    [SerializeField] private GameObject inventoryPanel;
-    [SerializeField] private List<Slot> slots = new List<Slot>();
+    [SerializeField] public GameObject inventoryPanel;
+    [SerializeField] public List<Slot> slots = new List<Slot>();
     [SerializeField] private CinemachineFreeLook freeLook;
     [SerializeField] public bool isOpenPanel = true;
 
@@ -15,7 +16,7 @@ public class InventoryScript : MonoCache
  
     private void Start()
     {
-        globallSetting = GetComponent<GloballSetting>();
+        globallSetting = GameObject.Find("Global Settings").GetComponent<GloballSetting>();
     }
 
     public void SetComponent(GameObject inventoryPanel, CharacterStatus status, CinemachineFreeLook freeLook)
@@ -28,7 +29,7 @@ public class InventoryScript : MonoCache
         {
             if (inventoryPanel.transform.GetChild(i).GetComponent<Slot>() != null)
             {
-                slots.Add(inventoryPanel.transform.GetChild(i).GetComponent<Slot>());
+                slots.Add(inventoryPanel.transform.GetChild(i).GetComponent<Slot>()); slots[i].GetComponent<Slot>().Id = i;
             }
         }
 
@@ -39,15 +40,11 @@ public class InventoryScript : MonoCache
     {
         foreach (Slot slot in slots)
         {
-            if (slot.item == _item)
+            if (slot.item == _item && slot.amount + _amount <= _item.maxAmount)
             {
-                if (slot.amount + _amount <= _item.maxAmount)
-                {
-                    slot.amount += _amount;
-                    slot.itemAmount.text = slot.amount.ToString();
-                    return;
-                }
-                break;
+                slot.amount += _amount;
+                slot.itemAmount.text = slot.amount.ToString();
+                return;
             }
         }
         foreach (Slot slot in slots)
@@ -59,36 +56,7 @@ public class InventoryScript : MonoCache
                 slot.isEmpty = false;
                 slot.SetIcon(_item.icon);
                 slot.itemAmount.text = _amount.ToString();
-                break;
-            }
-        }
-    }
-
-    public void AddItemFood(FoodItem _item, int _amount)
-    {
-        foreach (Slot slot in slots)
-        {
-            if (slot.foodItem == _item)
-            {
-                if (slot.amount + _amount <= _item.maxAmount)
-                {
-                    slot.amount += _amount;
-                    slot.itemAmount.text = slot.amount.ToString();
-                    return;
-                }
-                break;
-            }
-        }
-        foreach (Slot slot in slots)
-        {
-            if (slot.isEmpty == true)
-            {
-                slot.foodItem = _item;
-                slot.amount = _amount;
-                slot.isEmpty = false;
-                slot.SetIcon(_item.icon);
-                slot.itemAmount.text = _amount.ToString();
-                break;
+                return;
             }
         }
     }
