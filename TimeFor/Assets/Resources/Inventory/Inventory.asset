@@ -14,138 +14,138 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slots:
   - Id: 0
+    item: {fileID: 11400000, guid: 258c6e91e553dae468dfec572fdbd3cf, type: 2}
+    amount: 8
+    isEmpty: 0
+  - Id: 1
+    item: {fileID: 11400000, guid: 258c6e91e553dae468dfec572fdbd3cf, type: 2}
+    amount: 4
+    isEmpty: 0
+  - Id: 2
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 3
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 4
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 5
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 6
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 7
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 8
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 9
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 10
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 11
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 12
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 13
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 14
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 15
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 16
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 17
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 18
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 19
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 20
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 21
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 22
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 23
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 24
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 25
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 26
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 27
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 28
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 29
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 30
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 31
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
+  - Id: 32
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 0
-    item: {fileID: 0}
-    amount: 0
-    isEmpty: 1
-  - Id: 0
-    item: {fileID: 0}
-    amount: 0
-    isEmpty: 1
-  - Id: 0
+  - Id: 33
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
