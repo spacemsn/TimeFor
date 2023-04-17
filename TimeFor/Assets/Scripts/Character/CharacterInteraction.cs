@@ -16,7 +16,11 @@ public class CharacterInteraction : MonoCache
 
     [SerializeField] GameObject GlobalSettings;
     private CharacterMove character;
-    public Collider[] colliders;
+    public Collider[] Interactions;
+    public Collider[] NPC;
+
+    public LayerMask maskNPC;
+    public LayerMask maskInteractions;
 
     private void Start()
     {
@@ -67,31 +71,48 @@ public class CharacterInteraction : MonoCache
     {
         var Inventory = gameObject.GetComponent<InventoryScript>();
 
-        colliders = Physics.OverlapSphere(transform.position, radius);
+        Interactions = Physics.OverlapSphere(transform.position, radius, maskInteractions);
 
-        for(int i = 0; i < colliders.Length; i++)
+        for (int i = 0; i < Interactions.Length; i++)
         {
-            Rigidbody rigidbody = colliders[i].attachedRigidbody;
-            if (rigidbody && rigidbody.GetComponent<Rigidbody>().GetComponent<Interactions>() != null)
+            Rigidbody rigidbodyInteractions = Interactions[i].attachedRigidbody;
+            if (rigidbodyInteractions != null)
             {
                 imageE.enabled = true;
                 imageT.enabled = true;
 
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    if (rigidbody.GetComponent<Rigidbody>() != null)
+                    if (rigidbodyInteractions.GetComponent<Rigidbody>() != null)
                     {
-                        rigidbody.GetComponent<Interactions>().PickUp();
+                        rigidbodyInteractions.GetComponent<Interactions>().PickUp();
                     }
                 }
                 if (Input.GetKeyDown(KeyCode.F))
                 {
-                    ItemPrefab item = rigidbody.gameObject.GetComponent<ItemPrefab>();
-                    if (rigidbody.gameObject.GetComponent<ItemPrefab>() != null) 
+                    ItemPrefab item = rigidbodyInteractions.gameObject.GetComponent<ItemPrefab>();
+                    if (rigidbodyInteractions.gameObject.GetComponent<ItemPrefab>() != null)
                     {
                         Inventory.AddItem(item.item, item.amount);
                     }
-                    Destroy(rigidbody.gameObject);
+                    Destroy(rigidbodyInteractions.gameObject);
+                }
+            }
+        }
+
+        NPC = Physics.OverlapSphere(transform.position, radius, maskNPC);
+
+        for (int i = 0; i < NPC.Length; i++)
+        {
+            imageE.enabled = true;
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if(NPC[i].GetComponent<NPCBehaviour>())
+                {
+                    NPCBehaviour NPCbehaviour = NPC[i].GetComponent<NPCBehaviour>();
+                    transform.LookAt(NPCbehaviour.transform, new Vector3( 0, transform.position.y, 0));
+                    NPCbehaviour.StartDialog();
                 }
             }
         }

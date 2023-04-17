@@ -5,6 +5,8 @@ public class CharacterIndicators : MonoCache
 {
     float timer;
 
+    public int lvlPlayer = 1;
+
     private int health;
     public int maxHealth = 100;
 
@@ -24,9 +26,9 @@ public class CharacterIndicators : MonoCache
         status = GetComponent<CharacterStatus>();
     }
 
-    public void Indicators(int health, float stamina)
+    public void Indicators(int health, float stamina, int lvlPlayer)
     {
-        this.health = health; this.stamina = stamina;
+        this.health = health; this.stamina = stamina; this.lvlPlayer = lvlPlayer;
         healthBar.value = health; staminaBar.value = stamina;
     }
 

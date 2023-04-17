@@ -1,35 +1,33 @@
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
-[System.Serializable]
-public class InventorySlot
-{
-    public int Id;
-    public Item item;
-    public int amount;
-    public bool isEmpty = true;
+//[System.Serializable]
+//public class InventorySlot
+//{
+//    public int Id;
+//    public Item item;
+//    public int amount;
+//    public bool isEmpty = true;
 
-    public InventorySlot(int id, Item _item, int _amount)
-    {
-        Id = id;
-        item = _item;
-        amount = _amount;
-        isEmpty = true;
-    }
-}
+//    public InventorySlot(int id, Item _item, int _amount)
+//    {
+//        Id = id;
+//        item = _item;
+//        amount = _amount;
+//        isEmpty = true;
+//    }
+//}
 
 public class InventoryContainer : MonoBehaviour
 {
-    public InventoryObject inventory;
-    public InventoryObject defaultInventory;
+    public SaveData inventory;
+    public SaveData defaultInventory;
     public Transform inventoryPanel;
 
     private void Start()
     {
         // Load saved inventory data
-        inventory = Resources.Load<InventoryObject>("Inventory/Inventory");
-        defaultInventory = Resources.Load<InventoryObject>("Inventory/Default");
+        inventory = Resources.Load<SaveData>("Character/Save");
+        defaultInventory = Resources.Load<SaveData>("Inventory/Default");
 
         // Initialize inventory slots
         for (int i = 0; i < inventory.slots.Count; i++)
@@ -59,10 +57,6 @@ public class InventoryContainer : MonoBehaviour
             inventory.slots[i].amount = slot.amount;
             inventory.slots[i].isEmpty = slot.isEmpty;
         }
-
-        // Save inventory object
-        UnityEditor.EditorUtility.SetDirty(inventory);
-        AssetDatabase.SaveAssets();
     }
 
     public void SetDefaunt()
@@ -76,9 +70,5 @@ public class InventoryContainer : MonoBehaviour
             slot.amount = defaultInventory.slots[i].amount;
             slot.isEmpty = defaultInventory.slots[i].isEmpty;
         }
-
-        // Save inventory object
-        UnityEditor.EditorUtility.SetDirty(defaultInventory);
-        AssetDatabase.SaveAssets();
     }
 }

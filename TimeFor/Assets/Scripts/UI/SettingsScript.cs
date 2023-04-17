@@ -2,6 +2,20 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class Controlls
+{
+    [Header("Mouse")]
+    public float SensitivityY;
+    public float SensitivityX;
+
+    public Controlls(float sensitivityY, float sensitivityX)
+    {
+        this.SensitivityY = sensitivityY;
+        this.SensitivityX = sensitivityX;
+    }
+}
+
 public class SettingsScript : MonoBehaviour
 {
     [Header("Компоненты")]
@@ -13,10 +27,7 @@ public class SettingsScript : MonoBehaviour
     [SerializeField] private SettingsObject Default;
     [SerializeField] private SettingsObject Settings;
     [SerializeField] private GameObject SettingsPanel;
-    [SerializeField] private GameObject PausePanel;
     public bool isOpenPanel = true;
-    private float _SensitivityY;
-    private float _SensitivityX;
 
     [Header("UI")]
     [SerializeField] private Slider SensitivityYSlider;
@@ -24,29 +35,32 @@ public class SettingsScript : MonoBehaviour
 
     private void Start()
     {
+        // Load saved settings data
+        Default = Resources.Load<SettingsObject>("Settings/Defaunt Settings");
+        Settings = Resources.Load<SettingsObject>("Settings/Settings");
+
+        #region Get components
+
         settings = GetComponent<GloballSetting>();
         pauseScript = GetComponent<PauseScript>();
-    }
 
-    public void SetComponent(GameObject SettingsPanel, GameObject PausePanel, CinemachineFreeLook freeLook, Slider _SensitivityY, Slider _SensitivityX)
-    {
-        this.SettingsPanel = SettingsPanel;
-        this.PausePanel = PausePanel;
-        this.freeLook = freeLook;
-        this.SensitivityYSlider = _SensitivityY;
-        this.SensitivityXSlider = _SensitivityX;
+        if ((GameObject.FindGameObjectWithTag("FreeLook")) != null)
+        {
+            freeLook = GameObject.FindGameObjectWithTag("FreeLook").GetComponent<CinemachineFreeLook>();
+            freeLook.m_YAxis.m_MaxSpeed = Settings.SensitivityY;
+            freeLook.m_XAxis.m_MaxSpeed = Settings.SensitivityX;
+        }
+        SettingsPanel = GameObject.Find("SettingPanel");
 
-        LoadSettings();
-        OpenMenu();
-    }
+        SensitivityYSlider = GameObject.Find("SensitivityY").GetComponent<Slider>();
+        SensitivityXSlider = GameObject.Find("SensitivityX").GetComponent<Slider>();
 
-    public void LoadSettings()
-    {
-        freeLook.m_YAxis.m_MaxSpeed = Settings.SensitivityY;
-        freeLook.m_XAxis.m_MaxSpeed = Settings.SensitivityX;
+        #endregion
 
         SensitivityYSlider.value = Settings.SensitivityY;
         SensitivityXSlider.value = Settings.SensitivityX;
+
+        OpenMenu();
     }
 
     public void SaveSettings()
@@ -54,14 +68,20 @@ public class SettingsScript : MonoBehaviour
         Settings.SensitivityY = SensitivityYSlider.value;
         Settings.SensitivityX = SensitivityXSlider.value;
 
-        freeLook.m_YAxis.m_MaxSpeed = Settings.SensitivityY;
-        freeLook.m_XAxis.m_MaxSpeed = Settings.SensitivityX;
+        if (freeLook != null)
+        {
+            freeLook.m_YAxis.m_MaxSpeed = Settings.SensitivityY;
+            freeLook.m_XAxis.m_MaxSpeed = Settings.SensitivityX;
+        }
     }
 
     public void SetDefault()
     {
-        freeLook.m_YAxis.m_MaxSpeed = Default.SensitivityY;
-        freeLook.m_XAxis.m_MaxSpeed = Default.SensitivityX;
+        if (freeLook != null)
+        {
+            freeLook.m_YAxis.m_MaxSpeed = Default.SensitivityY;
+            freeLook.m_XAxis.m_MaxSpeed = Default.SensitivityX;
+        }
 
         SensitivityYSlider.value = Default.SensitivityY;
         SensitivityXSlider.value = Default.SensitivityX;

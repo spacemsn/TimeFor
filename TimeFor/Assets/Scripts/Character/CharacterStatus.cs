@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,7 +17,7 @@ public class CharacterStatus : MonoCache
     public Vector3 position;
 
     [Header("Сохранение")]
-    [SerializeField] private CharacterObject player;
+    public SaveData saveData;
 
     [Header("Инвентарь")]
     public InventoryScript inventory;
@@ -25,6 +27,7 @@ public class CharacterStatus : MonoCache
 
     [Header("CharacterIndicators")]
     public CharacterIndicators _indicators;
+    public int levelPlayer;
     public int health;
     public float stamina;
 
@@ -35,16 +38,17 @@ public class CharacterStatus : MonoCache
     public CharacterAbilities characterAbilities;
 
     [Header("Характеристики персонажа")]
+    public float damageBase = 20f;
+    public float damagePercent = 1f;
+    public float moveSpeed = 1.5f;
+    public float runSpeed = 3.5f;
+    public float jumpForce = 5f;
+    private float maxStamina = 100f;
+    public float debuff = 0.15f;
+    public float smoothTime;
+    private float smoothVelocity;
     [SerializeField] Vector3 movement;
-    [SerializeField] public float moveSpeed = 1.5f;
-    [SerializeField] public float runSpeed = 3.5f;
-    [SerializeField] public float jumpForce = 5f;
-    [SerializeField] private float maxStamina = 100f;
-    [SerializeField] public float debuff = 0.15f;
-    [SerializeField] private float minStaminaToRun = 25f;
-    [SerializeField] public float smoothTime;
-    [SerializeField] private float smoothVelocity;
-    [HideInInspector] public bool charMenegment = true;
+    public bool charMenegment = true;
     [SerializeField] private bool isGrounded = true;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundDistance = 0.4f;
@@ -95,6 +99,8 @@ public class CharacterStatus : MonoCache
         move = this.GetComponent<CharacterMove>();
 
         #endregion
+
+        LoadPlayer();
     }
 
     private void UpdateStatus()
@@ -117,7 +123,7 @@ public class CharacterStatus : MonoCache
 
         #endregion
 
-        #region PlayerGtp
+        #region CharacterMove
 
         move = this.GetComponent<CharacterMove>();
 
@@ -131,11 +137,10 @@ public class CharacterStatus : MonoCache
 
     private void FixedUpdate()
     {
-        Movement();
-        UpdateStatus();
+        Movement(); UpdateStatus();
     }
 
-    private void Movement() // for rigidbody
+    private void Movement()
     {
         if (charMenegment)
         {
@@ -164,27 +169,25 @@ public class CharacterStatus : MonoCache
         {
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
-            animator.StopPlayback();
         }
     }
 
     private void Status()
     {
-        _indicators.Indicators(health, stamina);
+        _indicators.Indicators(health, stamina, levelPlayer);
     }
 
     #region Save and Load
+
     public void SavePlayer()
     {
-        //SaveSystem.SavePlayer(this);
-        player.Save(this);
+        saveData.SetSave(this);
     }
 
     public void LoadPlayer()
     {
-        //PlayerData data = SaveSystem.loadPlayer();
-        player.Load(this);
-        move.TransportPlayer(player.position);
+        saveData.LoadSave(this);
     }
+
     #endregion
 }

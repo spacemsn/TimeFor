@@ -9,17 +9,12 @@ public class GloballSetting : MonoCache
     [SerializeField] public InventoryScript inventoryScript;
     [SerializeField] public DeathScript deathScript;
     [SerializeField] public ScrollScript scrollScript;
-    [SerializeField] public SettingsScript settingsScript;
 
     [Header("UI")]
     public GameObject InventoryPanel;
     public GameObject IndecatorPanel;
     public GameObject DeathPanel;
     public GameObject PausePanel;
-    public GameObject SettingPanel;
-
-    private Slider SensitivityYSlider;
-    private Slider SensitivityXSlider;
 
     [Header("Îáúåêòû")]
     public GameObject character;
@@ -38,7 +33,6 @@ public class GloballSetting : MonoCache
         pauseScript = GetComponent<PauseScript>();
         deathScript = GetComponent<DeathScript>();
         scrollScript = GetComponent<ScrollScript>();
-        settingsScript = GetComponent<SettingsScript>();
 
         #endregion
 
@@ -48,18 +42,12 @@ public class GloballSetting : MonoCache
         IndecatorPanel = GameObject.Find("IndecatorsPanel");
         DeathPanel = GameObject.Find("DeathPanel");
         PausePanel = GameObject.Find("PausePanel");
-        SettingPanel = GameObject.Find("SettingPanel");
-
-        SensitivityYSlider = GameObject.Find("SensitivityY").GetComponent<Slider>();
-        SensitivityXSlider = GameObject.Find("SensitivityX").GetComponent<Slider>();
 
         #endregion 
 
         notVisible();
 
-        settingsScript.SetComponent(SettingPanel, PausePanel, freeLook, SensitivityYSlider, SensitivityXSlider);
         scrollScript.SetComponent(freeLook);
-        inventoryScript.SetComponent(InventoryPanel, character.GetComponent<CharacterStatus>(), freeLook);
         deathScript.SetComponent(DeathPanel);
         pauseScript.SetComponent(PausePanel);
 
@@ -87,7 +75,7 @@ public class GloballSetting : MonoCache
 
     public void Visible()
     {
-        if (isVisible == false)
+        if (isVisible == false && freeLook != null)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -101,7 +89,7 @@ public class GloballSetting : MonoCache
 
     public void notVisible()
     {
-        if (isVisible)
+        if (isVisible && freeLook != null)
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
