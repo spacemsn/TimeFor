@@ -19,8 +19,6 @@ public class DeathScript : MonoBehaviour
     public void SetComponent(GameObject DeathPanel)
     {
         this.DeathPanel = DeathPanel;
-
-        OpenMenu();
     }
 
     public void SavePosition(Vector3 transform, Quaternion rotate)

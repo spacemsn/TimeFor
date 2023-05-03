@@ -6,7 +6,7 @@ public class GloballSetting : MonoCache
 {
     [Header("Панели")]
     [SerializeField] public PauseScript pauseScript;
-    [SerializeField] public InventoryScript inventoryScript;
+    [SerializeField] public inventoryCharacter inventoryScript;
     [SerializeField] public DeathScript deathScript;
     [SerializeField] public ScrollScript scrollScript;
 
@@ -29,21 +29,12 @@ public class GloballSetting : MonoCache
 
         character = GameObject.FindGameObjectWithTag("Player");
         freeLook = GameObject.FindGameObjectWithTag("FreeLook").GetComponent<CinemachineFreeLook>();
-        inventoryScript = character.GetComponent<InventoryScript>();
+        inventoryScript = character.GetComponent<inventoryCharacter>();
         pauseScript = GetComponent<PauseScript>();
         deathScript = GetComponent<DeathScript>();
         scrollScript = GetComponent<ScrollScript>();
 
         #endregion
-
-        #region Find UI
-
-        InventoryPanel = GameObject.Find("InventoryPanel");
-        IndecatorPanel = GameObject.Find("IndecatorsPanel");
-        DeathPanel = GameObject.Find("DeathPanel");
-        PausePanel = GameObject.Find("PausePanel");
-
-        #endregion 
 
         notVisible();
 
@@ -97,11 +88,5 @@ public class GloballSetting : MonoCache
             freeLook.m_XAxis.m_InputAxisName = "Mouse X";
             freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
         }
-    }
-
-    private void OnEnterButton()
-    {
-        if (Input.GetKeyDown(KeyCode.LeftAlt)) { Visible(); }
-        else if (Input.GetKeyUp(KeyCode.LeftAlt)) { notVisible(); }
     }
 }

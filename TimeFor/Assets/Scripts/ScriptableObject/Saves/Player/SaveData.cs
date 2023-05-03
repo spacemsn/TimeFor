@@ -1,8 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Save", menuName = "Save/Json")]
-[SerializeField]
 public class SaveData : ItemObject
 {
     [Header("Время сохранения")]
@@ -16,7 +16,7 @@ public class SaveData : ItemObject
 
     [Header("Показатели")]
     public int levelPlayer;
-    public int health;
+    public float health;
     public float stamina;
     public float damageBase;
     public float damagePercent;
@@ -43,37 +43,38 @@ public class SaveData : ItemObject
         objectPrefab = Resources.Load<GameObject>("Prefabs/Player/Character");
     }
 
-    public void SetSave(CharacterStatus character)
+    public void SetSave(mainCharacter character, indicatorCharacter indicators, moveCharacter move)
     {
         levelId = character.levelId;
-        levelPlayer = character.levelPlayer;
-        health = character.health;
-        stamina = character.stamina;
+        levelPlayer = indicators.lvlPlayer;
+        health = indicators.Health;
+        stamina = indicators.Stamina;
         damageBase = character.damageBase;
         damagePercent = character.damagePercent;
-        moveSpeed = character.moveSpeed;
-        runSpeed = character.runSpeed;
-        jumpForce = character.jumpForce;
-        debuff = character.debuff;
+        moveSpeed = move.moveSpeed;
+        runSpeed = move.runSpeed;
+        jumpForce = move.jumpForce;
+        debuff = move.debuff;
         position = character.position;
 
         playerData = new PlayerData(this);
         savedPlayers.Add(playerData);
     }
 
-    public void LoadSave(CharacterStatus character)
+    public void LoadSave(mainCharacter character, indicatorCharacter indicators, moveCharacter move)
     {
         savedPlayers[saveIndex].LoadSave(this);
 
-        character.levelPlayer = levelPlayer;
-        character.health = health;
-        character.stamina = stamina;
+        indicators.lvlPlayer = levelPlayer;
+        indicators.Health = health;
+        indicators.Stamina = stamina;
         character.damageBase = damageBase;
         character.damagePercent = damagePercent;
-        character.moveSpeed = moveSpeed;
-        character.runSpeed = runSpeed;
-        character.jumpForce = jumpForce;
-        character.debuff = debuff;
+        move.moveSpeed = moveSpeed;
+        move.runSpeed = runSpeed;
+        move.jumpForce = jumpForce;
+        move.debuff = debuff;
         character.transform.position = position;
+
     }
 }

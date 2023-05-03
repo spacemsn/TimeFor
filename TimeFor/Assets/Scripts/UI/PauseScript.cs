@@ -17,7 +17,6 @@ public class PauseScript : MonoCache
     public void SetComponent(GameObject PausePanel)
     {
         this.PausePanel = PausePanel;
-        OpenMenu();
     }
 
     public void OpenMenu()

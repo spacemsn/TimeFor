@@ -36,8 +36,8 @@ public class SettingsScript : MonoBehaviour
     private void Start()
     {
         // Load saved settings data
-        Default = Resources.Load<SettingsObject>("Settings/Defaunt Settings");
-        Settings = Resources.Load<SettingsObject>("Settings/Settings");
+        //Default = Resources.Load<SettingsObject>("Settings/Defaunt Settings");
+        //Settings = Resources.Load<SettingsObject>("Settings/Settings");
 
         #region Get components
 
@@ -50,17 +50,11 @@ public class SettingsScript : MonoBehaviour
             freeLook.m_YAxis.m_MaxSpeed = Settings.SensitivityY;
             freeLook.m_XAxis.m_MaxSpeed = Settings.SensitivityX;
         }
-        SettingsPanel = GameObject.Find("SettingPanel");
-
-        SensitivityYSlider = GameObject.Find("SensitivityY").GetComponent<Slider>();
-        SensitivityXSlider = GameObject.Find("SensitivityX").GetComponent<Slider>();
 
         #endregion
 
         SensitivityYSlider.value = Settings.SensitivityY;
         SensitivityXSlider.value = Settings.SensitivityX;
-
-        OpenMenu();
     }
 
     public void SaveSettings()

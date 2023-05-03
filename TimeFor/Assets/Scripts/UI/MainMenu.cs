@@ -23,23 +23,26 @@ public class MainMenu : MonoBehaviour
 
     public void NewGame()
     {
-        currentSave.savedPlayers.Clear();
-        currentSave.SetSave(player.GetComponent<CharacterStatus>());
+        //currentSave.savedPlayers.Clear();
+        //currentSave.SetSave(player.GetComponent<CharacterStatus>());
         SceneLoad.SwitchScene("LVL1");
         Time.timeScale = 1f;
     }
 
     public void Continuo()
     {
-        if(currentSave.savedPlayers.Count <= 0)
-        {
-            Debug.Log("” вас нет сохранений, начните новую игру!");
-        }
-        else
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + currentSave.levelId);
-            Time.timeScale = 1f;
-        }
+        //if(currentSave.savedPlayers.Count <= 0)
+        //{
+        //    Debug.Log("” вас нет сохранений, начните новую игру!");
+        //}
+        //else
+        //{
+        //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + currentSave.levelId);
+        //    Time.timeScale = 1f;
+        //}
+
+        SceneLoad.SwitchScene("LVL2");
+        Time.timeScale = 1f;
     }
 
     public void ExiteGame()

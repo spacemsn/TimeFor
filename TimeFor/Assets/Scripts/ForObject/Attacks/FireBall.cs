@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class FireBall : MonoCache
+public class FireBall : MonoCache, IElementBehavior
 {
-    [SerializeField] private SkillObject skill;
+    [SerializeField] private skillItem skill;
     [SerializeField] private Transform target;
     [SerializeField] private GameObject explosionPrefab;
     [SerializeField] private AnimationCurve ScaleCurve;
@@ -16,6 +14,12 @@ public class FireBall : MonoCache
     [SerializeField] private float speed;
     [SerializeField] private float liveTime;
     [SerializeField] private Vector3 EnemyPos;
+
+    [Header("Статус Стихии")]
+    public IElementBehavior.Elements status;
+
+    [Header("Реакция Стихии")]
+    public IElementBehavior.Reactions reaction;
 
     public void SetTarget(Transform target, float speed)
     {
@@ -57,10 +61,10 @@ public class FireBall : MonoCache
     {
         if (other.CompareTag("Enemy"))
         {
-            EnemyBehavior enemyHealth = other.GetComponent<EnemyBehavior>();
+            EnemyDamage enemyHealth = other.GetComponent<EnemyDamage>();
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(skill.damage);
+                enemyHealth.Reaction(status, 2, skill.damage);
             }
 
             if (explosionPrefab != null)
@@ -74,5 +78,10 @@ public class FireBall : MonoCache
         {
             Destroy(gameObject);
         }
+    }
+
+    public void Reaction(IElementBehavior.Elements secondary, float buff, float damage)
+    {
+
     }
 }

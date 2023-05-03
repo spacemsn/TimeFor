@@ -254,3 +254,5 @@ MonoBehaviour:
   speed: 3
   liveTime: 10
   EnemyPos: {x: 0, y: 0, z: 0}
+  status: 1
+  reaction: 3

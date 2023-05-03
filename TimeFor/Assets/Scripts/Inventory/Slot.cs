@@ -5,7 +5,7 @@ using TMPro;
 public class Slot : MonoBehaviour
 {
     public Item item;
-    public FoodItem foodItem;
+    public foodItem foodItem;
     public int Id;
     public int amount;
     public bool isEmpty = true;

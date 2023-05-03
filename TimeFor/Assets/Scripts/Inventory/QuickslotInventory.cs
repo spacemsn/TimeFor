@@ -13,10 +13,11 @@ public class QuickslotInventory : MonoCache
     public override void OnTick()
     {
         // Используем цифры
-        for(int i = 0; i < quickslotParent.childCount; i++)
+        for (int i = 0; i < quickslotParent.childCount; i++)
         {
             // если мы нажимаем на клавиши 1 по 5 то...
-            if (Input.GetKeyDown((i + 1).ToString())) {
+            if (Input.GetKeyDown((i + 1).ToString()))
+            {
                 // проверяем если наш выбранный слот равен слоту который у нас уже выбран, то
                 if (currentQuickslotID == i)
                 {
@@ -25,10 +26,10 @@ public class QuickslotInventory : MonoCache
                     {
                         quickslotParent.GetChild(currentQuickslotID).GetComponent<Image>().sprite = selectedSprite;
                     }
-                    //else
-                    //{
-                    //    quickslotParent.GetChild(currentQuickslotID).GetComponent<Image>().sprite = notSelectedSprite;
-                    //}
+                    else
+                    {
+                        quickslotParent.GetChild(currentQuickslotID).GetComponent<Image>().sprite = notSelectedSprite;
+                    }
                 }
                 // Иначе мы убираем свечение с предыдущего слота и светим слот который мы выбираем
                 else

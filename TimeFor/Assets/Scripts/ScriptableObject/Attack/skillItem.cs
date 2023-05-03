@@ -1,0 +1,13 @@
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "Attack", menuName = "Object/ItemObject/Attack")]
+public class skillItem : Item
+{
+    [Header("Характеристики скилла")]
+    [Header("Урон")]
+    public float damage;
+    [Header("Откат способности")]
+    public float attackRollback;
+    [Header("Скорость")]
+    public float speed;
+}

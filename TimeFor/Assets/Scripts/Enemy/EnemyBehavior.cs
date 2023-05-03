@@ -1,99 +1,88 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEngine;
+using System.Collections;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine;
+using TMPro;
 
 public class EnemyBehavior : MonoBehaviour
 {
     [Header("Характеристики Врага")]
-    private float hp = 100;
-    private int enemyDamage;
-    private float viewAngle = 90f;
-    private float viewDistance = 50f;
     [SerializeField] EnemyObject enemyParam;
-    [SerializeField] private float chaseTime = 5f;
-    [SerializeField] private float attackTime = 10f;
-    [SerializeField] private float distanceMax = 30f;
+    [HideInInspector] public float viewAngle;
+    [HideInInspector] public float viewDistance;
+    [SerializeField] private float chaseTime;
+    [SerializeField] private float attackTime;
+    [SerializeField] private float distanceMax;
     [SerializeField] private float originPos;
     [SerializeField] private float playerPos;
+    [SerializeField] private bool isTrigger;
 
     [Header("Точки Врага")]
     [SerializeField] private Transform[] movePoints;
     [SerializeField] private int currentPoint = 0;
 
     [Header("Компоненты Врага")]
-    private Vector3 originalPosition;
-    private NavMeshAgent navAgent;
-    public CapsuleCollider rightHand;
-    public CapsuleCollider leftHand;
-    public Slider healthBar;
     private Animator animator;
+    private NavMeshAgent navAgent;
     private Transform player;
+    private Vector3 originalPosition;
     [HideInInspector] public Transform centerOfEnemy;
 
-    private enum EnemyStage { Wait, Patrolling, Chase, Attack, Death, }
+    // Поведение врага
+    public enum EnemyStage { Wait, Patrolling, Trigger, Chase, Attack, Death, }
     [Header("Стадия поведения врага")]
-    [SerializeField] private EnemyStage enemyStage;
+    [SerializeField] public EnemyStage enemyStage;
 
     void Start()
     {
-        SetParam();
-
-        enemyStage = EnemyStage.Wait;
-
         //Находим компонент NavMeshAgent
         navAgent = GetComponent<NavMeshAgent>();
         animator = gameObject.GetComponent<Animator>();
+
+        navAgent.isStopped = false;
+        enemyStage = EnemyStage.Wait;
+        enemyParam.SetBehavior(this);
 
         //Находим игрока
         player = GameObject.FindGameObjectWithTag("Player").transform;
         centerOfEnemy = gameObject.transform.Find("CenterOfEnemy");
 
-        rightHand.enabled = false;
-        leftHand.enabled = false;
-
         //Запоминаем начальную позицию
         originalPosition = transform.position;
-    }
 
-    private void SetParam()
-    {
-        hp = enemyParam.hp;
-        enemyDamage = enemyParam.enemyDamage;
-        viewAngle = enemyParam.viewAngle;
-        viewDistance = enemyParam.viewDistance;
     }
 
     void Update()
     {
-        healthBar.value = hp;
         originPos = Vector3.Distance(transform.position, originalPosition);
         if (player != null) { playerPos = Vector3.Distance(transform.position, player.position); }
+    }
 
-        switch (enemyStage)
+    private void FixedUpdate()
+    {
+        switch(enemyStage)
         {
             case EnemyStage.Wait:
                 {
-                    if (CanSeePlayer() == EnemyStage.Patrolling)
+                    navAgent.isStopped = true;
+                    animator.SetTrigger("Wait");
+                    if(CanSeePlayer() == EnemyStage.Patrolling)
                     {
                         enemyStage = EnemyStage.Patrolling;
-                        animator.SetTrigger("Move");
                     }
-                    else if (CanSeePlayer() == EnemyStage.Chase)
+                    else if(CanSeePlayer() == EnemyStage.Chase)
                     {
                         enemyStage = EnemyStage.Chase;
-                        animator.SetTrigger("Chase");
                     }
+                    break;
                 }
-                break;
 
-            case EnemyStage.Patrolling:
+                case EnemyStage.Patrolling:
                 {
-                    navAgent.destination = movePoints[currentPoint].position;
-
-                    //Если достигли точки, то двигаемся к следующей
+                    navAgent.isStopped = false;
+                    animator.SetTrigger("Move");
+                    navAgent.SetDestination(movePoints[currentPoint].position);
                     if (Vector3.Distance(transform.position, movePoints[currentPoint].position) < 1.5f)
                     {
                         currentPoint++;
@@ -102,67 +91,68 @@ public class EnemyBehavior : MonoBehaviour
                             currentPoint = 0;
                         }
                     }
-                    if (CanSeePlayer() == EnemyStage.Chase)
+                    else if (CanSeePlayer() == EnemyStage.Chase)
                     {
                         enemyStage = EnemyStage.Chase;
-                        animator.SetTrigger("Chase");
                     }
+                    break;
                 }
-                break;
+
+            case EnemyStage.Trigger:
+                {
+
+                    break;
+                }
 
             case EnemyStage.Chase:
                 {
+                    navAgent.isStopped = false;
                     if (playerPos <= navAgent.stoppingDistance)
                     {
                         enemyStage = EnemyStage.Attack;
-                        animator.SetTrigger("Attack");
                     }
-                    else if (originPos >= distanceMax)
-                    { 
-                        chaseTime -= Time.deltaTime;
-                        navAgent.destination = player.position;
+                    //else if (originPos >= distanceMax)
+                    //{
+                    //    chaseTime -= Time.deltaTime;
+                    //    navAgent.SetDestination(player.position);
+                    //    animator.SetTrigger("Chase");
 
-                        if (chaseTime <= 0)
-                        { 
-                            enemyStage = EnemyStage.Patrolling;
-                            animator.SetTrigger("Move");
-                        }
-                    }
+                    //    if (chaseTime <= 0)
+                    //    {
+                    //        enemyStage = EnemyStage.Patrolling;
+                    //    }
+                    //}
                     else
                     {
                         chaseTime = 5f;
-                        navAgent.destination = player.position;
+                        navAgent.SetDestination(player.position);
+                        animator.SetTrigger("Chase");
                     }
+                    break;
                 }
-                break;
 
             case EnemyStage.Attack:
                 {
-                    if (playerPos <= navAgent.stoppingDistance)
+                    navAgent.isStopped = true;
+                    animator.SetTrigger("Attack");
+                    gameObject.transform.LookAt(player.transform);
+
+                    if (playerPos > navAgent.stoppingDistance)
                     {
-                        gameObject.transform.LookAt(player.transform);
-                    }
-                    else if(playerPos > navAgent.stoppingDistance)
-                    { 
                         enemyStage = EnemyStage.Chase;
-                        animator.SetTrigger("Chase");
                     }
+                    break;
                 }
-                break;
 
             case EnemyStage.Death:
                 {
-                    navAgent.Stop();
+                    navAgent.isStopped = true;
                     animator.SetTrigger("Death");
                     GetComponent<CapsuleCollider>().enabled = false;
                     GetComponent<Rigidbody>().isKinematic = true;
-                    healthBar.gameObject.SetActive(false);
-                    Destroy(this.gameObject, 10f);
+                    Destroy(this.gameObject, 5f);
+                    break;
                 }
-                break;
-
-            default:
-                { break; }
         }
     }
 
@@ -185,42 +175,5 @@ public class EnemyBehavior : MonoBehaviour
             return EnemyStage.Patrolling;
         }
         else { return EnemyStage.Patrolling; }
-    }
-
-    public void TakeDamage(float damageAmount)
-    {
-        hp -= damageAmount;
-        enemyStage = EnemyStage.Chase;
-        animator.SetTrigger("Chase");
-
-        if (hp <= 0)
-        {
-            enemyStage = EnemyStage.Death;
-        }
-        else
-        {
-            //animator.SetTrigger("damage");
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        CharacterIndicators indicators = other.gameObject.GetComponent<CharacterIndicators>();
-        if (indicators)
-        {
-            indicators.TakeHit(enemyDamage);
-        }
-    }
-
-    public void CollidersTrue()
-    {
-        //rightHand.enabled = true;
-        leftHand.enabled = true;
-    }
-
-    public void CollidersFalse()
-    {
-        //rightHand.enabled = false;
-        leftHand.enabled = false;
     }
 }

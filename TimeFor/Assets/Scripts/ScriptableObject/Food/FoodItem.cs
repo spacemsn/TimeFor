@@ -1,8 +1,10 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "WeaponItem", menuName = "Inventory/Items/Food")]
-public class FoodItem : Item
+public class foodItem : Item
 {
+    [Header("Характеристики стандартного предмета")]
+    [Header("Съедобный предмет")]
     public bool isConsumeable;
 
     public int changeHealth;

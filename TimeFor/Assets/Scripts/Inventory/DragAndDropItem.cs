@@ -84,7 +84,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     {
         // Временно храним данные newSlot в отдельных переменных
         Item item = newSlot.item;
-        FoodItem foodItem = newSlot.foodItem;
+        foodItem foodItem = newSlot.foodItem;
         int amount = newSlot.amount;
         bool isEmpty = newSlot.isEmpty;
         GameObject icon = newSlot.icon;
