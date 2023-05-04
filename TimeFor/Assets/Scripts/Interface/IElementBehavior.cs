@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public interface IElementBehavior 
 {
@@ -9,4 +10,37 @@ public interface IElementBehavior
     enum Reactions { DamageUp, MovementDown, VisionDown, Null }
 
     void Reaction(IElementBehavior.Elements secondary, float buff, float damage);
+
+    void SetIcon()
+    {
+
+    }
+
+    void SetDefauntStatus()
+    {
+
+    }
+}
+
+public interface IMoveBehavior
+{
+    static float speed;
+
+    void Movement()
+    {
+
+    }
+}
+
+public interface IDamageBehavior
+{
+    void TakeDamage(float damage)
+    {
+
+    }
+
+    void SetHealth(float bounus)
+    {
+
+    }
 }

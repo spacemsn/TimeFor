@@ -18,6 +18,6 @@ MonoBehaviour:
   maxAmount: 1
   aboutItem: "\u0421\u043F\u0435\u043B"
   icon: {fileID: 0}
-  damage: 20
+  damage: 5
   attackRollback: 1
   speed: 2

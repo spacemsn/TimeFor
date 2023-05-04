@@ -6,7 +6,7 @@ using UnityEngine;
 using TMPro;
 using static EnemyBehavior;
 
-public class EnemyDamage : MonoBehaviour, IElementBehavior
+public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
 {
     [Header("Характеристики Врага")]
     [SerializeField] EnemyObject enemyParam;
@@ -46,6 +46,9 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior
     [Header("Время наложения статуса")]
     public float timeStatus;
 
+    [Header("Время наложения реакции")]
+    public float timeReaction;
+
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -74,32 +77,71 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior
     private void Update()
     {
         healthBar.value = hp;
+        SetIcon();
+    }
 
-        switch (currentStatus)
+    private void SetIcon()
+    {
+        if (reaction == IElementBehavior.Reactions.Null)
         {
-            case IElementBehavior.Elements.Water:
-                reactionImage.sprite = WaterSprite;
-                reactionImage.enabled = true;
-                break;
+            switch (currentStatus)
+            {
+                case IElementBehavior.Elements.Water:
+                    reactionImage.sprite = WaterSprite;
+                    reactionImage.enabled = true;
+                    break;
 
-            case IElementBehavior.Elements.Fire:
-                reactionImage.sprite = FireSprite;
-                reactionImage.enabled = true;
-                break;
+                case IElementBehavior.Elements.Fire:
+                    reactionImage.sprite = FireSprite;
+                    reactionImage.enabled = true;
+                    break;
 
-            case IElementBehavior.Elements.Air:
-                reactionImage.sprite = AirSprite;
-                reactionImage.enabled = true;
-                break;
+                case IElementBehavior.Elements.Air:
+                    reactionImage.sprite = AirSprite;
+                    reactionImage.enabled = true;
+                    break;
 
-            case IElementBehavior.Elements.Terra:
-                reactionImage.sprite = TerraSprite;
-                reactionImage.enabled = true;
-                break;
+                case IElementBehavior.Elements.Terra:
+                    reactionImage.sprite = TerraSprite;
+                    reactionImage.enabled = true;
+                    break;
 
-            case IElementBehavior.Elements.Null:
-                reactionImage.enabled = false;
-                break;
+                case IElementBehavior.Elements.Null:
+                    reactionImage.enabled = false;
+                    break;
+            }
+        }
+        if (currentStatus == IElementBehavior.Elements.Null)
+        {
+            switch (reaction)
+            {
+                case IElementBehavior.Reactions.DamageUp:
+                    {
+                        reactionImage.sprite = damageUpSprite;
+                        reactionImage.enabled = true;
+                        break;
+                    }
+
+                case IElementBehavior.Reactions.MovementDown:
+                    {
+                        reactionImage.sprite = MovementDownSprite;
+                        reactionImage.enabled = true;
+                        break;
+                    }
+
+                case IElementBehavior.Reactions.VisionDown:
+                    {
+                        reactionImage.sprite = VisionDownSprite;
+                        reactionImage.enabled = true;
+                        break;
+                    }
+
+                case IElementBehavior.Reactions.Null:
+                    {
+                        reactionImage.enabled = false;
+                        break;
+                    }
+            }
         }
     }
 
@@ -124,6 +166,11 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior
         {
             //animator.SetTrigger("damage");
         }
+    }
+
+    private void SetHealth(float bonus)
+    {
+        hp += bonus;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -153,28 +200,28 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior
         {
             Debug.Log("Реация увеличения урона!");
             reaction = IElementBehavior.Reactions.DamageUp;
-            reactionImage.sprite = damageUpSprite;
+            SetDefauntStatus();
+            StartCoroutine(WaitReaction(timeReaction));
             damage *= buff;
             TakeDamage(damage);
-            StartCoroutine(WaitStatus(timeStatus));
         }
         else if ((currentStatus == IElementBehavior.Elements.Terra && secondary == IElementBehavior.Elements.Fire) || (currentStatus == IElementBehavior.Elements.Water && secondary == IElementBehavior.Elements.Terra))
         {
             Debug.Log("Реация оглушения движения");
             reaction = IElementBehavior.Reactions.MovementDown;
-            reactionImage.sprite = MovementDownSprite;
+            SetDefauntStatus();
+            StartCoroutine(WaitReaction(timeReaction));
             //navAgent.speed -= buff;
             TakeDamage(damage);
-            StartCoroutine(WaitStatus(timeStatus));
         }
         else if ((currentStatus == IElementBehavior.Elements.Fire && secondary == IElementBehavior.Elements.Air) || (currentStatus == IElementBehavior.Elements.Water && secondary == IElementBehavior.Elements.Air) || (currentStatus == IElementBehavior.Elements.Terra && secondary == IElementBehavior.Elements.Air))
         {
             Debug.Log("Реация оглушения зрения");
             reaction = IElementBehavior.Reactions.VisionDown;
-            reactionImage.sprite = VisionDownSprite;
+            SetDefauntStatus();
+            StartCoroutine(WaitReaction(timeReaction));
             //viewAngle -= buff;
             TakeDamage(damage);
-            StartCoroutine(WaitStatus(timeStatus));
         }
         else
         {
@@ -190,4 +237,14 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior
         currentStatus = IElementBehavior.Elements.Null;
     }
 
+    IEnumerator WaitReaction(float timeStatus)
+    {
+        yield return new WaitForSeconds(timeStatus);
+        reaction = IElementBehavior.Reactions.Null;
+    }
+
+    private void SetDefauntStatus()
+    {
+        currentStatus = IElementBehavior.Elements.Null;
+    }
 }

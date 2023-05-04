@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class moveCharacter : MonoBehaviour
+public class moveCharacter : MonoBehaviour, IMoveBehavior
 {
     [Header("Компоненты")]
     [SerializeField] private mainCharacter status;
@@ -36,6 +36,11 @@ public class moveCharacter : MonoBehaviour
     }
 
     private void FixedUpdate()
+    {
+        Movement();
+    }
+
+    private void Movement()
     {
         if (isManagement)
         {

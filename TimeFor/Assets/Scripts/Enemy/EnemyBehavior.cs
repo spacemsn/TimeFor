@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
-public class EnemyBehavior : MonoBehaviour
+public class EnemyBehavior : MonoBehaviour, IMoveBehavior
 {
     [Header("Характеристики Врага")]
     [SerializeField] EnemyObject enemyParam;
@@ -61,24 +61,29 @@ public class EnemyBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
-        switch(enemyStage)
+        Movement();
+    }
+
+    private void Movement()
+    {
+        switch (enemyStage)
         {
             case EnemyStage.Wait:
                 {
                     navAgent.isStopped = true;
                     animator.SetTrigger("Wait");
-                    if(CanSeePlayer() == EnemyStage.Patrolling)
+                    if (CanSeePlayer() == EnemyStage.Patrolling)
                     {
                         enemyStage = EnemyStage.Patrolling;
                     }
-                    else if(CanSeePlayer() == EnemyStage.Chase)
+                    else if (CanSeePlayer() == EnemyStage.Chase)
                     {
                         enemyStage = EnemyStage.Chase;
                     }
                     break;
                 }
 
-                case EnemyStage.Patrolling:
+            case EnemyStage.Patrolling:
                 {
                     navAgent.isStopped = false;
                     animator.SetTrigger("Move");
