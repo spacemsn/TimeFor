@@ -76,7 +76,7 @@ public class mainCharacter : MonoCache
     public SaveData saveData;
 
     [Header("Инвентарь")]
-    public inventoryCharacter inventory;
+    public bookCharacter inventory;
 
     [Header("Компоненты")]
     public attackCharacter attack;
@@ -99,7 +99,7 @@ public class mainCharacter : MonoCache
         rb = GetComponent<Rigidbody>();
         camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
-        inventory = GetComponent<inventoryCharacter>();
+        inventory = GetComponent<bookCharacter>();
         movement = this.GetComponent<moveCharacter>();
         attack = this.GetComponent<attackCharacter>();
         indicators = this.GetComponent<indicatorCharacter>();

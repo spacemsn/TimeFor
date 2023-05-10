@@ -138,7 +138,7 @@ public class Interactions : MonoCache
     //    }
     //}
 
-    public override void OnTick()
+    public override void OnUpdate()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {

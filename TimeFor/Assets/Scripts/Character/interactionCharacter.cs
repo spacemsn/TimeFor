@@ -24,9 +24,13 @@ public class interactionCharacter : MonoCache
     public LayerMask maskNPC;
     public LayerMask maskInteractions;
 
+    [Header("Диалог")]
+    [SerializeField] private DialogManager dialog;
+
     private void Start()
     {
         character = GetComponent<moveCharacter>();
+        dialog = GetComponent<DialogManager>();
 
         imageE = GameObject.Find("Button E").GetComponent<Image>();
         imageT = GameObject.Find("Button T").GetComponent<Image>();
@@ -67,7 +71,7 @@ public class interactionCharacter : MonoCache
 
     private void Radius() // Метод взаимодействия с объектами для передвижения
     {
-        var Inventory = gameObject.GetComponent<inventoryCharacter>();
+        var Inventory = gameObject.GetComponent<bookCharacter>();
 
         Interactions = Physics.OverlapSphere(transform.position, radius, maskInteractions);
 
@@ -76,17 +80,16 @@ public class interactionCharacter : MonoCache
             Rigidbody rigidbodyInteractions = Interactions[i].attachedRigidbody;
             if (rigidbodyInteractions != null)
             {
-                imageE.enabled = true;
                 imageT.enabled = true;
 
                 if (Input.GetKeyDown(KeyCode.E)) // Взять в руку предмет
                 {
                     if (rigidbodyInteractions.GetComponent<Rigidbody>() != null)
                     {
-                        rigidbodyInteractions.GetComponent<Interactions>().PickUp();
+                        //rigidbodyInteractions.GetComponent<Interactions>().PickUp();
                     }
                 }
-                if (Input.GetKeyDown(KeyCode.F)) // Взять предмет в инвентарь
+                if (Input.GetKeyDown(KeyCode.T)) // Взять предмет в инвентарь
                 {
                     ItemPrefab item = rigidbodyInteractions.gameObject.GetComponent<ItemPrefab>();
                     if (rigidbodyInteractions.gameObject.GetComponent<ItemPrefab>() != null)
@@ -96,53 +99,29 @@ public class interactionCharacter : MonoCache
                     Destroy(rigidbodyInteractions.gameObject);
                 }
             }
+            else { imageT.enabled = false; }
         }
 
         NPC = Physics.OverlapSphere(transform.position, radius, maskNPC);
 
         for (int i = 0; i < NPC.Length; i++)
         {
-            imageE.enabled = true;
-
-            if (Input.GetKeyDown(KeyCode.E))
+            Rigidbody rigidbodyInteractions = NPC[i].attachedRigidbody;
+            if (rigidbodyInteractions != null)
             {
-                if(NPC[i].GetComponent<NPCBehaviour>())
+                imageE.enabled = true;
+
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    NPCBehaviour NPCbehaviour = NPC[i].GetComponent<NPCBehaviour>();
-                    transform.LookAt(NPCbehaviour.transform, new Vector3( 0, transform.position.y, 0));
-                    NPCbehaviour.StartDialog();
+                    if (NPC[i].GetComponent<NPCBehaviour>())
+                    {
+                        NPCBehaviour NPCbehaviour = NPC[i].GetComponent<NPCBehaviour>();
+                        transform.LookAt(NPCbehaviour.transform, new Vector3(0, transform.position.y, 0));
+                        dialog.StartDialog();
+                    }
                 }
             }
-        }
-    }
-
-    public void ButtonE()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
-
-        for (int i = 0; i < colliders.Length; i++)
-        {
-            Rigidbody rigidbody = colliders[i].attachedRigidbody;
-            if (rigidbody)
-            {
-                rigidbody.GetComponent<Interactions>().PickUp();
-            }
-
-        }
-    }
-
-    public void ButtonT()
-    {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
-
-        for (int i = 0; i < colliders.Length; i++)
-        {
-            Rigidbody rigidbody = colliders[i].attachedRigidbody;
-            if (rigidbody)
-            {
-                rigidbody.GetComponent<Interactions>().Release();
-            }
-
+            else { imageE.enabled = false; }
         }
     }
 
@@ -155,7 +134,7 @@ public class interactionCharacter : MonoCache
         }
     }
 
-    public override void OnTick()
+    public override void OnUpdate()
     {
         Ray();
         DrawRay();

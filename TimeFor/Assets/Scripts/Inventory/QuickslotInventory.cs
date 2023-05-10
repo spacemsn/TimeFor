@@ -10,7 +10,7 @@ public class QuickslotInventory : MonoCache
     public Sprite notSelectedSprite;
 
     // Update is called once per frame
-    public override void OnTick()
+    public override void OnUpdate()
     {
         // Используем цифры
         for (int i = 0; i < quickslotParent.childCount; i++)

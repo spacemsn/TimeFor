@@ -7,8 +7,8 @@ using UnityEngine.UI;
 
 public class SceneLoad : MonoBehaviour
 {
-    public TextMeshProUGUI loadingT;
-    public Image loadingI;
+    public TextMeshProUGUI loadingText;
+    public Image loadingImage;
 
     static SceneLoad load;
     static bool isPlayAnim = false;
@@ -37,8 +37,8 @@ public class SceneLoad : MonoBehaviour
     {
         if (operation != null)
         {
-            loadingT.text = Mathf.RoundToInt(operation.progress * 100) + "%";
-            loadingI.fillAmount = operation.progress;
+            loadingText.text = Mathf.RoundToInt(operation.progress * 100) + "%";
+            loadingImage.fillAmount = operation.progress;
         }
     }
 

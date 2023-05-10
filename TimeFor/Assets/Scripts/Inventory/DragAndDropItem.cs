@@ -51,7 +51,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         transform.SetParent(oldSlot.transform);
         transform.position = oldSlot.transform.position;
         //Если мышка отпущена над объектом по имени UIPanel, то...
-        if (eventData.pointerCurrentRaycast.gameObject.name == "UIPanel")
+        if (eventData.pointerCurrentRaycast.gameObject.name == "InventarPanel")
         {
             for (int i = 0; i < oldSlot.amount; i++)
             {

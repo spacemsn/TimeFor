@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 
 public class attackCharacter : MonoCache
 {
@@ -21,12 +23,18 @@ public class attackCharacter : MonoCache
 
     [Header("UI")]
     [SerializeField] public GameObject InventoryPanel;
-    [SerializeField] public Transform quickslotParent;
+    [SerializeField] public Transform QuickslotPanel;
     [SerializeField] public GameObject DealthPanel;
     [SerializeField] public GameObject PausePanel;
 
     [SerializeField] public Sprite selectedSprite;
     [SerializeField] public Sprite notSelectedSprite;
+
+    [Header("Слоты атак")]
+    [SerializeField] public SkillSlot WaterSlot;
+    [SerializeField] public SkillSlot FireSlot;
+    [SerializeField] public SkillSlot AirSlot;
+    [SerializeField] public SkillSlot TerraSlot;
 
     [Header("Виды атак")]
     [SerializeField] private skillItem WaterAttack;
@@ -37,10 +45,14 @@ public class attackCharacter : MonoCache
     private skillItem currentAttack;
     private GameObject currentSpell;
 
-    private enum listSpells { Water, Fire, Air, Terra, }
-    [SerializeField] private listSpells spells;
     [SerializeField] public int currentQuickslotID = -1;
     [SerializeField] public int oldQuickslotID;
+
+    [Header("Кнопки")]
+    [SerializeField] KeyCode KeyCode1;
+    [SerializeField] KeyCode KeyCode2;
+    [SerializeField] KeyCode KeyCode3;
+    [SerializeField] KeyCode KeyCode4;
 
     private void Start()
     {
@@ -57,12 +69,16 @@ public class attackCharacter : MonoCache
         }
         rightHand = GameObject.Find("ArmSmall").transform;
 
+        WaterSlot.SetIcon(WaterAttack.icon);
+        FireSlot.SetIcon(FireAttack.icon);
+        AirSlot.SetIcon(AirAttack.icon);
+        TerraSlot.SetIcon(TerraAttack.icon);
     }
 
     private void Update()
     {
         // Используем цифры
-        for (int i = 0; i < quickslotParent.childCount; i++)
+        for (int i = 0; i < QuickslotPanel.childCount; i++)
         {
             // если мы нажимаем на клавиши 1 по 5 то...
             if (Input.GetKeyDown((i + 1).ToString()))
@@ -71,22 +87,23 @@ public class attackCharacter : MonoCache
                 if (currentQuickslotID == i)
                 {
                     // Ставим картинку "selected" на слот если он "not selected" или наоборот
-                    if (quickslotParent.GetChild(currentQuickslotID).GetComponent<Image>().sprite == notSelectedSprite)
+                    if (QuickslotPanel.GetChild(currentQuickslotID).GetComponent<Image>().sprite == notSelectedSprite)
                     {
-                        quickslotParent.GetChild(currentQuickslotID).GetComponent<Image>().sprite = selectedSprite;
+                        QuickslotPanel.GetChild(currentQuickslotID).GetComponent<Image>().sprite = selectedSprite;
                     }
-                    else
-                    {
-                        quickslotParent.GetChild(currentQuickslotID).GetComponent<Image>().sprite = notSelectedSprite;
-                    }
+                    //else
+                    //{
+                    //    quickslotParent.GetChild(currentQuickslotID).GetComponent<Image>().sprite = notSelectedSprite;
+                    //}
                 }
                 // Иначе мы убираем свечение с предыдущего слота и светим слот который мы выбираем
                 else
                 {
-                    quickslotParent.GetChild(currentQuickslotID).GetComponent<Image>().sprite = notSelectedSprite;
+                    QuickslotPanel.GetChild(currentQuickslotID).GetComponent<Image>().sprite = notSelectedSprite;
                     oldQuickslotID = currentQuickslotID;
+
                     currentQuickslotID = i;
-                    quickslotParent.GetChild(currentQuickslotID).GetComponent<Image>().sprite = selectedSprite;
+                    QuickslotPanel.GetChild(currentQuickslotID).GetComponent<Image>().sprite = selectedSprite;
                 }
             }
         }
@@ -116,70 +133,36 @@ public class attackCharacter : MonoCache
 
     private void FixedUpdate()
     {
-        //switch (spells)
-        //{
-        //    case listSpells.Water:
-        //        {
-        //            currentAttack = WaterAttack;
-        //        }
-        //        break;
-
-        //    case listSpells.Fire:
-        //        {
-        //            currentAttack = FireAttack;
-        //        }
-        //        break;
-
-        //    case listSpells.Air:
-        //        {
-        //            currentAttack = AirAttack;
-        //        }
-        //        break;
-
-        //    case listSpells.Terra:
-        //        {
-        //            currentAttack = TerraAttack;
-        //        }
-        //        break;
-
-        //    default: { break; }
-        //}
-
         switch (currentQuickslotID)
         {
             case 0:
                 {
                     currentAttack = WaterAttack;
-                    spells = listSpells.Water;
                     break;
                 }
 
             case 1:
                 {
                     currentAttack = FireAttack;
-                    spells = listSpells.Fire;
                     break;
                 }
 
             case 2:
                 {
                     currentAttack = AirAttack;
-                    spells = listSpells.Air;
                     break;
                 }
 
             case 3:
                 {
                     currentAttack = TerraAttack;
-                    spells = listSpells.Terra;
                     break;
                 }
 
-            default: 
+            default:
                 {
                     currentQuickslotID = oldQuickslotID;
                     currentAttack = WaterAttack;
-                    spells = listSpells.Water;
                     break;
                 }
         }

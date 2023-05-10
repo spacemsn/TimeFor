@@ -27,7 +27,7 @@ public class DayCycleManager : MonoCache
         moonIntensity = Moon.intensity;
     }
 
-    public override void OnTick()
+    public override void OnUpdate()
     {
         TimeOfDay += Time.deltaTime / DayDuraction;
 

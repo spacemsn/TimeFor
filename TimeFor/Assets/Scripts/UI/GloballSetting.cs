@@ -2,11 +2,11 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GloballSetting : MonoCache
+public class GloballSetting : MonoBehaviour
 {
     [Header("Панели")]
     [SerializeField] public PauseScript pauseScript;
-    [SerializeField] public inventoryCharacter inventoryScript;
+    [SerializeField] public bookCharacter inventoryScript;
     [SerializeField] public DeathScript deathScript;
     [SerializeField] public ScrollScript scrollScript;
 
@@ -29,7 +29,7 @@ public class GloballSetting : MonoCache
 
         character = GameObject.FindGameObjectWithTag("Player");
         freeLook = GameObject.FindGameObjectWithTag("FreeLook").GetComponent<CinemachineFreeLook>();
-        inventoryScript = character.GetComponent<inventoryCharacter>();
+        inventoryScript = character.GetComponent<bookCharacter>();
         pauseScript = GetComponent<PauseScript>();
         deathScript = GetComponent<DeathScript>();
         scrollScript = GetComponent<ScrollScript>();
@@ -44,7 +44,7 @@ public class GloballSetting : MonoCache
 
     }
 
-    public override void OnTick()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && pauseScript.isOpenPanel == false)
         {
@@ -61,6 +61,10 @@ public class GloballSetting : MonoCache
         else if (Input.GetKeyUp(KeyCode.LeftAlt))
         {
             notVisible();
+        }
+        else if(Input.GetKeyDown(KeyCode.M))
+        {
+            inventoryScript.OpenMap();
         }
     }
 

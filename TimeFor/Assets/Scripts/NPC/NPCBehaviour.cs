@@ -3,14 +3,17 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using UnityEngine.AI;
 
-public class NPCBehaviour : MonoBehaviour
+
+public class NPCBehaviour : MonoBehaviour, IMoveBehavior
 {
     [Header("NPC")]
     private NPCObject phrases;
 
     [Header("Components")]
     private Animator animator;
+    private NavMeshAgent agent;
 
     [Header("Animation Curve")]
     [SerializeField] private AnimationCurve Curve;
@@ -89,4 +92,8 @@ public class NPCBehaviour : MonoBehaviour
         DisplayNextLine();
     }
 
+    public void Movement()
+    {
+        //agent.SetDestination();
+    }
 }

@@ -44,3 +44,8 @@ public interface IDamageBehavior
 
     }
 }
+
+public interface INPCTask
+{
+    void Task(Transform[] enemys);
+}

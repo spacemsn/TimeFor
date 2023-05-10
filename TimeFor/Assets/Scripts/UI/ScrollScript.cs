@@ -34,7 +34,7 @@ public class ScrollScript : MonoCache
         freeLook = globallSetting.freeLook;
     }
 
-    public override void OnTick()
+    public override void OnUpdate()
     {
         Scrolling();
     }

@@ -17,7 +17,7 @@ MonoBehaviour:
   itemPrefab: {fileID: 8088893976511215414, guid: f08c03c9318a2384286e85b8815eef8a, type: 3}
   maxAmount: 1
   aboutItem: "\u0421\u043F\u0435\u043B"
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: b92a4086580bf6b45bd0169fc9043e74, type: 3}
   damage: 5
   attackRollback: 1
   speed: 2

@@ -13,7 +13,7 @@ public class Mouse : MonoCache
         notVisible();
     }
 
-    public override void OnTick()
+    public override void OnUpdate()
     {
         OnEnterButton();
     }
