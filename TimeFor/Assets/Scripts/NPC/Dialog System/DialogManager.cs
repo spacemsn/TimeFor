@@ -5,19 +5,25 @@ using TMPro;
 public class DialogManager : MonoBehaviour
 {
     public TMP_Text dialogText;
+    public TMP_Text nameDialogText;
     public GameObject answerButtonPrefab;
     public Transform answerButtonParent;
 
-    [SerializeField] private NPC npc;
+    [SerializeField] private NPCBehaviour npc;
+    [SerializeField] private GameObject player;
 
     void Start()
     {
-        npc = FindObjectOfType<NPC>();
+        player = this.gameObject;
     }
 
-    public void StartDialog()
+    public void StartDialog(NPCBehaviour currentNpc)
     {
+        npc = currentNpc;
         UpdateDialogUI();
+
+
+        player.GetComponent<moveCharacter>().isManagement = false;
     }
 
     public void NextDialog()
@@ -25,9 +31,24 @@ public class DialogManager : MonoBehaviour
         UpdateDialogUI();
     }
 
+    public void EndDialog()
+    {
+        nameDialogText.text = "";
+        dialogText.text = "";
+
+        foreach (Transform child in answerButtonParent)
+        {
+            Destroy(child.gameObject);
+        }
+
+        player.GetComponent<moveCharacter>().isManagement = true;
+    }
+
     void UpdateDialogUI()
     {
+        nameDialogText.text = npc.GetCurrentNameDialogText();
         dialogText.text = npc.GetCurrentDialogText();
+
 
         Answer[] answers = npc.GetAnswers();
 

@@ -8,92 +8,79 @@ using UnityEngine.AI;
 
 public class NPCBehaviour : MonoBehaviour, IMoveBehavior
 {
-    [Header("NPC")]
-    private NPCObject phrases;
+    public string name;
+
+    [Header("Старт диалога")]
+    public Dialog startDialog;
+
+    private Dialog currentDialog;
+    private DialogManager dialogManager;
 
     [Header("Components")]
+    public Transform NPC_UI;
+    public Transform camera;
     private Animator animator;
     private NavMeshAgent agent;
 
     [Header("Animation Curve")]
     [SerializeField] private AnimationCurve Curve;
 
-    [Header("Dialog")]
-    [SerializeField] private Transform dialoguePanel;
-    [SerializeField] private TMP_Text nameNPC;
-    [SerializeField] private TMP_Text dialogueText;
-    private Queue<string> lines;
-
     [Range(0, 1)]
     public float Time;
     public float Duraction = 15f;
 
-    private void Start()
+    void Start()
     {
-        phrases = Resources.Load<NPCObject>("NPC/NPC");
-        animator = GetComponent<Animator>();
+        dialogManager = FindObjectOfType<DialogManager>();
+        camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
 
-        nameNPC.text = phrases.name;
-        dialogueText.text = string.Empty;
-        dialogueText.gameObject.SetActive(false);
-        lines = new Queue<string>();
-    }
-
-    public void StartDialog()
-    {
-        lines.Clear();
-        dialogueText.gameObject.SetActive(true);
-
-        foreach(string line in phrases.lines)
-        {
-            lines.Enqueue(line);
-        }
-
-        animator.SetFloat("TalkMotion", Time);
-        StartCoroutine(WaitNextLine(3f));
-    }
-
-    public void DisplayNextLine()
-    {
-        animator.SetTrigger("Hello");
-        animator.SetBool("Talk", true);
-
-        if (lines.Count == 0)
-        {
-            EndDialogue();
-            return;
-        }
-        else { StartCoroutine(WaitNextLine(3f)); }
-
-        string line = lines.Dequeue();
-        dialogueText.text = line;
-    }
-
-    public void EndDialogue()
-    {
-        animator.SetBool("Talk", false);
-        animator.SetTrigger("GoodBye");
-        dialogueText.text = string.Empty; ;
+        startDialog.name = name;
+        currentDialog = startDialog;
     }
 
     private void Update()
     {
         Time = Curve.Evaluate(UnityEngine.Time.deltaTime / Duraction);
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            DisplayNextLine();
-        }
     }
 
-    IEnumerator WaitNextLine(float waitTime)
+    private void LateUpdate()
     {
-        yield return new WaitForSeconds(waitTime);
-        DisplayNextLine();
+        NPC_UI.LookAt(camera.position, Vector3.up);
+    }
+
+    public string GetCurrentNameDialogText()
+    {
+        currentDialog.name = name;
+        return currentDialog.name;
+    }
+
+    public string GetCurrentDialogText()
+    {
+        return currentDialog.dialogText;
+    }
+
+    public Answer[] GetAnswers()
+    {
+        return currentDialog.answers;
+    }
+
+    public void SetNextDialog(Answer answer)
+    {
+        currentDialog = answer.nextDialog;
+        if (currentDialog.answers.Length > 0)
+        {
+            dialogManager.NextDialog();
+        }
+        else
+        {
+            dialogManager.EndDialog();
+            currentDialog = startDialog;
+        }
     }
 
     public void Movement()
     {
-        //agent.SetDestination();
+
     }
 }

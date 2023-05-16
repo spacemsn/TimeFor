@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum ItemType { Default, Food, Potion, Weapon, Skill, Instrument }
 public class Item : ScriptableObject

@@ -12,6 +12,7 @@ TagManager:
   - FreeLook
   - Spawn Point
   - NPC
+  - Selectable
   layers:
   - Default
   - TransparentFX

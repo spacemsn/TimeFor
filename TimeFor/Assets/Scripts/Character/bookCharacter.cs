@@ -57,10 +57,6 @@ public class bookCharacter : MonoCache
             }
         }
 
-        // Load saved inventory data
-        saveInventory = Resources.Load<SaveData>("Character/Save");
-        defaultInventory = Resources.Load<SaveData>("Inventory/Default");
-
         // Initialize inventory slots
         for (int i = 0; i < saveInventory.slots.Count; i++)
         {
@@ -131,16 +127,16 @@ public class bookCharacter : MonoCache
     {
         if (isOpenMap == true)
         {
-            inventoryPage.gameObject.SetActive(false);
-            isOpenInventory = false;
+            mapPanel.gameObject.SetActive(false);
+            isOpenMap = false;
             freeLook.m_XAxis.m_InputAxisName = "Mouse X";
             freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
             move.isManagement = true;
         }
         else if (isOpenMap == false)
         {
-            inventoryPage.gameObject.SetActive(true);
-            isOpenInventory = true;
+            mapPanel.gameObject.SetActive(true);
+            isOpenMap = true;
             freeLook.m_XAxis.m_InputAxisName = "";
             freeLook.m_XAxis.m_InputAxisValue = 0;
             freeLook.m_YAxis.m_InputAxisName = "";

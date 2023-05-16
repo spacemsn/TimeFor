@@ -54,6 +54,10 @@ public class GloballSetting : MonoBehaviour
         {
             inventoryScript.OpenInventory();
         }
+        else if (Input.GetKeyDown(KeyCode.M) && pauseScript.isOpenPanel == false)
+        {
+            inventoryScript.OpenMap();
+        }
         else if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
             Visible();
@@ -61,10 +65,6 @@ public class GloballSetting : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.LeftAlt))
         {
             notVisible();
-        }
-        else if(Input.GetKeyDown(KeyCode.M))
-        {
-            inventoryScript.OpenMap();
         }
     }
 

@@ -5,14 +5,14 @@ using TMPro;
 public class AnswerButton : MonoBehaviour
 {
     public Text answerText;
-    private NPC npc;
+    private NPCBehaviour npc;
     private Answer answer;
 
     public KeyCode key;
 
     void Start()
     {
-        npc = FindObjectOfType<NPC>();
+        npc = FindObjectOfType<NPCBehaviour>();
     }
 
     public void Setup(Answer currentAnswer)

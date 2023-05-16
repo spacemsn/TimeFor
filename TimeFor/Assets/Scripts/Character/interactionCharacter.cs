@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,8 +8,6 @@ public class interactionCharacter : MonoCache
     [Header("Кнопки")]
     [SerializeField] private Image imageE;
     [SerializeField] private Image imageT;
-    private Ray ray;
-    private RaycastHit hit;
 
     [Header("Радиус взаимодействия")]
     [SerializeField] private float radius;
@@ -15,9 +15,12 @@ public class interactionCharacter : MonoCache
 
     [Header("Дальность взаимодействия")]
     [SerializeField] private float maxDistance;
+    private Ray ray;
+    private RaycastHit hit;
 
-    [SerializeField] GameObject GlobalSettings;
-    private moveCharacter character;
+    [Header("Компоненты")]
+    public GameObject GlobalSettings;
+    private moveCharacter move;
     public Collider[] Interactions;
     public Collider[] NPC;
 
@@ -25,15 +28,21 @@ public class interactionCharacter : MonoCache
     public LayerMask maskInteractions;
 
     [Header("Диалог")]
-    [SerializeField] private DialogManager dialog;
+    private DialogManager dialog;
+
+    public List<Button> selectButtons;
+    public Button oldButton;
+    public Button currentButton;
+    public Transform buttonParent;
+    public int selectedIndex;
+
+    public KeyCode keyOne;
+    public KeyCode keyTwo;
 
     private void Start()
     {
-        character = GetComponent<moveCharacter>();
+        move = GetComponent<moveCharacter>();
         dialog = GetComponent<DialogManager>();
-
-        imageE = GameObject.Find("Button E").GetComponent<Image>();
-        imageT = GameObject.Find("Button T").GetComponent<Image>();
     }
 
     private void Ray()
@@ -69,7 +78,7 @@ public class interactionCharacter : MonoCache
         }
     }
 
-    private void Radius() // Метод взаимодействия с объектами для передвижения
+    private void Radius() // Метод взаимодействия с объектами через радиус 
     {
         var Inventory = gameObject.GetComponent<bookCharacter>();
 
@@ -89,15 +98,15 @@ public class interactionCharacter : MonoCache
                         //rigidbodyInteractions.GetComponent<Interactions>().PickUp();
                     }
                 }
-                if (Input.GetKeyDown(KeyCode.T)) // Взять предмет в инвентарь
-                {
-                    ItemPrefab item = rigidbodyInteractions.gameObject.GetComponent<ItemPrefab>();
-                    if (rigidbodyInteractions.gameObject.GetComponent<ItemPrefab>() != null)
-                    {
-                        Inventory.AddItem(item.item, item.amount);
-                    }
-                    Destroy(rigidbodyInteractions.gameObject);
-                }
+                //if (Input.GetKeyDown(KeyCode.T)) // Взять предмет в инвентарь
+                //{
+                //    ItemPrefab item = rigidbodyInteractions.gameObject.GetComponent<ItemPrefab>();
+                //    if (rigidbodyInteractions.gameObject.GetComponent<ItemPrefab>() != null)
+                //    {
+                //        Inventory.AddItem(item.item, item.amount);
+                //    }
+                //    Destroy(rigidbodyInteractions.gameObject);
+                //}
             }
             else { imageT.enabled = false; }
         }
@@ -117,7 +126,7 @@ public class interactionCharacter : MonoCache
                     {
                         NPCBehaviour NPCbehaviour = NPC[i].GetComponent<NPCBehaviour>();
                         transform.LookAt(NPCbehaviour.transform, new Vector3(0, transform.position.y, 0));
-                        dialog.StartDialog();
+                        dialog.StartDialog(NPCbehaviour);
                     }
                 }
             }
@@ -140,5 +149,66 @@ public class interactionCharacter : MonoCache
         DrawRay();
         Interact();
         Radius();
+
+        selectButtons = buttonParent.GetComponentsInChildren<Button>().ToList();
+
+
+        if (Input.GetKeyDown(keyOne))
+        {
+            // Получаем индекс выбранной кнопки меню
+            selectedIndex = selectButtons.IndexOf(currentButton);
+
+            // Если выбрана последняя кнопка, выбираем первую
+            if (selectedIndex >= selectButtons.Count - 1)
+            {
+                selectedIndex = 0;
+            }
+            else
+            {
+                // Выбираем следующую кнопку
+                selectedIndex++;
+            }
+
+            // Выбираем объект, связанный с выбранной кнопкой
+            SelectObject(selectButtons[selectedIndex]);
+        }
+        else if (Input.GetKeyDown(keyTwo))
+        {
+            // Получаем индекс выбранной кнопки меню
+            selectedIndex = selectButtons.IndexOf(currentButton);
+
+            // Если выбрана первая кнопка, выбираем последнюю
+            if (selectedIndex <= 0)
+            {
+                selectedIndex = selectButtons.Count - 1;
+            }
+            else
+            {
+                // Выбираем предыдущую кнопку
+                selectedIndex--;
+            }
+
+            // Выбираем объект, связанный с выбранной кнопкой
+            SelectObject(selectButtons[selectedIndex]);
+        }
+
+    }
+
+    void SelectObject(Button obj)
+    {
+        // Сбрасываем выделение всех объектов
+        foreach (Button selectableObj in selectButtons)
+        {
+            // Меняем цвет на обычный
+            selectableObj.transform.GetComponent<Image>().color = Color.white;
+        }
+
+        // Выбираем новый объект
+        if(currentButton != null) { oldButton = currentButton; oldButton.GetComponent<SelectObjectButton>().isSelect(); }
+        currentButton = obj; currentButton.GetComponent<SelectObjectButton>().isSelect();
+
+        // Выделяем выбранный объект
+        currentButton.GetComponent<Image>().color = Color.green;
+
     }
 }

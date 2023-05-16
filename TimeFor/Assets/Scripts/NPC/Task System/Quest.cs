@@ -15,10 +15,10 @@ public class Quest : ScriptableObject
     public QuestType questType;
 
     // Для задания "убить врагов"
-    public Transform[] enemiesToKill;
+    public GameObject[] enemiesToKill;
     public int enemiesToKillCount;
 
     // Для задания "собрать предметы"
-    public Transform[] itemsToCollect;
+    public GameObject[] itemsToCollect;
     public int itemsToCollectCount;
 }
