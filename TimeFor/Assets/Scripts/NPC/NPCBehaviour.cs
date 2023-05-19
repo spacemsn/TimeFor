@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 using UnityEngine.AI;
+using static UnityEditor.Progress;
 
 
 public class NPCBehaviour : MonoBehaviour, IMoveBehavior
@@ -29,6 +30,15 @@ public class NPCBehaviour : MonoBehaviour, IMoveBehavior
     public float Time;
     public float Duraction = 15f;
 
+    public float radius;
+    public LayerMask maskPlayer;
+
+    public Collider[] Player;
+
+    public Button buttonPrefab;
+    public Transform buttonParent;
+    public Button currentButton;
+
     void Start()
     {
         dialogManager = FindObjectOfType<DialogManager>();
@@ -42,6 +52,19 @@ public class NPCBehaviour : MonoBehaviour, IMoveBehavior
     {
         Time = Curve.Evaluate(UnityEngine.Time.deltaTime / Duraction);
 
+
+        Player = Physics.OverlapSphere(transform.position, radius, maskPlayer);
+        if (Player.Length > 0 && currentButton == null)
+        {
+            currentButton = Instantiate(buttonPrefab, buttonParent);
+            currentButton.GetComponent<SelectObjectButton>().GetComponentNPC(this, Player[0].gameObject);
+            currentButton.transform.GetChild(0).GetComponent<Text>().text = "(F)    " + name;
+
+        }
+        else if (Player.Length == 0 && currentButton != null)
+        {
+            Destroy(currentButton.gameObject);
+        }
     }
 
     private void LateUpdate()

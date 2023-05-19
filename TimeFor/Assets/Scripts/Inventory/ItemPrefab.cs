@@ -21,7 +21,7 @@ public class ItemPrefab : MonoBehaviour
         if (Player.Length > 0 && currentButton == null)
         {
             currentButton = Instantiate(buttonPrefab, buttonParent); 
-            currentButton.GetComponent<SelectObjectButton>().GetComponent(this, Player[0].gameObject); 
+            currentButton.GetComponent<SelectObjectButton>().GetComponentItem(this, Player[0].gameObject); 
             currentButton.transform.GetChild(0).GetComponent<Text>().text = "(F)    " + item.name + " " + amount + "רע";
 
         }
