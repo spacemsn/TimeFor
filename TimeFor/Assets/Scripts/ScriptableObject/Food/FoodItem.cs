@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "WeaponItem", menuName = "Inventory/Items/Food")]
+[CreateAssetMenu(fileName = "FoodItem", menuName = "Inventory/Items/Food")]
 public class foodItem : Item
 {
     [Header("Характеристики еды")]

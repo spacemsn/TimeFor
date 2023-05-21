@@ -7,6 +7,7 @@ public class SelectObjectButton : MonoBehaviour
 {
     public ItemPrefab item;
     public NPCBehaviour npc;
+    public Chest chest;
 
     private GameObject player;
     [SerializeField] private bool isSelected = false;
@@ -26,6 +27,10 @@ public class SelectObjectButton : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F) && player != null) // Поговорить с npc
         {
             OnButtonNPC();
+        }
+        if (Input.GetKeyDown(KeyCode.F) && player != null) // Поговорить с npc
+        {
+            OnButtonChest();
         }
     }
 
@@ -56,6 +61,18 @@ public class SelectObjectButton : MonoBehaviour
         }
     }
 
+    public void OnButtonChest()
+    {
+        if (isSelected)
+        {
+            if (chest != null)
+            {
+                chest.GetComponent<Chest>().OpenChest();
+                Destroy(chest.gameObject);
+            }
+        }
+    }
+
     public void isSelect()
     {
         isSelected = !isSelected;
@@ -70,6 +87,12 @@ public class SelectObjectButton : MonoBehaviour
     public void GetComponentNPC(NPCBehaviour npc, GameObject player)
     {
         this.npc = npc;
+        this.player = player;
+    }
+
+    public void GetComponentChest(Chest chest, GameObject player)
+    {
+        this.chest = chest;
         this.player = player;
     }
 }

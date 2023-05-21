@@ -20,6 +20,7 @@ public class ItemPrefab : MonoBehaviour
         Player = Physics.OverlapSphere(transform.position, radius, maskPlayer);
         if (Player.Length > 0 && currentButton == null)
         {
+            buttonParent = GameObject.FindGameObjectWithTag("ButtonPanel").transform;
             currentButton = Instantiate(buttonPrefab, buttonParent); 
             currentButton.GetComponent<SelectObjectButton>().GetComponentItem(this, Player[0].gameObject); 
             currentButton.transform.GetChild(0).GetComponent<Text>().text = "(F)    " + item.name + " " + amount + "רע";

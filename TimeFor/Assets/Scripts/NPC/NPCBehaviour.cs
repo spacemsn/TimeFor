@@ -4,8 +4,6 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 using UnityEngine.AI;
-using static UnityEditor.Progress;
-
 
 public class NPCBehaviour : MonoBehaviour, IMoveBehavior
 {
@@ -56,6 +54,7 @@ public class NPCBehaviour : MonoBehaviour, IMoveBehavior
         Player = Physics.OverlapSphere(transform.position, radius, maskPlayer);
         if (Player.Length > 0 && currentButton == null)
         {
+            buttonParent = GameObject.FindGameObjectWithTag("ButtonPanel").transform;
             currentButton = Instantiate(buttonPrefab, buttonParent);
             currentButton.GetComponent<SelectObjectButton>().GetComponentNPC(this, Player[0].gameObject);
             currentButton.transform.GetChild(0).GetComponent<Text>().text = "(F)    " + name;

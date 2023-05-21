@@ -22,15 +22,15 @@ public class interactionCharacter : MonoCache
     
     public void Update()
     {
-
         selectButtons = buttonParent.GetComponentsInChildren<Button>().ToList();
 
-        if (buttonParent.childCount > 0 && selectButtons[selectedIndex] != null)
+        // Выбираем объект, связанный с выбранной кнопкой
+        if (selectedIndex > selectButtons.Count - 1 && selectedIndex < selectButtons.Count - 1 && buttonParent.childCount > 0)
         {
             SelectObject(selectButtons[selectedIndex]);
         }
 
-        if (Input.GetAxis("Mouse ScrollWheel") > 0)
+        if (Input.GetAxis("Mouse ScrollWheel") < 0)
         {
             // Получаем индекс выбранной кнопки меню
             selectedIndex = selectButtons.IndexOf(currentButton);
@@ -53,7 +53,7 @@ public class interactionCharacter : MonoCache
             }
         }
 
-        if (Input.GetAxis("Mouse ScrollWheel") < 0)
+        if (Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             // Получаем индекс выбранной кнопки меню
             selectedIndex = selectButtons.IndexOf(currentButton);
@@ -85,7 +85,7 @@ public class interactionCharacter : MonoCache
             if (currentButton != null)
             {
                 // Меняем цвет на обычный
-                selectableObj.transform.GetComponent<Image>().color = currentButton.colors.normalColor;
+                selectableObj.transform.GetComponent<Image>().color = currentButton.colors.disabledColor;
             }
         }
 
@@ -94,8 +94,7 @@ public class interactionCharacter : MonoCache
         currentButton = obj; currentButton.GetComponent<SelectObjectButton>().isSelect();
 
         // Выделяем выбранный объект
-        //currentButton.GetComponent<Image>().color = Color.green;
-        currentButton.GetComponent<Image>().color = currentButton.colors.highlightedColor;
+        currentButton.GetComponent<Image>().color = currentButton.colors.normalColor;
 
     }
 }
