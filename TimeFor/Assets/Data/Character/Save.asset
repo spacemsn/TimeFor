@@ -18,20 +18,20 @@ MonoBehaviour:
   aboutObject: "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u043D\u044B\u0439
     \u0438\u0433\u0440\u043E\u043A"
   icon: {fileID: 0}
-  dateSave: 16.04.2023 15:11:54
-  playerName: Character
+  dateSave: 22.05.2023 4:32:15
+  playerName: 
   levelId: 1
-  levelPlayer: 2
+  levelPlayer: 1
   health: 100
   stamina: 100
   damageBase: 20
   damagePercent: 1
-  moveSpeed: 5
-  runSpeed: 7
-  jumpForce: 3.5
+  moveSpeed: 6.7
+  runSpeed: 9.5
+  jumpForce: 2.2
   debuff: 0.15
-  position: {x: 126.5933, y: 0.9999962, z: 123.1386}
-  origPosition: {x: 126.6139, y: 0.9999964, z: 121.3689}
+  currentPosition: {x: 126.85325, y: 0.9999963, z: 123.71412}
+  lastSavePosition: {x: 0, y: 0, z: 0}
   slots:
   - Id: 0
     item: {fileID: 0}
@@ -169,5 +169,18 @@ MonoBehaviour:
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  saveIndex: 0
-  savedPlayers: []
+  savedPlayers:
+  - fileName: 
+    dateSave: 29.05.2023 10:31:23
+    playerName: 
+    levelId: 2
+    levelPlayer: 1
+    health: 100
+    stamina: 100
+    damageBase: 20
+    damagePercent: 1
+    moveSpeed: 6.7
+    runSpeed: 9.5
+    jumpForce: 2.2
+    debuff: 0.15
+    position: {x: 126.85325, y: 0.9999963, z: 123.71412}

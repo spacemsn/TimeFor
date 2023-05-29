@@ -5,13 +5,18 @@ using UnityEngine.UI;
 
 public class interactionCharacter : MonoCache
 {
+    [Header("EntryPoint")]
+    public EntryPoint entryPoint;
+    public PlayerEntryPoint playerEntry;
+    public UIEntryPoint uIEntry;
+
     [Header("Компоненты")]
     public GameObject GlobalSettings;
     private moveCharacter move;
 
-    private List<Button> selectButtons;
-    private Button oldButton;
-    private Button currentButton;
+    [SerializeField] private List<Button> selectButtons;
+    [SerializeField] private Button oldButton;
+    [SerializeField] private Button currentButton;
     public Transform buttonParent;
     public int selectedIndex;
 
@@ -19,7 +24,15 @@ public class interactionCharacter : MonoCache
     {
         move = GetComponent<moveCharacter>();
     }
-    
+
+    public void GetUI(PlayerEntryPoint player, UIEntryPoint uI)
+    {
+        this.playerEntry = player;
+        this.uIEntry = uI;
+
+        buttonParent = uI.buttonParent;
+    }
+
     public void Update()
     {
         selectButtons = buttonParent.GetComponentsInChildren<Button>().ToList();

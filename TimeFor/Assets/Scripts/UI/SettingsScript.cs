@@ -18,6 +18,8 @@ public class Controlls
 
 public class SettingsScript : MonoBehaviour
 {
+    public EntryPoint entryPoint;
+
     [Header("Компоненты")]
     [SerializeField] private GloballSetting settings;
     [SerializeField] private PauseScript pauseScript;
@@ -35,26 +37,25 @@ public class SettingsScript : MonoBehaviour
 
     private void Start()
     {
-        // Load saved settings data
-        //Default = Resources.Load<SettingsObject>("Settings/Defaunt Settings");
-        //Settings = Resources.Load<SettingsObject>("Settings/Settings");
-
         #region Get components
 
-        settings = GetComponent<GloballSetting>();
+        settings = GetComponent<GloballSetting>(); entryPoint = settings.entryPoint; SettingsPanel = entryPoint.UI.SettingPanel.gameObject;
         pauseScript = GetComponent<PauseScript>();
 
-        if ((GameObject.FindGameObjectWithTag("FreeLook")) != null)
+        if (entryPoint)
         {
-            freeLook = GameObject.FindGameObjectWithTag("FreeLook").GetComponent<CinemachineFreeLook>();
+            freeLook = entryPoint.UI.freeLook;
             freeLook.m_YAxis.m_MaxSpeed = Settings.SensitivityY;
             freeLook.m_XAxis.m_MaxSpeed = Settings.SensitivityX;
+
+            SensitivityYSlider = entryPoint.UI.SensitivityYSlider;
+            SensitivityXSlider = entryPoint.UI.SensitivityXSlider;
+
+            SensitivityYSlider.value = Settings.SensitivityY;
+            SensitivityXSlider.value = Settings.SensitivityX;
         }
 
         #endregion
-
-        SensitivityYSlider.value = Settings.SensitivityY;
-        SensitivityXSlider.value = Settings.SensitivityX;
     }
 
     public void SaveSettings()

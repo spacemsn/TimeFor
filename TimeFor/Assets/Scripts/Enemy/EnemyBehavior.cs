@@ -25,7 +25,7 @@ public class EnemyBehavior : MonoBehaviour, IMoveBehavior
     [Header("Компоненты Врага")]
     private Animator animator;
     private NavMeshAgent navAgent;
-    private Transform player;
+    public Transform player;
     private Vector3 originalPosition;
     [HideInInspector] public Transform centerOfEnemy;
 
@@ -44,8 +44,6 @@ public class EnemyBehavior : MonoBehaviour, IMoveBehavior
         enemyStage = EnemyStage.Wait;
         enemyParam.SetBehavior(this);
 
-        //Находим игрока
-        player = GameObject.FindGameObjectWithTag("Player").transform;
         centerOfEnemy = gameObject.transform.Find("CenterOfEnemy");
 
         //Запоминаем начальную позицию

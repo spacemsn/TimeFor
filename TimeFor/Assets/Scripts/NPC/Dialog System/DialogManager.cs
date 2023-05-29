@@ -4,6 +4,12 @@ using TMPro;
 
 public class DialogManager : MonoBehaviour
 {
+    [Header("EntryPoint")]
+    public EntryPoint entryPoint;
+    public PlayerEntryPoint playerEntry;
+    public UIEntryPoint uIEntry;
+
+
     public TMP_Text dialogText;
     public TMP_Text nameDialogText;
     public GameObject answerButtonPrefab;
@@ -16,6 +22,16 @@ public class DialogManager : MonoBehaviour
     {
         player = this.gameObject;
     }
+
+    public void GetUI(PlayerEntryPoint player, UIEntryPoint uI)
+    {
+        this.playerEntry = player;
+        this.uIEntry = uI;
+
+        dialogText = uI.dialogText;
+        nameDialogText = uI.nameDialogText;
+        answerButtonParent = uI.answerButtonParent;
+}
 
     public void StartDialog(NPCBehaviour currentNpc)
     {

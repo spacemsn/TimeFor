@@ -8,40 +8,27 @@ public class MainMenu : MonoBehaviour
 {
     [Header("Сохранение персонажа")]
     [SerializeField] private SaveData currentSave;
-    [SerializeField] private SaveData defaultSave;
-    [SerializeField] private GameObject player;
 
     [Header("Настройки")]
     [SerializeField] private SettingsScript settings;
 
+    EntryPoint entryPoint;
+
     private void Start()
     {
-        currentSave = Resources.Load<SaveData>("Character/Save");
-        defaultSave = Resources.Load<SaveData>("Character/Default");
-        player = Resources.Load<GameObject>("Prefabs/Player/Character");
+        entryPoint = GameObject.Find("EntryPoint").GetComponent<EntryPoint>();
+        currentSave = entryPoint.player.saveData;
     }
 
     public void NewGame()
     {
-        //currentSave.savedPlayers.Clear();
-        //currentSave.SetSave(player.GetComponent<CharacterStatus>());
-        SceneLoad.SwitchScene("LVL1");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         Time.timeScale = 1f;
     }
 
     public void Continuo()
     {
-        //if(currentSave.savedPlayers.Count <= 0)
-        //{
-        //    Debug.Log("У вас нет сохранений, начните новую игру!");
-        //}
-        //else
-        //{
-        //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + currentSave.levelId);
-        //    Time.timeScale = 1f;
-        //}
-
-        SceneLoad.SwitchScene("LVL2");
+        SceneManager.LoadScene(currentSave.savedPlayers[currentSave.savedPlayers.Count - 1].levelId + 1);
         Time.timeScale = 1f;
     }
 

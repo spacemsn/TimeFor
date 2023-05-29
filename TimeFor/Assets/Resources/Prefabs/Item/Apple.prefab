@@ -107,7 +107,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1384816741178079994}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f29d6b4198e4284faaae833741e5866, type: 3}
   m_Name: 
@@ -133,6 +133,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 258c6e91e553dae468dfec572fdbd3cf, type: 2}
   amount: 1
+  radius: 0
+  maskPlayer:
+    serializedVersion: 2
+    m_Bits: 0
+  Player: []
+  buttonPrefab: {fileID: 0}
+  buttonParent: {fileID: 0}
+  currentButton: {fileID: 0}
 --- !u!54 &-3981220567442503449
 Rigidbody:
   m_ObjectHideFlags: 0

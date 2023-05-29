@@ -4,17 +4,16 @@ using UnityEngine.UI;
 
 public class GloballSetting : MonoBehaviour
 {
+    [Header("EntryPoint")]
+    public EntryPoint entryPoint;
+    public PlayerEntryPoint playerEntry;
+    public UIEntryPoint uIEntry;
+    public GloballEntryPoint globallEntry;
+
     [Header("Панели")]
     [SerializeField] public PauseScript pauseScript;
-    [SerializeField] public bookCharacter inventoryScript;
+    [SerializeField] public bookCharacter bookScript;
     [SerializeField] public DeathScript deathScript;
-    [SerializeField] public ScrollScript scrollScript;
-
-    [Header("UI")]
-    public GameObject InventoryPanel;
-    public GameObject IndecatorPanel;
-    public GameObject DeathPanel;
-    public GameObject PausePanel;
 
     [Header("Объекты")]
     public GameObject character;
@@ -23,25 +22,21 @@ public class GloballSetting : MonoBehaviour
     [SerializeField] bool isVisible = true;
     [SerializeField] public CinemachineFreeLook freeLook;
 
-    private void Start()
+    public void EntryPoint(EntryPoint entryPoint)
     {
-        #region Find Component
+        this.entryPoint = entryPoint;
+        playerEntry = entryPoint.player;
+        uIEntry = entryPoint.UI;
+        globallEntry = entryPoint.globallSetting;
 
-        character = GameObject.FindGameObjectWithTag("Player");
-        freeLook = GameObject.FindGameObjectWithTag("FreeLook").GetComponent<CinemachineFreeLook>();
-        inventoryScript = character.GetComponent<bookCharacter>();
         pauseScript = GetComponent<PauseScript>();
         deathScript = GetComponent<DeathScript>();
-        scrollScript = GetComponent<ScrollScript>();
-
-        #endregion
 
         notVisible();
 
-        scrollScript.SetComponent(freeLook);
-        deathScript.SetComponent(DeathPanel);
-        pauseScript.SetComponent(PausePanel);
-
+        freeLook = uIEntry.freeLook;
+        deathScript.SetComponent(uIEntry.dealthPanel.gameObject);
+        pauseScript.SetComponent(uIEntry.pausePanel.gameObject);
     }
 
     private void Update()
@@ -52,11 +47,11 @@ public class GloballSetting : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Tab) && pauseScript.isOpenPanel == false)
         {
-            inventoryScript.OpenInventory();
+            bookScript.OpenInventory();
         }
         else if (Input.GetKeyDown(KeyCode.M) && pauseScript.isOpenPanel == false)
         {
-            inventoryScript.OpenMap();
+            bookScript.OpenMap();
         }
         else if (Input.GetKeyDown(KeyCode.LeftAlt))
         {

@@ -2,6 +2,11 @@ using UnityEngine;
 
 public class moveCharacter : MonoBehaviour, IMoveBehavior
 {
+    [Header("EntryPoint")]
+    public EntryPoint entryPoint;
+    public PlayerEntryPoint playerEntry;
+    public UIEntryPoint uIEntry;
+
     [Header("Компоненты")]
     [SerializeField] private mainCharacter status;
     [SerializeField] private indicatorCharacter indicators;
@@ -9,7 +14,7 @@ public class moveCharacter : MonoBehaviour, IMoveBehavior
 
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Animator animator;
-    [SerializeField] private Camera camera;
+    [SerializeField] public Camera camera;
 
     [Header("Характеристики")]
     public float moveSpeed;
@@ -33,6 +38,14 @@ public class moveCharacter : MonoBehaviour, IMoveBehavior
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         status = GetComponent<mainCharacter>();
+    }
+
+    public void GetUI(PlayerEntryPoint player, UIEntryPoint uI)
+    {
+        this.playerEntry = player;
+        this.uIEntry = uI;
+
+        camera = uI.camera;
     }
 
     private void FixedUpdate()

@@ -1,8 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Save", menuName = "Save/Json")]
+[CreateAssetMenu(fileName = "Save player", menuName = "Save")]
 public class SaveData : ItemObject
 {
     [Header("Время сохранения")]
@@ -27,15 +28,14 @@ public class SaveData : ItemObject
     public float debuff;
 
     [Header("Местонахождение")]
-    public Vector3 position;
-    public Vector3 origPosition;
+    public Vector3 currentPosition;
+    public Vector3 lastSavePosition;
 
     [Header("Инвентарь")]
     public List<InventorySlot> slots = new List<InventorySlot>();
 
     // Загрузить список сохраненных игроков
     PlayerData playerData;
-    public int saveIndex = 0;
     public List<PlayerData> savedPlayers;
 
     private void Awake()
@@ -55,7 +55,7 @@ public class SaveData : ItemObject
         runSpeed = move.runSpeed;
         jumpForce = move.jumpForce;
         debuff = move.debuff;
-        position = character.position;
+        currentPosition = move.gameObject.transform.position;
 
         playerData = new PlayerData(this);
         savedPlayers.Add(playerData);
@@ -63,7 +63,7 @@ public class SaveData : ItemObject
 
     public void LoadSave(mainCharacter character, indicatorCharacter indicators, moveCharacter move)
     {
-        savedPlayers[saveIndex].LoadSave(this);
+        savedPlayers[savedPlayers.Count - 1].LoadSave(this);
 
         indicators.lvlPlayer = levelPlayer;
         indicators.Health = health;
@@ -74,7 +74,6 @@ public class SaveData : ItemObject
         move.runSpeed = runSpeed;
         move.jumpForce = jumpForce;
         move.debuff = debuff;
-        character.transform.position = position;
-
+        move.gameObject.transform.position = currentPosition;
     }
 }

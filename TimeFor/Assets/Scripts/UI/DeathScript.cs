@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class DeathScript : MonoBehaviour
 {
-    [SerializeField] private GameObject Character;
+    [SerializeField] private GameObject character;
     [SerializeField] private GloballSetting globallSetting;
 
     [Header("Меню Смерти")]
@@ -13,7 +13,6 @@ public class DeathScript : MonoBehaviour
     private void Start()
     {
         globallSetting = GetComponent<GloballSetting>();
-        Character = GameObject.FindGameObjectWithTag("Player");
     }
 
     public void SetComponent(GameObject DeathPanel)
@@ -23,8 +22,8 @@ public class DeathScript : MonoBehaviour
 
     public void SavePosition(Vector3 transform, Quaternion rotate)
     {
-        Character.transform.position = transform;
-        Character.transform.rotation = rotate;
+        character.transform.position = transform;
+        character.transform.rotation = rotate;
     }
 
     public void OpenMenu()
@@ -49,6 +48,7 @@ public class DeathScript : MonoBehaviour
 
     public void Respawn()
     {
+        character = globallSetting.character;
         SceneLoad.SwitchScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1f;
     }

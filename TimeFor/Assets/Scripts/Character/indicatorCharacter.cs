@@ -6,6 +6,11 @@ using System.Collections.Generic;
 
 public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
 {
+    [Header("EntryPoint")]
+    public EntryPoint entryPoint;
+    public PlayerEntryPoint playerEntry;
+    public UIEntryPoint uIEntry;
+
     [Header("Показатели персонажа")]
     public int lvlPlayer;
     [SerializeField] private float health;
@@ -84,9 +89,6 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
     {
         status = GetComponent<mainCharacter>();
 
-        reactionImage.enabled = false;
-        damageText.enabled = false;
-
         #region Resources 
 
         WaterSprite = Resources.Load<Sprite>("UI/Sprites/Elements/waterIcon");
@@ -99,6 +101,20 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
         MovementDownSprite = Resources.Load<Sprite>("UI/Sprites/Reactions/movementDebuffImage");
 
         #endregion
+    }
+
+    public void GetUI(PlayerEntryPoint player, UIEntryPoint uI)
+    {
+        this.playerEntry = player;
+        this.uIEntry = uI;
+
+        healthBar = uI.healthBar;
+        staminaBar = uI.staminaBar;
+        reactionImage = uI.reactionImage;
+        damageText = uI.damageText;
+
+        reactionImage.enabled = false;
+        damageText.enabled = false;
     }
 
     private void Update()

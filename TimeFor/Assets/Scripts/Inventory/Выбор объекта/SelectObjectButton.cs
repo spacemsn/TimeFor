@@ -5,11 +5,17 @@ using UnityEngine.UI;
 
 public class SelectObjectButton : MonoBehaviour
 {
+    [Header("EntryPoint")]
+    public EntryPoint entryPoint;
+    public PlayerEntryPoint playerEntry;
+    public UIEntryPoint uIEntry;
+
     public ItemPrefab item;
     public NPCBehaviour npc;
     public Chest chest;
 
     private GameObject player;
+    public GameObject book;
     [SerializeField] private bool isSelected = false;
 
     private void Start()
@@ -17,6 +23,8 @@ public class SelectObjectButton : MonoBehaviour
         Button button = this.GetComponent<Button>();
         button.onClick.AddListener(delegate { OnButtonItem(); });
     }
+
+
 
     private void Update()
     {
@@ -38,9 +46,10 @@ public class SelectObjectButton : MonoBehaviour
     {
         if (isSelected)
         {
-            var Inventory = player.GetComponent<bookCharacter>();
+            book = GameObject.Find("Book");
             if (item != null)
             {
+                var Inventory = book.GetComponent<bookCharacter>();
                 Inventory.AddItem(item.item, item.amount);
                 Destroy(item.gameObject);
             }
@@ -51,9 +60,9 @@ public class SelectObjectButton : MonoBehaviour
     {
         if (isSelected)
         {
-            var Dialog = player.GetComponent<DialogManager>();
             if (npc != null)
             {
+                var Dialog = player.GetComponent<DialogManager>();
                 NPCBehaviour NPCbehaviour = npc.GetComponent<NPCBehaviour>();
                 player.transform.LookAt(NPCbehaviour.transform, new Vector3(0, transform.position.y, 0));
                 Dialog.StartDialog(NPCbehaviour);

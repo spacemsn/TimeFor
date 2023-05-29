@@ -13,7 +13,7 @@ public class NPCBehaviour : MonoBehaviour, IMoveBehavior
     public Dialog startDialog;
 
     private Dialog currentDialog;
-    private DialogManager dialogManager;
+    [SerializeField] private DialogManager dialogManager;
 
     [Header("Components")]
     public Transform NPC_UI;
@@ -39,8 +39,8 @@ public class NPCBehaviour : MonoBehaviour, IMoveBehavior
 
     void Start()
     {
-        dialogManager = FindObjectOfType<DialogManager>();
-        camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
+        dialogManager = FindObjectOfType<EntryPoint>().player.dialogManager;
+        camera = FindObjectOfType<UIEntryPoint>().camera.transform;
 
         startDialog.name = name;
         currentDialog = startDialog;
@@ -89,6 +89,7 @@ public class NPCBehaviour : MonoBehaviour, IMoveBehavior
 
     public void SetNextDialog(Answer answer)
     {
+        dialogManager = FindObjectOfType<EntryPoint>().player.dialogManager;
         currentDialog = answer.nextDialog;
         if (currentDialog.answers.Length > 0)
         {

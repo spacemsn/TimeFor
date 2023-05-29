@@ -12,8 +12,8 @@ public class ItemPrefab : MonoBehaviour
     public Collider[] Player;
 
     public Button buttonPrefab;
-    public Transform buttonParent;
-    public Button currentButton;
+    private Transform buttonParent;
+    private Button currentButton;
 
     private void Update()
     {

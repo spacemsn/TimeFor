@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2885772094591834636}
   - component: {fileID: 1606003776182079933}
   - component: {fileID: 2980306827324479723}
-  - component: {fileID: 590650471516958376}
   - component: {fileID: 4454441856736711573}
   - component: {fileID: 2885772094591834626}
   - component: {fileID: 2885772094591834625}
@@ -50,9 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec9d4cd82782204b8d88b949acf81bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseScript: {fileID: 0}
+  pauseScript: {fileID: 1606003776182079933}
   inventoryScript: {fileID: 0}
-  deathScript: {fileID: 0}
+  deathScript: {fileID: 2980306827324479723}
   scrollScript: {fileID: 0}
   InventoryPanel: {fileID: 0}
   IndecatorPanel: {fileID: 0}
@@ -74,8 +73,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PausePanel: {fileID: 0}
-  isOpenPanel: 1
-  settingsMenu: {fileID: 0}
+  isOpenPanel: 0
+  settingsMenu: {fileID: 4454441856736711573}
 --- !u!114 &2980306827324479723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,21 +88,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Character: {fileID: 0}
-  globallSetting: {fileID: 0}
+  globallSetting: {fileID: 2885772094591834636}
   DeathPanel: {fileID: 0}
-  isOpenPanel: 1
---- !u!114 &590650471516958376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2885772094591834629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcd3b247a12b8e1408d410925cf511a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  isOpenPanel: 0
 --- !u!114 &4454441856736711573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,13 +103,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6a988ea37633e64d921533960afd766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings: {fileID: 0}
-  pauseScript: {fileID: 0}
+  entryPoint: {fileID: 0}
+  settings: {fileID: 2885772094591834636}
+  pauseScript: {fileID: 1606003776182079933}
   freeLook: {fileID: 0}
-  Default: {fileID: 11400000, guid: a82f32112fcb8764996266f596ddaa80, type: 2}
-  Settings: {fileID: 11400000, guid: 2cdac10ba0b0b6c4e8dc134ce60ca369, type: 2}
+  Default: {fileID: 11400000, guid: ef42603fc8b25a74389d3d50a479834c, type: 2}
+  Settings: {fileID: 11400000, guid: 0a9a239c6db7f7549bf1ab2838ab6751, type: 2}
   SettingsPanel: {fileID: 0}
-  isOpenPanel: 1
+  isOpenPanel: 0
   SensitivityYSlider: {fileID: 0}
   SensitivityXSlider: {fileID: 0}
 --- !u!114 &2885772094591834626

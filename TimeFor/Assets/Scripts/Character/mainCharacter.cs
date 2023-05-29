@@ -43,11 +43,13 @@ public class PlayerData
         runSpeed = character.runSpeed;
         jumpForce = character.jumpForce;
         debuff = character.debuff;
-        position = character.position;
+        position = character.currentPosition;
     }
 
     public void LoadSave(SaveData character)
     {
+        character.playerName = fileName;
+        character.dateSave = dateSave;
         character.levelId = levelId;
         character.levelPlayer = levelPlayer;
         character.health = health;
@@ -58,7 +60,7 @@ public class PlayerData
         character.runSpeed = runSpeed;
         character.jumpForce = jumpForce;
         character.debuff = debuff;
-        character.position = position;
+        character.currentPosition = position;
     }
 }
 
@@ -82,6 +84,9 @@ public class mainCharacter : MonoCache
     public attackCharacter attack;
     public indicatorCharacter indicators;
     public moveCharacter movement;
+    public interactionCharacter interaction;
+    public bookCharacter book;
+    public DialogManager dialogManager;
 
     [Header("Последнее местоположение")]
     public Vector3 position;
@@ -103,21 +108,10 @@ public class mainCharacter : MonoCache
         movement = this.GetComponent<moveCharacter>();
         attack = this.GetComponent<attackCharacter>();
         indicators = this.GetComponent<indicatorCharacter>();
+        interaction = this.GetComponent<interactionCharacter>();
+        book = this.GetComponent<bookCharacter>();
+        dialogManager = this.GetComponent<DialogManager>();
 
         #endregion
     }
-
-    #region Save and Load
-
-    public void SavePlayer()
-    {
-        saveData.SetSave(this, indicators, movement);
-    }
-
-    public void LoadPlayer()
-    {
-        saveData.LoadSave(this, indicators, movement);
-    }
-
-    #endregion
 }

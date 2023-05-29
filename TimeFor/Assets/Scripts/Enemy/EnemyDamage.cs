@@ -51,9 +51,6 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
 
     private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        camera = GameObject.FindGameObjectWithTag("MainCamera").transform;
-
         enemyBehavior = GetComponent<EnemyBehavior>();
         animator = GetComponent<Animator>();
 

@@ -5,6 +5,11 @@ using System.Collections.Generic;
 
 public class attackCharacter : MonoCache
 {
+    [Header("EntryPoint")]
+    public EntryPoint entryPoint;
+    public PlayerEntryPoint playerEntry;
+    public UIEntryPoint uIEntry;
+
     [Header("Характеристики")]
     private bool attacking;
     [SerializeField] private float maxDistance;
@@ -15,17 +20,11 @@ public class attackCharacter : MonoCache
     [SerializeField] LayerMask enemyLayer;
 
     [Header("Интерфейс")]
-    [SerializeField] public indicatorCharacter indicators;
-    [SerializeField] public GloballSetting globalSettings;
-    [SerializeField] public mainCharacter status;
     [SerializeField] public moveCharacter move;
     [SerializeField] public Animator animator;
 
     [Header("UI")]
-    [SerializeField] public GameObject InventoryPanel;
     [SerializeField] public Transform QuickslotPanel;
-    [SerializeField] public GameObject DealthPanel;
-    [SerializeField] public GameObject PausePanel;
 
     [SerializeField] public Sprite selectedSprite;
     [SerializeField] public Sprite notSelectedSprite;
@@ -56,19 +55,23 @@ public class attackCharacter : MonoCache
 
     private void Start()
     {
-        indicators = GetComponent<indicatorCharacter>();
         move = GetComponent<moveCharacter>();
-        status = GetComponent<mainCharacter>();
         animator = GetComponent<Animator>();
 
-        if (globalSettings != null)
-        {
-            InventoryPanel = globalSettings.InventoryPanel;
-            DealthPanel = globalSettings.DeathPanel;
-            PausePanel = globalSettings.PausePanel;
-        }
         rightHand = GameObject.Find("ArmSmall").transform;
+    }
 
+    public void GetUI(PlayerEntryPoint player, UIEntryPoint uI)
+    {
+        this.playerEntry = player;
+        this.uIEntry = uI;
+
+        WaterSlot = uI.WaterSlot;
+        FireSlot = uI.FireSlot;
+        AirSlot = uI.AirSlot;
+        TerraSlot = uI.TerraSlot;
+        QuickslotPanel = uI.QuickslotPanel;
+            
         WaterSlot.SetIcon(WaterAttack.icon);
         FireSlot.SetIcon(FireAttack.icon);
         AirSlot.SetIcon(AirAttack.icon);

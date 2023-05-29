@@ -23,7 +23,7 @@ public class bookCharacter : MonoCache
 {
     [Header("Книга")]
     [Header("Инвентарь")]
-    [SerializeField] private GameObject inventoryPage;
+    [SerializeField] public GameObject inventoryPage;
     [SerializeField] public GameObject inventoryPanel;
     [SerializeField] public List<Slot> slots = new List<Slot>();
     [SerializeField] public bool isOpenInventory;
@@ -36,19 +36,15 @@ public class bookCharacter : MonoCache
     [SerializeField] private CinemachineFreeLook freeLook;
 
     [Header("Доп. скрипты")]
-    [SerializeField] private moveCharacter move;
-    [SerializeField] private GloballSetting globallSetting;
+    public EntryPoint EntryPoint;
 
     [Header("Сохранение инвентаря")]
     public SaveData saveInventory;
     public SaveData defaultInventory;
 
-    private void Start()
+    private void Awake()
     {
-        globallSetting = GameObject.Find("Global Settings").GetComponent<GloballSetting>();
-        move = GameObject.FindGameObjectWithTag("Player").GetComponent<moveCharacter>();
-        freeLook = GameObject.FindGameObjectWithTag("FreeLook").GetComponent<CinemachineFreeLook>();
-
+        EntryPoint = GetComponentInParent<EntryPoint>();
         for (int i = 0; i < inventoryPanel.transform.childCount; i++)
         {
             if (inventoryPanel.transform.GetChild(i).GetComponent<Slot>() != null)
@@ -107,8 +103,8 @@ public class bookCharacter : MonoCache
             isOpenInventory = false;
             freeLook.m_XAxis.m_InputAxisName = "Mouse X";
             freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
-            move.isManagement = true;
-            globallSetting.notVisible();
+            EntryPoint.player.movement.isManagement = true;
+            EntryPoint.globallSetting.globall.notVisible();
         }
         else if (isOpenInventory == false)
         {
@@ -118,8 +114,8 @@ public class bookCharacter : MonoCache
             freeLook.m_XAxis.m_InputAxisValue = 0;
             freeLook.m_YAxis.m_InputAxisName = "";
             freeLook.m_YAxis.m_InputAxisValue = 0;
-            move.isManagement = false;
-            globallSetting.Visible();
+            EntryPoint.player.movement.isManagement = false;
+            EntryPoint.globallSetting.globall.Visible();
         }
     }
 
@@ -131,7 +127,7 @@ public class bookCharacter : MonoCache
             isOpenMap = false;
             freeLook.m_XAxis.m_InputAxisName = "Mouse X";
             freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
-            move.isManagement = true;
+            EntryPoint.player.movement.isManagement = true;
         }
         else if (isOpenMap == false)
         {
@@ -141,7 +137,7 @@ public class bookCharacter : MonoCache
             freeLook.m_XAxis.m_InputAxisValue = 0;
             freeLook.m_YAxis.m_InputAxisName = "";
             freeLook.m_YAxis.m_InputAxisValue = 0;
-            move.isManagement = false;
+            EntryPoint.player.movement.isManagement = false;
         }
     }
 
