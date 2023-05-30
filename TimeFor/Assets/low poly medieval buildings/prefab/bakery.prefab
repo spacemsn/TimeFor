@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8740915195641734551}
   - component: {fileID: 8740915195645158839}
   - component: {fileID: 8740915195644159863}
+  - component: {fileID: 9137147598693782843}
   m_Layer: 0
   m_Name: bakery
   m_TagString: Untagged
@@ -89,3 +90,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &9137147598693782843
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8740915195641969079}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: c034964186ba73843abf9c751bd0423a, type: 3}

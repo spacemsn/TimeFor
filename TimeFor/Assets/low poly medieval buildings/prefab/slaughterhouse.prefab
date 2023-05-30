@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5586474316529539104}
   - component: {fileID: 5586474316530341888}
   - component: {fileID: 5586474316531440320}
+  - component: {fileID: 5807357072708731763}
   m_Layer: 0
   m_Name: slaughterhouse
   m_TagString: Untagged
@@ -86,3 +87,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &5807357072708731763
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5586474316529239040}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: bb8c0e8eb3d69064a8ae10b5e0d62d8b, type: 3}

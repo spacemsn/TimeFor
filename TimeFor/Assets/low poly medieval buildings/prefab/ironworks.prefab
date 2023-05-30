@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4468390740033232606}
   - component: {fileID: 4468390740034526974}
   - component: {fileID: 4468390740035525694}
+  - component: {fileID: 1976756402674658277}
   m_Layer: 0
   m_Name: ironworks
   m_TagString: Untagged
@@ -86,3 +87,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1976756402674658277
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4468390740033323774}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300002, guid: dcde1f44ae7793645b90074bc2c5871f, type: 3}

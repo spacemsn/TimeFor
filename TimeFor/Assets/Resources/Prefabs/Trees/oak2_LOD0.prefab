@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2318934500872446358}
   - component: {fileID: 2562383182582098901}
+  - component: {fileID: 4171189616472111218}
   m_Layer: 0
   m_Name: oak2_LOD0
   m_TagString: Untagged
@@ -60,6 +61,20 @@ LODGroup:
     - renderer: {fileID: 5433084535178023835}
     - renderer: {fileID: 4995129571905889455}
   m_Enabled: 1
+--- !u!136 &4171189616472111218
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3126995714741517100}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.9640503
+  m_Height: 5.6096363
+  m_Direction: 1
+  m_Center: {x: -0.017303467, y: 2.3048182, z: 0}
 --- !u!1 &3751158994680257532
 GameObject:
   m_ObjectHideFlags: 0

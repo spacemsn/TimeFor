@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7736424701762111504}
   - component: {fileID: 7736424701762914352}
   - component: {fileID: 7736424701764012784}
+  - component: {fileID: 2146190953327287012}
+  - component: {fileID: 7276574153911556298}
   m_Layer: 0
   m_Name: smith
   m_TagString: Untagged
@@ -88,3 +90,30 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2146190953327287012
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736424701761754160}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.06473809, y: 0.071352005, z: 0.038682703}
+  m_Center: {x: -0.009102751, y: 0.010055817, z: 0.018829506}
+--- !u!64 &7276574153911556298
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736424701761754160}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 8e087afc636a7f643a64e9a824233e88, type: 3}
