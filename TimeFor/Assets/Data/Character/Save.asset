@@ -18,9 +18,9 @@ MonoBehaviour:
   aboutObject: "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u043D\u044B\u0439
     \u0438\u0433\u0440\u043E\u043A"
   icon: {fileID: 0}
-  dateSave: 22.05.2023 4:32:15
+  dateSave: 30.05.2023 3:28:37
   playerName: 
-  levelId: 1
+  levelId: 3
   levelPlayer: 1
   health: 100
   stamina: 100
@@ -30,8 +30,9 @@ MonoBehaviour:
   runSpeed: 9.5
   jumpForce: 2.2
   debuff: 0.15
-  currentPosition: {x: 126.85325, y: 0.9999963, z: 123.71412}
+  currentPosition: {x: 427.21057, y: 3.8539963, z: 836.3617}
   lastSavePosition: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
   slots:
   - Id: 0
     item: {fileID: 0}
@@ -171,7 +172,55 @@ MonoBehaviour:
     isEmpty: 1
   savedPlayers:
   - fileName: 
-    dateSave: 29.05.2023 10:31:23
+    dateSave: 30.05.2023 2:18:52
+    playerName: 
+    levelId: 1
+    levelPlayer: 1
+    health: 100
+    stamina: 98.64999
+    damageBase: 20
+    damagePercent: 1
+    moveSpeed: 6.7
+    runSpeed: 9.5
+    jumpForce: 2.2
+    debuff: 0.15
+    position: {x: 129.14261, y: 0.9999962, z: 142.16992}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    slots: []
+  - fileName: 
+    dateSave: 30.05.2023 2:18:57
+    playerName: 
+    levelId: 1
+    levelPlayer: 1
+    health: 100
+    stamina: 84.09984
+    damageBase: 20
+    damagePercent: 1
+    moveSpeed: 6.7
+    runSpeed: 9.5
+    jumpForce: 2.2
+    debuff: 0.15
+    position: {x: 129.17764, y: 0.9999962, z: 120.24836}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    slots: []
+  - fileName: 
+    dateSave: 30.05.2023 2:19:00
+    playerName: 
+    levelId: 1
+    levelPlayer: 1
+    health: 100
+    stamina: 97.14997
+    damageBase: 20
+    damagePercent: 1
+    moveSpeed: 6.7
+    runSpeed: 9.5
+    jumpForce: 2.2
+    debuff: 0.15
+    position: {x: 122.87389, y: 0.9999962, z: 120.53193}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    slots: []
+  - fileName: 
+    dateSave: 30.05.2023 2:19:03
     playerName: 
     levelId: 2
     levelPlayer: 1
@@ -183,4 +232,150 @@ MonoBehaviour:
     runSpeed: 9.5
     jumpForce: 2.2
     debuff: 0.15
-    position: {x: 126.85325, y: 0.9999963, z: 123.71412}
+    position: {x: 120.228, y: 0.9999962, z: 126.84685}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    slots: []
+  - fileName: 
+    dateSave: 30.05.2023 3:01:57
+    playerName: 
+    levelId: 1
+    levelPlayer: 1
+    health: 100
+    stamina: 100
+    damageBase: 20
+    damagePercent: 1
+    moveSpeed: 6.7
+    runSpeed: 9.5
+    jumpForce: 2.2
+    debuff: 0.15
+    position: {x: 419.9983, y: 3.781909, z: 840.3915}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    slots: []
+  - fileName: 
+    dateSave: 30.05.2023 3:09:14
+    playerName: 
+    levelId: 1
+    levelPlayer: 1
+    health: 100
+    stamina: 100
+    damageBase: 20
+    damagePercent: 1
+    moveSpeed: 6.7
+    runSpeed: 9.5
+    jumpForce: 2.2
+    debuff: 0.15
+    position: {x: 419.9983, y: 3.781909, z: 840.3915}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    slots: []
+  - fileName: 
+    dateSave: 30.05.2023 3:11:20
+    playerName: 
+    levelId: 3
+    levelPlayer: 1
+    health: 100
+    stamina: 100
+    damageBase: 20
+    damagePercent: 1
+    moveSpeed: 6.7
+    runSpeed: 9.5
+    jumpForce: 2.2
+    debuff: 0.15
+    position: {x: 419.9983, y: 3.781909, z: 840.3915}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    slots: []
+  - fileName: 
+    dateSave: 30.05.2023 3:13:56
+    playerName: 
+    levelId: 2
+    levelPlayer: 1
+    health: 100
+    stamina: 100
+    damageBase: 20
+    damagePercent: 1
+    moveSpeed: 6.7
+    runSpeed: 9.5
+    jumpForce: 2.2
+    debuff: 0.15
+    position: {x: 125.489174, y: 0.9999962, z: 121.33202}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    slots: []
+  - fileName: 
+    dateSave: 30.05.2023 3:13:57
+    playerName: 
+    levelId: 2
+    levelPlayer: 1
+    health: 100
+    stamina: 100
+    damageBase: 20
+    damagePercent: 1
+    moveSpeed: 6.7
+    runSpeed: 9.5
+    jumpForce: 2.2
+    debuff: 0.15
+    position: {x: 125.489174, y: 0.9999962, z: 121.33202}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    slots: []
+  - fileName: 
+    dateSave: 30.05.2023 3:15:32
+    playerName: 
+    levelId: 2
+    levelPlayer: 1
+    health: 100
+    stamina: 100
+    damageBase: 20
+    damagePercent: 1
+    moveSpeed: 6.7
+    runSpeed: 9.5
+    jumpForce: 2.2
+    debuff: 0.15
+    position: {x: 125.489174, y: 0.9999962, z: 121.33202}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    slots: []
+  - fileName: 
+    dateSave: 30.05.2023 3:17:26
+    playerName: 
+    levelId: 3
+    levelPlayer: 1
+    health: 100
+    stamina: 66.099655
+    damageBase: 20
+    damagePercent: 1
+    moveSpeed: 6.7
+    runSpeed: 9.5
+    jumpForce: 2.2
+    debuff: 0.15
+    position: {x: 125.78127, y: 0.9999963, z: 144.2914}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    slots: []
+  - fileName: 
+    dateSave: 30.05.2023 3:28:23
+    playerName: 
+    levelId: 3
+    levelPlayer: 1
+    health: 100
+    stamina: 86.64991
+    damageBase: 20
+    damagePercent: 1
+    moveSpeed: 6.7
+    runSpeed: 9.5
+    jumpForce: 2.2
+    debuff: 0.15
+    position: {x: 458.28076, y: 4.0016484, z: 854.4761}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    slots: []
+  - fileName: 
+    dateSave: 30.05.2023 3:28:37
+    playerName: 
+    levelId: 3
+    levelPlayer: 1
+    health: 100
+    stamina: 100
+    damageBase: 20
+    damagePercent: 1
+    moveSpeed: 6.7
+    runSpeed: 9.5
+    jumpForce: 2.2
+    debuff: 0.15
+    position: {x: 427.21057, y: 3.8539963, z: 836.3617}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    slots: []

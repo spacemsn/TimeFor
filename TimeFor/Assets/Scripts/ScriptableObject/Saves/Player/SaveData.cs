@@ -31,6 +31,9 @@ public class SaveData : ItemObject
     public Vector3 currentPosition;
     public Vector3 lastSavePosition;
 
+    [Header("Поворот")]
+    public Quaternion rotation;
+
     [Header("Инвентарь")]
     public List<InventorySlot> slots = new List<InventorySlot>();
 
@@ -45,6 +48,8 @@ public class SaveData : ItemObject
 
     public void SetSave(mainCharacter character, indicatorCharacter indicators, moveCharacter move)
     {
+        character.GetSceneIndex();
+
         levelId = character.levelId;
         levelPlayer = indicators.lvlPlayer;
         health = indicators.Health;
@@ -56,6 +61,7 @@ public class SaveData : ItemObject
         jumpForce = move.jumpForce;
         debuff = move.debuff;
         currentPosition = move.gameObject.transform.position;
+        rotation = move.gameObject.transform.rotation;
 
         playerData = new PlayerData(this);
         savedPlayers.Add(playerData);
@@ -75,5 +81,6 @@ public class SaveData : ItemObject
         move.jumpForce = jumpForce;
         move.debuff = debuff;
         move.gameObject.transform.position = currentPosition;
+        move.gameObject.transform.rotation = rotation;
     }
 }

@@ -28,7 +28,7 @@ public class MainMenu : MonoBehaviour
 
     public void Continuo()
     {
-        SceneManager.LoadScene(currentSave.savedPlayers[currentSave.savedPlayers.Count - 1].levelId + 1);
+        SceneManager.LoadScene(currentSave.savedPlayers[currentSave.savedPlayers.Count - 1].levelId);
         Time.timeScale = 1f;
     }
 

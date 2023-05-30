@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public class PlayerData
@@ -28,6 +30,12 @@ public class PlayerData
 
     [Header("Местонахождение")]
     public Vector3 position;
+
+    [Header("Поворот")]
+    public Quaternion rotation;
+
+    [Header("Инвентарь")]
+    public List<InventorySlot> slots = new List<InventorySlot>();
 
     public PlayerData(SaveData character)
     {
@@ -91,6 +99,9 @@ public class mainCharacter : MonoCache
     [Header("Последнее местоположение")]
     public Vector3 position;
 
+    [Header("Поворот")]
+    public Quaternion rotation;
+
     [Header("Характеристики персонажа")]
     public int levelId;
     public float damageBase;
@@ -113,5 +124,11 @@ public class mainCharacter : MonoCache
         dialogManager = this.GetComponent<DialogManager>();
 
         #endregion
+    }
+
+    public int GetSceneIndex()
+    {
+        levelId = SceneManager.GetActiveScene().buildIndex;
+        return levelId;
     }
 }
