@@ -49,7 +49,7 @@ public class GloballSetting : MonoBehaviour
         {
             bookScript.OpenInventory();
         }
-        else if (Input.GetKeyDown(KeyCode.M) && pauseScript.isOpenPanel == false)
+        else if ((Input.GetKeyDown(KeyCode.M) && pauseScript.isOpenPanel == false) || (Input.GetKeyDown(KeyCode.M) && pauseScript.isOpenPanel == true))
         {
             bookScript.OpenMap();
         }

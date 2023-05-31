@@ -14,6 +14,10 @@ public class interactionCharacter : MonoCache
     public GameObject GlobalSettings;
     private moveCharacter move;
 
+    [Header("Компоненты")]
+    public Sprite selectButtonSprite;
+    public Sprite nonSelectButtonSprite;
+
     [SerializeField] private List<Button> selectButtons;
     [SerializeField] private Button oldButton;
     [SerializeField] private Button currentButton;
@@ -98,7 +102,7 @@ public class interactionCharacter : MonoCache
             if (currentButton != null)
             {
                 // Меняем цвет на обычный
-                selectableObj.transform.GetComponent<Image>().color = currentButton.colors.disabledColor;
+                selectableObj.transform.GetComponent<Image>().sprite = nonSelectButtonSprite;
             }
         }
 
@@ -107,7 +111,7 @@ public class interactionCharacter : MonoCache
         currentButton = obj; currentButton.GetComponent<SelectObjectButton>().isSelect();
 
         // Выделяем выбранный объект
-        currentButton.GetComponent<Image>().color = currentButton.colors.normalColor;
+        currentButton.GetComponent<Image>().sprite = selectButtonSprite;
 
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class foodItem : Item
 {
     [Header("Характеристики еды")]
+
     [Header("Съедобный предмет")]
     public bool isConsumeable;
 

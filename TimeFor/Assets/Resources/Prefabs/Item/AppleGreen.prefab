@@ -140,8 +140,6 @@ MonoBehaviour:
     m_Bits: 8
   Player: []
   buttonPrefab: {fileID: 7405787944185800951, guid: baf7632d734b1c8499cbc7c647852a20, type: 3}
-  buttonParent: {fileID: 0}
-  currentButton: {fileID: 0}
 --- !u!114 &2795666927068862958
 MonoBehaviour:
   m_ObjectHideFlags: 0

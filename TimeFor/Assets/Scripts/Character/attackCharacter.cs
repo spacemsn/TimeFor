@@ -26,6 +26,11 @@ public class attackCharacter : MonoCache
     [Header("UI")]
     [SerializeField] public Transform QuickslotPanel;
 
+    [SerializeField] public Sprite FireSelectSprite;
+    [SerializeField] public Sprite WaterSelectSprite;
+    [SerializeField] public Sprite AirSelectSprite;
+    [SerializeField] public Sprite TerraSelectSprite;
+
     [SerializeField] public Sprite selectedSprite;
     [SerializeField] public Sprite notSelectedSprite;
 
@@ -141,32 +146,34 @@ public class attackCharacter : MonoCache
             case 0:
                 {
                     currentAttack = WaterAttack;
+                    QuickslotPanel.GetChild(currentQuickslotID).GetComponent<Image>().sprite = FireSelectSprite;
                     break;
                 }
 
             case 1:
                 {
                     currentAttack = FireAttack;
+                    QuickslotPanel.GetChild(currentQuickslotID).GetComponent<Image>().sprite = WaterSelectSprite;
                     break;
                 }
 
             case 2:
                 {
                     currentAttack = AirAttack;
-                    break;
+                    QuickslotPanel.GetChild(currentQuickslotID).GetComponent<Image>().sprite = AirSelectSprite; break;
                 }
 
             case 3:
                 {
                     currentAttack = TerraAttack;
-                    break;
+                    QuickslotPanel.GetChild(currentQuickslotID).GetComponent<Image>().sprite = TerraSelectSprite; break;
                 }
 
             default:
                 {
                     currentQuickslotID = oldQuickslotID;
                     currentAttack = WaterAttack;
-                    break;
+                    QuickslotPanel.GetChild(currentQuickslotID).GetComponent<Image>().sprite = WaterSelectSprite; break;
                 }
         }
 

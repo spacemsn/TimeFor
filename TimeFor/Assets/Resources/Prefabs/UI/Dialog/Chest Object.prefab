@@ -69,8 +69,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 884a265468b820046b8703ec40ccbe51, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -100,7 +100,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.8490566, g: 0.66261774, b: 0.5486828, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.6039216, g: 0.5294118, b: 0.48627454, a: 1}
     m_PressedColor: {r: 0.4433962, g: 0.39543614, b: 0.37019402, a: 1}
     m_SelectedColor: {r: 0.61960787, g: 0.54901963, b: 0.50980395, a: 1}
@@ -147,7 +147,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aaa9634d6399ef247b1911a470801a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entryPoint: {fileID: 0}
+  playerEntry: {fileID: 0}
+  uIEntry: {fileID: 0}
   item: {fileID: 0}
+  npc: {fileID: 0}
+  chest: {fileID: 0}
+  book: {fileID: 0}
   isSelected: 0
 --- !u!1 &4910466952455201401
 GameObject:

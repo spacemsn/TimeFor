@@ -59,6 +59,8 @@ public class UIEntryPoint : MonoBehaviour
     public TMP_Text dialogText;
     public TMP_Text nameDialogText;
     public Transform answerButtonParent;
+    public Transform BackgroundDialogUp;
+    public Transform BackgroundDialogDown;
 
     [Header("ItemPanel")]
     public Transform ItemPanel;

@@ -38,6 +38,9 @@ public class DialogManager : MonoBehaviour
         npc = currentNpc;
         UpdateDialogUI();
 
+        uIEntry.BackgroundDialogUp.gameObject.SetActive(true);
+        uIEntry.BackgroundDialogDown.gameObject.SetActive(true);
+        uIEntry.ItemPanel.gameObject.SetActive(false);
 
         player.GetComponent<moveCharacter>().isManagement = false;
     }
@@ -58,6 +61,9 @@ public class DialogManager : MonoBehaviour
         }
 
         player.GetComponent<moveCharacter>().isManagement = true;
+        uIEntry.BackgroundDialogUp.gameObject.SetActive(false);
+        uIEntry.BackgroundDialogDown.gameObject.SetActive(false);
+        uIEntry.ItemPanel.gameObject.SetActive(true);
     }
 
     void UpdateDialogUI()
