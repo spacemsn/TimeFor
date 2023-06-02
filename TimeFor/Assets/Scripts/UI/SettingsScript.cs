@@ -21,7 +21,7 @@ public class SettingsScript : MonoBehaviour
     public EntryPoint entryPoint;
 
     [Header("Компоненты")]
-    [SerializeField] private GloballSetting settings;
+    [SerializeField] private GloballSetting setting;
     [SerializeField] private PauseScript pauseScript;
     [SerializeField] private CinemachineFreeLook freeLook;
 
@@ -39,7 +39,7 @@ public class SettingsScript : MonoBehaviour
     {
         #region Get components
 
-        settings = GetComponent<GloballSetting>(); entryPoint = settings.entryPoint; SettingsPanel = entryPoint.UI.SettingPanel.gameObject;
+        setting = GetComponent<GloballSetting>(); entryPoint = setting.entryPoint; SettingsPanel = entryPoint.UI.SettingPanel.gameObject;
         pauseScript = GetComponent<PauseScript>();
 
         if (entryPoint)
@@ -98,7 +98,7 @@ public class SettingsScript : MonoBehaviour
 
     public void Back()
     {
-        pauseScript.OpenMenu();
+        setting.OpenMenu(pauseScript.PausePanel, pauseScript.isOpenPanel); pauseScript.OpenPanel();
         OpenMenu();
     }
 

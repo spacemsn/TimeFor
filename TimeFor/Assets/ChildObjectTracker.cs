@@ -1,9 +1,10 @@
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class interactionCharacter : MonoCache
+public class ChildObjectTracker : MonoBehaviour
 {
     [Header("EntryPoint")]
     public EntryPoint entryPoint;
@@ -27,14 +28,30 @@ public class interactionCharacter : MonoCache
     private void Start()
     {
         move = GetComponent<moveCharacter>();
+        buttonParent = this.gameObject.transform;
     }
 
-    public void GetUI(PlayerEntryPoint player, UIEntryPoint uI)
+    private void OnTransformChildrenChanged()
     {
-        this.playerEntry = player;
-        this.uIEntry = uI;
+        // Сбрасываем выделение всех объектов
+        foreach (Button selectableObj in selectButtons)
+        {
+            if (currentButton != null)
+            {
+                // Меняем цвет на обычный
+                selectableObj.transform.GetComponent<Image>().sprite = nonSelectButtonSprite;
+            }
+        }
 
-        buttonParent = uI.buttonParent;
+        // Выбираем новый объект
+        if (currentButton != null) { oldButton = currentButton; oldButton.GetComponent<SelectObjectButton>().isSelect(); }
+        if (this.transform.GetChild(0) != null)
+        {
+            currentButton = this.transform.GetChild(0).GetComponent<Button>(); currentButton.GetComponent<SelectObjectButton>().isSelect();
+
+            // Выделяем выбранный объект
+            currentButton.GetComponent<Image>().sprite = selectButtonSprite;
+        }
     }
 
     public void Update()
@@ -87,14 +104,13 @@ public class interactionCharacter : MonoCache
             }
         }
 
-        // Выбираем объект, связанный с выбранной кнопкой
         if (selectedIndex > selectButtons.Count - 1 && selectedIndex < selectButtons.Count - 1 && buttonParent.childCount > 0)
         {
             SelectObject(selectButtons[selectedIndex]);
         }
     }
 
-    void SelectObject(Button obj)
+    public void SelectObject(Button obj)
     {
         // Сбрасываем выделение всех объектов
         foreach (Button selectableObj in selectButtons)
@@ -107,11 +123,12 @@ public class interactionCharacter : MonoCache
         }
 
         // Выбираем новый объект
-        if(currentButton != null) { oldButton = currentButton; oldButton.GetComponent<SelectObjectButton>().isSelect(); }
+        if (currentButton != null) { oldButton = currentButton; oldButton.GetComponent<SelectObjectButton>().isSelect(); }
         currentButton = obj; currentButton.GetComponent<SelectObjectButton>().isSelect();
 
         // Выделяем выбранный объект
         currentButton.GetComponent<Image>().sprite = selectButtonSprite;
 
     }
+
 }

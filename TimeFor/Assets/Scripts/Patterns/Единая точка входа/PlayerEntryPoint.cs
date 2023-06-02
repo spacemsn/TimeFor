@@ -70,13 +70,15 @@ public class PlayerEntryPoint : MonoBehaviour
 
         attack.GetUI(this, UIPoint);
         indicators.GetUI(this, UIPoint);
-        interaction.GetUI(this, UIPoint);
         movement.GetUI(this, UIPoint);
         dialogManager.GetUI(this, UIPoint);
 
         globallEntry.globall.character = currentPlayer;
 
-        UIPoint.freeLook.Follow = currentPlayer.transform;
+        UIPoint.freeLook.gameObject.transform.position = currentPlayer.transform.position;
+        UIPoint.freeLook.gameObject.transform.rotation = currentPlayer.transform.rotation;
+
+        UIPoint.freeLook.Follow = currentPlayer.transform; 
         UIPoint.freeLook.LookAt = currentPlayer.transform;
 
         UIPoint.headPlayer = currentPlayer.transform.GetChild(0); UIPoint.freeLook.GetRig(0).m_LookAt = UIPoint.headPlayer;

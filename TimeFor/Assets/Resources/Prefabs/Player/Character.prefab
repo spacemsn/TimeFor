@@ -1113,7 +1113,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 970037715054327440}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 738f064d1c176b44b81940a6cb5896af, type: 3}
   m_Name: 
@@ -1122,8 +1122,8 @@ MonoBehaviour:
   playerEntry: {fileID: 0}
   uIEntry: {fileID: 0}
   GlobalSettings: {fileID: 0}
-  selectButtonSprite: {fileID: 21300000, guid: 884a265468b820046b8703ec40ccbe51, type: 3}
-  nonSelectButtonSprite: {fileID: 21300000, guid: dc243d882d92393438ca56d210266801, type: 3}
+  selectButtonSprite: {fileID: 21300000, guid: e36c9fad1cfb53948a6f5fb9e4a36b1f, type: 3}
+  nonSelectButtonSprite: {fileID: 21300000, guid: 1b824acc9127579428682794e538d858, type: 3}
   selectButtons: []
   oldButton: {fileID: 0}
   currentButton: {fileID: 0}

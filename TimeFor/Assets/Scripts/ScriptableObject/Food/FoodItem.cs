@@ -12,3 +12,4 @@ public class foodItem : Item
     public int changeHunger;
     public int changeThirst;
 }
+

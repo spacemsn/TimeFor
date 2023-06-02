@@ -9,6 +9,7 @@ public class AnswerButton : MonoBehaviour
     private Answer answer;
 
     public KeyCode key;
+    public bool isSelected = false;
 
     void Start()
     {
@@ -28,10 +29,15 @@ public class AnswerButton : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(key))
+        if (Input.GetKeyDown(key) && isSelected)
         {
             npc.SetNextDialog(answer);
         }
+    }
+
+    public void isSelect()
+    {
+        isSelected = !isSelected;
     }
 }
 

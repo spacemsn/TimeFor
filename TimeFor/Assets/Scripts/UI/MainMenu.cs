@@ -23,12 +23,14 @@ public class MainMenu : MonoBehaviour
     public void NewGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        entryPoint.globallSetting.globall.notVisible();
         Time.timeScale = 1f;
     }
 
     public void Continuo()
     {
         SceneManager.LoadScene(currentSave.savedPlayers[currentSave.savedPlayers.Count - 1].levelId);
+        entryPoint.globallSetting.globall.notVisible();
         Time.timeScale = 1f;
     }
 

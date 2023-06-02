@@ -1579,7 +1579,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 500
+  m_SortingOrder: 1500
   m_TargetDisplay: 0
 --- !u!114 &200718927
 MonoBehaviour:
@@ -1884,6 +1884,7 @@ GameObject:
   - component: {fileID: 238383637}
   - component: {fileID: 238383636}
   - component: {fileID: 238383635}
+  - component: {fileID: 238383638}
   m_Layer: 5
   m_Name: ButtonPanel
   m_TagString: ButtonPanel
@@ -1973,6 +1974,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 238383633}
   m_CullTransparentMesh: 1
+--- !u!114 &238383638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238383633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36d9e45036c9f3844b060911f831d238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entryPoint: {fileID: 673931328}
+  playerEntry: {fileID: 673931329}
+  uIEntry: {fileID: 673931331}
+  GlobalSettings: {fileID: 2121145847}
+  selectButtonSprite: {fileID: 21300000, guid: e36c9fad1cfb53948a6f5fb9e4a36b1f, type: 3}
+  nonSelectButtonSprite: {fileID: 21300000, guid: 1b824acc9127579428682794e538d858, type: 3}
+  selectButtons: []
+  oldButton: {fileID: 0}
+  currentButton: {fileID: 0}
+  buttonParent: {fileID: 238383634}
+  selectedIndex: 0
 --- !u!1 &240244069
 GameObject:
   m_ObjectHideFlags: 0
@@ -3990,7 +4014,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 1000
+  m_SortingOrder: 2500
   m_TargetDisplay: 0
 --- !u!114 &536803237
 MonoBehaviour:
@@ -5223,6 +5247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingDuration: 1
+  videoPlayer: {fileID: 1750701611}
 --- !u!114 &673931331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13093,6 +13118,7 @@ GameObject:
   - component: {fileID: 1496774907}
   - component: {fileID: 1496774906}
   - component: {fileID: 1496774905}
+  - component: {fileID: 1496774908}
   m_Layer: 5
   m_Name: DialogPanel
   m_TagString: Untagged
@@ -13182,6 +13208,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1496774903}
   m_CullTransparentMesh: 1
+--- !u!114 &1496774908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496774903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e0809dd321985e4f9e540e183dffc1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entryPoint: {fileID: 673931328}
+  playerEntry: {fileID: 673931329}
+  uIEntry: {fileID: 673931331}
+  GlobalSettings: {fileID: 2121145847}
+  selectButtonSprite: {fileID: 21300000, guid: e36c9fad1cfb53948a6f5fb9e4a36b1f, type: 3}
+  nonSelectButtonSprite: {fileID: 21300000, guid: 1b824acc9127579428682794e538d858, type: 3}
+  selectButtons: []
+  oldButton: {fileID: 0}
+  currentButton: {fileID: 0}
+  buttonParent: {fileID: 1496774904}
+  selectedIndex: 0
 --- !u!1 &1515005178
 GameObject:
   m_ObjectHideFlags: 0
@@ -16161,6 +16210,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 673931327}
     m_Modifications:
+    - target: {fileID: 1606003776182079933, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: setting
+      value: 
+      objectReference: {fileID: 2121145856}
+    - target: {fileID: 1606003776182079933, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1606003776182079933, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: PausePanel
+      value: 
+      objectReference: {fileID: 35719023}
+    - target: {fileID: 2885772094591834626, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2885772094591834627, guid: 0cbac7052562817428e7178178f60e04, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -16210,6 +16275,18 @@ PrefabInstance:
       value: Global Settings
       objectReference: {fileID: 0}
     - target: {fileID: 2885772094591834636, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: uIEntry
+      value: 
+      objectReference: {fileID: 673931331}
+    - target: {fileID: 2885772094591834636, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: freeLook
+      value: 
+      objectReference: {fileID: 591420210}
+    - target: {fileID: 2885772094591834636, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2885772094591834636, guid: 0cbac7052562817428e7178178f60e04, type: 3}
       propertyPath: bookScript
       value: 
       objectReference: {fileID: 536803239}
@@ -16217,6 +16294,50 @@ PrefabInstance:
       propertyPath: entryPoint
       value: 
       objectReference: {fileID: 673931328}
+    - target: {fileID: 2885772094591834636, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: playerEntry
+      value: 
+      objectReference: {fileID: 673931329}
+    - target: {fileID: 2885772094591834636, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: globallEntry
+      value: 
+      objectReference: {fileID: 673931332}
+    - target: {fileID: 2980306827324479723, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2980306827324479723, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: DeathPanel
+      value: 
+      objectReference: {fileID: 1726920766}
+    - target: {fileID: 4454441856736711573, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: setting
+      value: 
+      objectReference: {fileID: 2121145856}
+    - target: {fileID: 4454441856736711573, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: freeLook
+      value: 
+      objectReference: {fileID: 591420210}
+    - target: {fileID: 4454441856736711573, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4454441856736711573, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: entryPoint
+      value: 
+      objectReference: {fileID: 673931328}
+    - target: {fileID: 4454441856736711573, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: SettingsPanel
+      value: 
+      objectReference: {fileID: 727473380}
+    - target: {fileID: 4454441856736711573, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: SensitivityXSlider
+      value: 
+      objectReference: {fileID: 440649613}
+    - target: {fileID: 4454441856736711573, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: SensitivityYSlider
+      value: 
+      objectReference: {fileID: 440649613}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cbac7052562817428e7178178f60e04, type: 3}
 --- !u!1 &1843851065
@@ -17664,7 +17785,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 212338753
-  m_SortingOrder: 2000
+  m_SortingOrder: 5000
   m_TargetDisplay: 0
 --- !u!114 &2022162686
 MonoBehaviour:
@@ -18149,6 +18270,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 554e2dca05350a74c8c05be422b9e6f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2121145856 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2885772094591834636, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+  m_PrefabInstance: {fileID: 1837718719}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2121145847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ec9d4cd82782204b8d88b949acf81bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2140338996

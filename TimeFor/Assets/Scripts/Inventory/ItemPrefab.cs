@@ -12,7 +12,7 @@ public class ItemPrefab : MonoBehaviour
     public Collider[] Player;
 
     public Button buttonPrefab;
-    private Transform buttonParent;
+    public Transform buttonParent;
     private Button currentButton;
 
     private void Update()
@@ -23,7 +23,7 @@ public class ItemPrefab : MonoBehaviour
             buttonParent = GameObject.FindGameObjectWithTag("ButtonPanel").transform;
             currentButton = Instantiate(buttonPrefab, buttonParent); 
             currentButton.GetComponent<SelectObjectButton>().GetComponentItem(this, Player[0].gameObject); 
-            currentButton.transform.GetChild(0).GetComponent<Text>().text = "(F)    " + item.name + " " + amount + "רע";
+            currentButton.transform.GetChild(0).GetComponent<Text>().text = "   (F) " + item.name + " " + amount + "רע";
 
         }
         else if (Player.Length == 0 && currentButton != null)

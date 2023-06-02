@@ -57,7 +57,7 @@ public class NPCBehaviour : MonoBehaviour, IMoveBehavior
             buttonParent = GameObject.FindGameObjectWithTag("ButtonPanel").transform;
             currentButton = Instantiate(buttonPrefab, buttonParent);
             currentButton.GetComponent<SelectObjectButton>().GetComponentNPC(this, Player[0].gameObject);
-            currentButton.transform.GetChild(0).GetComponent<Text>().text = "(F)    " + name;
+            currentButton.transform.GetChild(0).GetComponent<Text>().text = "   (F) " + name;
 
         }
         else if (Player.Length == 0 && currentButton != null)

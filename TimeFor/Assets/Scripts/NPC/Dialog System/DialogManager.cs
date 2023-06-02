@@ -82,7 +82,7 @@ public class DialogManager : MonoBehaviour
         for (int i = 0; i < answers.Length; i++)
         {
             AnswerButton answerButton = Instantiate(answerButtonPrefab, answerButtonParent).GetComponent<AnswerButton>();
-            answerButton.Setup(answers[i]); answerButton.key = KeyCode.Alpha1 + i;
+            answerButton.Setup(answers[i]); answerButton.key = KeyCode.Space;
         }
     }
 }

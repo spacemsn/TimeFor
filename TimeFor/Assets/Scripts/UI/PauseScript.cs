@@ -3,63 +3,43 @@ using UnityEngine.SceneManagement;
 
 public class PauseScript : MonoCache
 {
+    public GloballSetting setting;
+
     [Header("Меню Респавна")]
-    public GameObject PausePanel;
+    public Transform PausePanel;
     [SerializeField] public bool isOpenPanel = false;
 
     [SerializeField] private SettingsScript settingsMenu;
 
     private void Start()
     {
+        setting = GetComponent<GloballSetting>();
         settingsMenu = GetComponent<SettingsScript>();
     }
 
-    public void SetComponent(GameObject PausePanel)
+    public void OpenPanel()
     {
-        this.PausePanel = PausePanel;
-    }
-
-    public void OpenMenu()
-    {
-        if (isOpenPanel == false)
-        {
-            PausePanel.gameObject.SetActive(true);
-            isOpenPanel = true;
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-            Time.timeScale = 0f;
-        }
-        else if (isOpenPanel == true)
-        {
-            PausePanel.gameObject.SetActive(false);
-            isOpenPanel = false;
-            //Cursor.lockState = CursorLockMode.Locked;
-            //Cursor.visible = false;
-            //Time.timeScale = 1f;
-        }
+        isOpenPanel = !isOpenPanel;
     }
     
     public void Continue()
     {
         if (isOpenPanel)
         {
-            PausePanel.gameObject.SetActive(false);
-            isOpenPanel = false;
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            Time.timeScale = 1f;
+            setting.notVisible(); setting.OpenMenu(PausePanel, isOpenPanel); OpenPanel();
         }
     }
 
     public void Exit()
     {
         SceneLoad.SwitchScene("Menu");
+        setting.OpenMenu(PausePanel, isOpenPanel); OpenPanel();
         Time.timeScale = 1f;
     }
 
     public void Settings()
     {
         settingsMenu.OpenMenu();
-        OpenMenu();
+        setting.OpenMenu(PausePanel, isOpenPanel); OpenPanel();
     }
 }

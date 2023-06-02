@@ -32,34 +32,34 @@ public class GloballSetting : MonoBehaviour
         pauseScript = GetComponent<PauseScript>();
         deathScript = GetComponent<DeathScript>();
 
-        notVisible();
-
         freeLook = uIEntry.freeLook;
         deathScript.SetComponent(uIEntry.dealthPanel.gameObject);
-        pauseScript.SetComponent(uIEntry.pausePanel.gameObject);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && pauseScript.isOpenPanel == false)
+        if (character != null)
         {
-            pauseScript.OpenMenu();
-        }
-        else if (Input.GetKeyDown(KeyCode.Tab) && pauseScript.isOpenPanel == false)
-        {
-            bookScript.OpenInventory();
-        }
-        else if ((Input.GetKeyDown(KeyCode.M) && pauseScript.isOpenPanel == false) || (Input.GetKeyDown(KeyCode.M) && pauseScript.isOpenPanel == true))
-        {
-            bookScript.OpenMap();
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftAlt))
-        {
-            Visible();
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftAlt))
-        {
-            notVisible();
+            if (Input.GetKeyDown(KeyCode.Escape) && pauseScript.isOpenPanel == false)
+            {
+                OpenMenu(pauseScript.PausePanel, pauseScript.isOpenPanel); Visible(); pauseScript.OpenPanel();
+            }
+            else if (Input.GetKeyDown(KeyCode.Tab) && pauseScript.isOpenPanel == false)
+            {
+                bookScript.OpenInventory(); Visible();
+            }
+            else if ((Input.GetKeyDown(KeyCode.M) && pauseScript.isOpenPanel == false) || (Input.GetKeyDown(KeyCode.M) && pauseScript.isOpenPanel == true))
+            {
+                bookScript.OpenMap(); notVisible();
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftAlt))
+            {
+                Visible();
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftAlt))
+            {
+                notVisible();
+            }
         }
     }
 
@@ -86,6 +86,20 @@ public class GloballSetting : MonoBehaviour
             isVisible = false;
             freeLook.m_XAxis.m_InputAxisName = "Mouse X";
             freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
+        }
+    }
+
+    public void OpenMenu(Transform panel, bool isOpenPanel)
+    {
+        if (isOpenPanel == false)
+        {
+            panel.gameObject.SetActive(true);
+            isOpenPanel = true;
+        }
+        else if (isOpenPanel == true)
+        {
+            panel.gameObject.SetActive(false);
+            isOpenPanel = false;
         }
     }
 }
