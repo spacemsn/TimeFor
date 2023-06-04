@@ -96,13 +96,16 @@ public class moveCharacter : MonoBehaviour, IMoveBehavior
 
     private void LateUpdate()
     {
-        // Прыжок
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (isManagement)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            animator.SetBool("Jump", true);
+            // Прыжок
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            {
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                animator.SetBool("Jump", true);
+            }
+            else { animator.SetBool("Jump", false); }
         }
-        else { animator.SetBool("Jump", false); }
     }
 
     public void TransportPlayer(Vector3 _position)

@@ -11,8 +11,8 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
     [Header("Характеристики Врага")]
     [SerializeField] EnemyObject enemyParam;
     [SerializeField] EnemyBehavior enemyBehavior;
-    [HideInInspector] public float hp;
-    [HideInInspector] public int enemyDamage;
+    public float hp;
+    public int enemyDamage;
 
     [Header("Компоненты Врага")]
     public Slider healthBar;

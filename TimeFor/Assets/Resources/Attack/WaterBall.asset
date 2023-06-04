@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 4
   name: WaterBall
-  itemPrefab: {fileID: 8088893976511215414, guid: 8255cac2682a677419d65a200576e6ab, type: 3}
+  itemPrefab: {fileID: 8367720951629157244, guid: 9980fafb2c1e5fa43a092565d9a7b1a7, type: 3}
   maxAmount: 1
   aboutItem: "\u0421\u043F\u0435\u043B"
   icon: {fileID: 21300000, guid: 58cd733bcb234fd48a5afabb1df42bfa, type: 3}
