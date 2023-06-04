@@ -26,7 +26,7 @@ public class PauseScript : MonoCache
     {
         if (isOpenPanel)
         {
-            setting.notVisible(); setting.OpenMenu(PausePanel, isOpenPanel); OpenPanel();
+            setting.notVisible(); setting.OpenMenu(PausePanel, isOpenPanel); OpenPanel(); setting.ResumeGame(); 
         }
     }
 
@@ -34,7 +34,7 @@ public class PauseScript : MonoCache
     {
         SceneLoad.SwitchScene("Menu");
         setting.OpenMenu(PausePanel, isOpenPanel); OpenPanel();
-        Time.timeScale = 1f;
+        setting.ResumeGame();
     }
 
     public void Settings()

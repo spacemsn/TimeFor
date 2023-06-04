@@ -4,6 +4,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using static EnemyBehavior;
 
 public class EnemyBehavior : MonoBehaviour, IMoveBehavior
 {
@@ -30,9 +31,17 @@ public class EnemyBehavior : MonoBehaviour, IMoveBehavior
     [HideInInspector] public Transform centerOfEnemy;
 
     // Поведение врага
-    public enum EnemyStage { Wait, Patrolling, Trigger, Chase, Attack, Death, }
+    public enum EnemyStage 
+    { 
+        Wait, 
+        Patrolling, 
+        Trigger, 
+        Chase, 
+        Attack, 
+        Death, 
+    }
     [Header("Стадия поведения врага")]
-    [SerializeField] public EnemyStage enemyStage;
+    [SerializeField] public EnemyStage currentState;
 
     void Start()
     {
@@ -41,7 +50,7 @@ public class EnemyBehavior : MonoBehaviour, IMoveBehavior
         animator = gameObject.GetComponent<Animator>();
 
         navAgent.isStopped = false;
-        enemyStage = EnemyStage.Wait;
+        currentState = EnemyStage.Wait;
         enemyParam.SetBehavior(this);
 
         centerOfEnemy = gameObject.transform.Find("CenterOfEnemy");
@@ -64,7 +73,7 @@ public class EnemyBehavior : MonoBehaviour, IMoveBehavior
 
     private void Movement()
     {
-        switch (enemyStage)
+        switch (currentState)
         {
             case EnemyStage.Wait:
                 {
@@ -72,11 +81,11 @@ public class EnemyBehavior : MonoBehaviour, IMoveBehavior
                     animator.SetTrigger("Wait");
                     if (CanSeePlayer() == EnemyStage.Patrolling)
                     {
-                        enemyStage = EnemyStage.Patrolling;
+                        ChangeState(EnemyStage.Patrolling);
                     }
                     else if (CanSeePlayer() == EnemyStage.Chase)
                     {
-                        enemyStage = EnemyStage.Chase;
+                        ChangeState(EnemyStage.Chase);
                     }
                     break;
                 }
@@ -96,7 +105,7 @@ public class EnemyBehavior : MonoBehaviour, IMoveBehavior
                     }
                     else if (CanSeePlayer() == EnemyStage.Chase)
                     {
-                        enemyStage = EnemyStage.Chase;
+                        ChangeState(EnemyStage.Chase);
                     }
                     break;
                 }
@@ -110,9 +119,9 @@ public class EnemyBehavior : MonoBehaviour, IMoveBehavior
             case EnemyStage.Chase:
                 {
                     navAgent.isStopped = false;
-                    if (playerPos <= navAgent.stoppingDistance)
+                    if (playerPos <= 2f)
                     {
-                        enemyStage = EnemyStage.Attack;
+                        ChangeState(EnemyStage.Attack);
                     }
                     //else if (originPos >= distanceMax)
                     //{
@@ -140,9 +149,9 @@ public class EnemyBehavior : MonoBehaviour, IMoveBehavior
                     animator.SetTrigger("Attack");
                     gameObject.transform.LookAt(player.transform);
 
-                    if (playerPos > navAgent.stoppingDistance)
+                    if (playerPos >= 3f)
                     {
-                        enemyStage = EnemyStage.Chase;
+                        ChangeState(EnemyStage.Chase);
                     }
                     break;
                 }
@@ -155,8 +164,13 @@ public class EnemyBehavior : MonoBehaviour, IMoveBehavior
                     GetComponent<Rigidbody>().isKinematic = true;
                     Destroy(this.gameObject, 5f);
                     break;
-                }
-        }
+}
+}
+}
+
+    public void ChangeState(EnemyStage newState)
+    {
+        currentState = newState;
     }
 
     private EnemyStage CanSeePlayer()

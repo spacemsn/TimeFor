@@ -151,11 +151,11 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
     {
         hp -= damage;
 
-        enemyBehavior.enemyStage = EnemyBehavior.EnemyStage.Chase;
+        enemyBehavior.currentState = EnemyBehavior.EnemyStage.Chase;
 
         if (hp <= 0)
         {
-            enemyBehavior.enemyStage = EnemyBehavior.EnemyStage.Death;
+            enemyBehavior.currentState = EnemyBehavior.EnemyStage.Death;
             enemyUI.gameObject.SetActive(false);
             
         }
@@ -181,13 +181,13 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
 
     public void CollidersTrue()
     {
-        //rightHand.enabled = true;
+        rightHand.enabled = true;
         leftHand.enabled = true;
     }
 
     public void CollidersFalse()
     {
-        //rightHand.enabled = false;
+        rightHand.enabled = false;
         leftHand.enabled = false;
     }
 

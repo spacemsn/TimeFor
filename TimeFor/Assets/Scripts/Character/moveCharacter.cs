@@ -48,16 +48,15 @@ public class moveCharacter : MonoBehaviour, IMoveBehavior
         camera = uI.camera;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        Movement();
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
     }
 
-    private void Movement()
+    private void FixedUpdate()
     {
         if (isManagement)
         {
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
             movement = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
             if (movement.magnitude > Mathf.Abs(0.05f))
@@ -67,14 +66,6 @@ public class moveCharacter : MonoBehaviour, IMoveBehavior
                 transform.rotation = Quaternion.Euler(0f, angle, 0f);
                 movement = Quaternion.Euler(0f, rotationAngle, 0f) * Vector3.forward;
             }
-
-            // Прыжок
-            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-            {
-                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-                animator.SetBool("Jump", true);
-            }
-            else { animator.SetBool("Jump", false); }
 
             animator.SetFloat("CharacterBehavior", Vector3.ClampMagnitude(movement, 0.55f).magnitude);
 
@@ -101,6 +92,17 @@ public class moveCharacter : MonoBehaviour, IMoveBehavior
             rb.angularVelocity = Vector3.zero;
             animator.SetFloat("CharacterBehavior", Vector3.ClampMagnitude(movement, 0f).magnitude);
         }
+    }
+
+    private void LateUpdate()
+    {
+        // Прыжок
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            animator.SetBool("Jump", true);
+        }
+        else { animator.SetBool("Jump", false); }
     }
 
     public void TransportPlayer(Vector3 _position)

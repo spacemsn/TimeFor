@@ -42,7 +42,7 @@ public class GloballSetting : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape) && pauseScript.isOpenPanel == false)
             {
-                OpenMenu(pauseScript.PausePanel, pauseScript.isOpenPanel); Visible(); pauseScript.OpenPanel();
+                OpenMenu(pauseScript.PausePanel, pauseScript.isOpenPanel); Visible(); pauseScript.OpenPanel(); PauseGame();
             }
             else if (Input.GetKeyDown(KeyCode.Tab) && pauseScript.isOpenPanel == false)
             {
@@ -50,7 +50,7 @@ public class GloballSetting : MonoBehaviour
             }
             else if ((Input.GetKeyDown(KeyCode.M) && pauseScript.isOpenPanel == false) || (Input.GetKeyDown(KeyCode.M) && pauseScript.isOpenPanel == true))
             {
-                bookScript.OpenMap(); notVisible();
+                bookScript.OpenMap(); notVisible(); PauseGame();
             }
             else if (Input.GetKeyDown(KeyCode.LeftAlt))
             {
@@ -87,6 +87,21 @@ public class GloballSetting : MonoBehaviour
             freeLook.m_XAxis.m_InputAxisName = "Mouse X";
             freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
         }
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+    }
+
+    public void SlowMode()
+    {
+        Time.timeScale = 0.5f;
     }
 
     public void OpenMenu(Transform panel, bool isOpenPanel)

@@ -140,6 +140,7 @@ MonoBehaviour:
     m_Bits: 8
   Player: []
   buttonPrefab: {fileID: 7405787944185800951, guid: baf7632d734b1c8499cbc7c647852a20, type: 3}
+  buttonParent: {fileID: 0}
 --- !u!114 &4811723026168725224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,7 +174,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 14
+  m_Constraints: 10
   m_CollisionDetection: 0
 --- !u!135 &7409456849295759417
 SphereCollider:

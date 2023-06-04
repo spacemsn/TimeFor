@@ -1,4 +1,5 @@
 using Cinemachine;
+using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -105,6 +106,7 @@ public class bookCharacter : MonoCache
             freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
             EntryPoint.player.movement.isManagement = true;
             EntryPoint.globallSetting.globall.notVisible();
+            EntryPoint.globallSetting.globall.ResumeGame();
         }
         else if (isOpenInventory == false)
         {
@@ -116,6 +118,7 @@ public class bookCharacter : MonoCache
             freeLook.m_YAxis.m_InputAxisValue = 0;
             EntryPoint.player.movement.isManagement = false;
             EntryPoint.globallSetting.globall.Visible();
+            EntryPoint.globallSetting.globall.PauseGame();
         }
     }
 
