@@ -8,23 +8,16 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Branches
-  m_Shader: {fileID: 4800000, guid: 1d10d370c3f169448b4d855d9b93645f, type: 3}
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ValidKeywords:
-  - _ANCHORTHEFOLIAGEBASE_ON
-  - _ENABLEWIND_ON
-  - _SECONDCOLOROVERLAYTYPE_WORLD_POSITION
-  m_InvalidKeywords:
-  - _COLOR2OVERLAYTYPE_VERTEX_POSITION_BASED
-  - _COVERAGEOVERLAYTYPE_WORLD_NORMAL
-  - _FIXTHEBASEOFFOLIAGE_ON
-  - _SECONDCOLOROVERLAYTYPE_VERTEX_POSITION_BASED
-  - _SNOWOVERLAYTYPE_WORLD_NORMAL_BASED
-  - _WIND_ON
+  - _ALPHATEST_ON
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_DoubleSidedGI: 1
+  m_CustomRenderQueue: 2450
+  stringTagMap:
+    RenderType: TransparentCutout
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -34,6 +27,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlbedoTexture:
+        m_Texture: {fileID: 2800000, guid: 1a45fbf6c823e374e9e38b997054c1a7, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 1a45fbf6c823e374e9e38b997054c1a7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -70,7 +67,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 1a45fbf6c823e374e9e38b997054c1a7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -97,6 +94,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Texture:
         m_Texture: {fileID: 2800000, guid: f450426fb3f420944b5a9e7a05ba58dd, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -113,12 +114,28 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AlphaClip: 1
     - _AlphaCutoff: 0.35
     - _Anchorthefoliagebase: 1
+    - _Blend: 0
     - _BlendNormals: 0
     - _BumpScale: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
     - _Color2Enable: 0
     - _Color2Fade: 0.5
     - _Color2Level: 0
@@ -130,8 +147,10 @@ Material:
     - _CoverageOverlayType: 0
     - _CoverageSmoothness: 0
     - _CoverageThickness: 1
+    - _Cull: 0
     - _CullMode: 0
     - _Cutoff: 0.25
+    - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DirectLightInt: 1
     - _DirectLightInt1: 1
@@ -141,6 +160,7 @@ Material:
     - _EdgeLength: 15
     - _EnableCoverage: 0
     - _EnableWind: 1
+    - _EnvironmentReflections: 1
     - _Fixthebaseoffoliage: 1
     - _Float0: 1
     - _Float1: 0
@@ -163,6 +183,8 @@ Material:
     - _NormalScale: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
     - _SNOW: 0
     - _SecondColorFade: 0.5
     - _SecondColorOffset: 0
@@ -178,6 +200,7 @@ Material:
     - _SpecularHighlights: 1
     - _Speed: 0.5
     - _SrcBlend: 1
+    - _Surface: 0
     - _SurfaceNormalInt: 1
     - _SurfaceSmoothness: 0.2
     - _Tiling: 1
@@ -195,11 +218,13 @@ Material:
     - _WindForce: 0.6
     - _WindSpeed: 0.3
     - _WindWavesScale: 0.2
+    - _WorkflowMode: 1
     - _WorldScale: 1
     - _ZWrite: 1
     - __dirty: 1
     m_Colors:
-    - _Color: {r: 0.69803923, g: 0.52156866, b: 0.49019608, a: 1}
+    - _BaseColor: {r: 0.68235296, g: 0.48235294, b: 0.44313726, a: 1}
+    - _Color: {r: 0.68235296, g: 0.48235294, b: 0.44313726, a: 1}
     - _Color0: {r: 0, g: 0, b: 0, a: 0}
     - _Color1: {r: 0.9622642, g: 0.7497543, b: 0.5492168, a: 0}
     - _Color2: {r: 0, g: 0, b: 0, a: 0}
@@ -209,3 +234,16 @@ Material:
     - _SecondColor: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
+--- !u!114 &4051852360935216411
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
