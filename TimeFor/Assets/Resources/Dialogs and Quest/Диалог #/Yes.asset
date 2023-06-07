@@ -15,4 +15,4 @@ MonoBehaviour:
   name: 
   answerText: "\u0414\u0430. \u0447\u0442\u043E \u0442\u0435\u0431\u0435 \u043D\u0443\u0436\u043D\u043E?"
   nextDialog: {fileID: 11400000, guid: 1a0b4b701a15a9f4896fb485864632f4, type: 2}
-  quest: {fileID: 11400000, guid: 94f72163520033543b7446092fa7ada0, type: 2}
+  quest: {fileID: 11400000, guid: 8521f6719251bc54e81e743a5dd1cc43, type: 2}

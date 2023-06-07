@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,6 +38,10 @@ public class ItemPrefab : MonoBehaviour
         if (currentButton != null)
         {
             Destroy(currentButton.gameObject);
+        }
+        if (Player[0] != null)
+        {
+            Player[0].GetComponent<QuestSystem>().CollectItems(item.itemPrefab);
         }
     }
 }

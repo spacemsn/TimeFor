@@ -193,4 +193,12 @@ public class EnemyBehavior : MonoBehaviour, IMoveBehavior
         }
         else { return EnemyStage.Patrolling; }
     }
+
+    private void OnDestroy()
+    {
+        if(player != null)
+        {
+            player.GetComponent<QuestSystem>().KillEnemy(enemyParam.objectPrefab);
+        }
+    }
 }

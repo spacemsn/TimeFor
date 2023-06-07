@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "New Quest", menuName = "Quest System/Quest")]
 public class Quest : ScriptableObject
@@ -15,10 +17,13 @@ public class Quest : ScriptableObject
     public QuestType questType;
 
     // Для задания "убить врагов"
-    public GameObject[] enemiesToKill;
+    public List<GameObject> enemiesToKill;
     public int enemiesToKillCount;
 
     // Для задания "собрать предметы"
-    public GameObject[] itemsToCollect;
+    public List<GameObject> itemsToCollect;
     public int itemsToCollectCount;
+
+    // отслеживание програссе игрока по выполнению задания
+    public int progressQuestCount;
 }
