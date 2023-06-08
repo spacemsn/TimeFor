@@ -14,6 +14,7 @@ public class PlayerEntryPoint : MonoBehaviour
     public interactionCharacter interaction;
     public bookCharacter book;
     public DialogManager dialogManager;
+    public QuestManager questManager;
 
     [Header("GameManagers")]
     public UIEntryPoint UIPoint;
@@ -67,6 +68,7 @@ public class PlayerEntryPoint : MonoBehaviour
         interaction = currentPlayer.GetComponent<interactionCharacter>();
         book = globallEntry.globall.bookScript.GetComponent<bookCharacter>();
         dialogManager = currentPlayer.GetComponent<DialogManager>();
+        questManager = currentPlayer.GetComponent<QuestManager>();
 
         attack.GetUI(this, UIPoint);
         indicators.GetUI(this, UIPoint);

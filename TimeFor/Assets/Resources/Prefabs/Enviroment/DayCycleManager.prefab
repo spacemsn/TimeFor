@@ -230,21 +230,17 @@ MonoBehaviour:
     m_PostInfinity: 1
     m_RotationOrder: 4
   SkyBoxDay:
-  - {fileID: 2100000, guid: 9aa8ed67591432941bb76f12eb23ff91, type: 2}
-  - {fileID: 2100000, guid: 5c80d49013691df48ac94280337e88ce, type: 2}
-  - {fileID: 2100000, guid: 56113b3b655ab7349bab4d7d405c258a, type: 2}
-  - {fileID: 2100000, guid: 5c57bb9da366e944a8f4ae9be4f413ec, type: 2}
-  - {fileID: 2100000, guid: 6225fa8890cf025489e57d3aa1d87260, type: 2}
-  - {fileID: 2100000, guid: bbbcd551076325545ba102ba8c308520, type: 2}
-  - {fileID: 2100000, guid: 56113b3b655ab7349bab4d7d405c258a, type: 2}
+  - {fileID: 2100000, guid: 55e64e617a8bfff4ba846574e2651eb9, type: 2}
+  - {fileID: 2100000, guid: 8162517b6ec2309499f99e303b29f146, type: 2}
+  - {fileID: 2100000, guid: 50bf15468c19e0e40b5bf26662770a34, type: 2}
+  - {fileID: 2100000, guid: b2f1a98efccfb644f8e084200a249527, type: 2}
+  - {fileID: 2100000, guid: 133347283e115d147a5fcce7f47a538f, type: 2}
   SkyBoxNight:
-  - {fileID: 2100000, guid: bbe9494f815f3c340956427c884b72a0, type: 2}
-  - {fileID: 2100000, guid: 52fcefd712182d743a781fde12426775, type: 2}
-  - {fileID: 2100000, guid: 135a7036ca1a07b4e9e162d80e6b6e77, type: 2}
-  - {fileID: 2100000, guid: ed1387202b1349540a5d6464f0f27488, type: 2}
-  - {fileID: 2100000, guid: 7ed994c1997814049b44c36a823bba6c, type: 2}
-  - {fileID: 2100000, guid: 135a7036ca1a07b4e9e162d80e6b6e77, type: 2}
-  - {fileID: 2100000, guid: 528363c5c1cf6a7458140c6851c77b68, type: 2}
+  - {fileID: 2100000, guid: c1c961cbd00909b45b34d97fd7df5cbf, type: 2}
+  - {fileID: 2100000, guid: c1c961cbd00909b45b34d97fd7df5cbf, type: 2}
+  - {fileID: 2100000, guid: c1c961cbd00909b45b34d97fd7df5cbf, type: 2}
+  - {fileID: 2100000, guid: c1c961cbd00909b45b34d97fd7df5cbf, type: 2}
+  - {fileID: 2100000, guid: c1c961cbd00909b45b34d97fd7df5cbf, type: 2}
   Sun: {fileID: 1349466593345409402}
   Moon: {fileID: 8713997135349806930}
   timeDay: 0

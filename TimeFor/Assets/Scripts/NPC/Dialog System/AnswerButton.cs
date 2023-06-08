@@ -6,7 +6,8 @@ public class AnswerButton : MonoBehaviour
 {
     public Text answerText;
     private NPCBehaviour npc;
-    private Answer answer;
+    [SerializeField] private Answer answer;
+    [SerializeField] private Quest quest;
 
     public KeyCode key;
     public bool isSelected = false;
@@ -20,18 +21,25 @@ public class AnswerButton : MonoBehaviour
     {
         answer = currentAnswer;
         answerText.text = currentAnswer.answerText;
+        quest = currentAnswer.quest;    
     }
 
     public void OnButtonClick()
     {
         npc.SetNextDialog(answer);
+
+        if(answer.quest != null)
+        {
+            quest = answer.quest;
+            npc.SetQuest(quest);
+        }
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(key) && isSelected)
         {
-            npc.SetNextDialog(answer);
+            OnButtonClick();
         }
     }
 

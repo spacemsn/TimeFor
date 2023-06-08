@@ -195,7 +195,6 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
     {
         if ((currentStatus == IElementBehavior.Elements.Water && secondary == IElementBehavior.Elements.Fire) || (currentStatus == IElementBehavior.Elements.Fire && secondary == IElementBehavior.Elements.Water))
         {
-            Debug.Log("Реация увеличения урона!");
             reaction = IElementBehavior.Reactions.DamageUp;
             SetDefauntStatus();
             StartCoroutine(WaitReaction(timeReaction));
@@ -204,7 +203,6 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
         }
         else if ((currentStatus == IElementBehavior.Elements.Terra && secondary == IElementBehavior.Elements.Fire) || (currentStatus == IElementBehavior.Elements.Water && secondary == IElementBehavior.Elements.Terra))
         {
-            Debug.Log("Реация оглушения движения");
             reaction = IElementBehavior.Reactions.MovementDown;
             SetDefauntStatus();
             StartCoroutine(WaitReaction(timeReaction));
@@ -213,7 +211,6 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
         }
         else if ((currentStatus == IElementBehavior.Elements.Fire && secondary == IElementBehavior.Elements.Air) || (currentStatus == IElementBehavior.Elements.Water && secondary == IElementBehavior.Elements.Air) || (currentStatus == IElementBehavior.Elements.Terra && secondary == IElementBehavior.Elements.Air))
         {
-            Debug.Log("Реация оглушения зрения");
             reaction = IElementBehavior.Reactions.VisionDown;
             SetDefauntStatus();
             StartCoroutine(WaitReaction(timeReaction));

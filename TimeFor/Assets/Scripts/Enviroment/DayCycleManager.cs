@@ -41,6 +41,8 @@ public class DayCycleManager : MonoBehaviour
 
         currentSkyboxIndex = 0;
         SetSkybox(currentSkyboxIndex);
+
+        TimeOfDay = 0.5f; 
     }
 
     private void Update()

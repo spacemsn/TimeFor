@@ -12,8 +12,12 @@ public class NPCBehaviour : MonoBehaviour, IMoveBehavior
     [Header("Старт диалога")]
     public Dialog startDialog;
 
+    [Header("Задание персонажа")]
+    public Quest quest;
+
     private Dialog currentDialog;
     [SerializeField] private DialogManager dialogManager;
+    [SerializeField] private QuestManager questManager;
 
     [Header("Components")]
     public Transform NPC_UI;
@@ -40,6 +44,7 @@ public class NPCBehaviour : MonoBehaviour, IMoveBehavior
     void Start()
     {
         dialogManager = FindObjectOfType<EntryPoint>().player.dialogManager;
+        questManager = FindObjectOfType<EntryPoint>().player.questManager;
         camera = FindObjectOfType<UIEntryPoint>().camera.transform;
 
         startDialog.name = name;
@@ -100,6 +105,15 @@ public class NPCBehaviour : MonoBehaviour, IMoveBehavior
             dialogManager.EndDialog();
             currentDialog = startDialog;
         }
+    }
+
+    public void SetQuest(Quest quest)
+    {
+        questManager = FindObjectOfType<EntryPoint>().player.questManager;
+
+        this.quest = quest;
+        questManager.GetQuest(quest);
+
     }
 
     public void Movement()

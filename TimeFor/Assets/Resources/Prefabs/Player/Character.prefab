@@ -908,11 +908,11 @@ GameObject:
   - component: {fileID: 7866213678889492255}
   - component: {fileID: 9184657922853418971}
   - component: {fileID: 1516597143}
+  - component: {fileID: -8793717163258794772}
   - component: {fileID: 7866213678889492257}
   - component: {fileID: 7866213678889492258}
   - component: {fileID: 1749478371}
   - component: {fileID: 1749478373}
-  - component: {fileID: -8793717163258794772}
   m_Layer: 3
   m_Name: Character
   m_TagString: Player
@@ -1121,12 +1121,33 @@ MonoBehaviour:
   entryPoint: {fileID: 0}
   playerEntry: {fileID: 0}
   uIEntry: {fileID: 0}
+  questManager: {fileID: 0}
+  currentQuest: {fileID: 0}
   dialogText: {fileID: 0}
   nameDialogText: {fileID: 0}
   answerButtonPrefab: {fileID: 6257487495648723009, guid: b8b6008b79da0014aa7575e421141fe4, type: 3}
   answerButtonParent: {fileID: 0}
   npc: {fileID: 0}
   player: {fileID: 0}
+--- !u!114 &-8793717163258794772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970037715054327440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0adaa6ac71f2e734fa4eea107e26efb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentQuest: {fileID: 0}
+  isDone: 0
+  enemiesToKill: []
+  enemiesToKillCount: 0
+  itemsToCollect: []
+  itemsToCollectCount: 0
+  progressQuestCount: 0
 --- !u!114 &7866213678889492257
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1262,25 +1283,6 @@ CapsuleCollider:
   m_Height: 2.8
   m_Direction: 1
   m_Center: {x: 0, y: 1.4, z: 0}
---- !u!114 &-8793717163258794772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 970037715054327440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0adaa6ac71f2e734fa4eea107e26efb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentQuest: {fileID: 11400000, guid: 9ab08cf3046a42a4eb38eabcbbfa449b, type: 2}
-  isDone: 0
-  enemiesToKill: []
-  enemiesToKillCount: 0
-  itemsToCollect: []
-  itemsToCollectCount: 0
-  progressQuestCount: 0
 --- !u!1 &1025562390614401955
 GameObject:
   m_ObjectHideFlags: 0

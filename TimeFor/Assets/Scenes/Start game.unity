@@ -3236,7 +3236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &467437434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5166,9 +5166,9 @@ GameObject:
   - component: {fileID: 673931328}
   - component: {fileID: 673931329}
   - component: {fileID: 673931331}
+  - component: {fileID: 673931333}
   - component: {fileID: 673931332}
   - component: {fileID: 673931330}
-  - component: {fileID: 673931333}
   m_Layer: 0
   m_Name: EntryPoint
   m_TagString: Untagged
@@ -5231,6 +5231,7 @@ MonoBehaviour:
   interaction: {fileID: 0}
   book: {fileID: 0}
   dialogManager: {fileID: 0}
+  questManager: {fileID: 0}
   UIPoint: {fileID: 0}
   globallEntry: {fileID: 0}
   enemyManager: {fileID: 0}

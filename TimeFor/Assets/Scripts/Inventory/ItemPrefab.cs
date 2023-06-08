@@ -41,7 +41,7 @@ public class ItemPrefab : MonoBehaviour
         }
         if (Player[0] != null)
         {
-            Player[0].GetComponent<QuestSystem>().CollectItems(item.itemPrefab);
+            Player[0].GetComponent<QuestManager>().CollectItems(item.itemPrefab);
         }
     }
 }

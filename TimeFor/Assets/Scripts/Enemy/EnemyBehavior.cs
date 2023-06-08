@@ -198,7 +198,7 @@ public class EnemyBehavior : MonoBehaviour, IMoveBehavior
     {
         if(player != null)
         {
-            player.GetComponent<QuestSystem>().KillEnemy(enemyParam.objectPrefab);
+            player.GetComponent<QuestManager>().KillEnemy(enemyParam.objectPrefab);
         }
     }
 }

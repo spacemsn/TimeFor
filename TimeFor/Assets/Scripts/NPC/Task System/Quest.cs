@@ -26,4 +26,8 @@ public class Quest : ScriptableObject
 
     // отслеживание програссе игрока по выполнению задания
     public int progressQuestCount;
+
+    [Header("Награда за выполнения задания")]
+    public int experiencePoints;
+    public GameObject rewardItem;
 }

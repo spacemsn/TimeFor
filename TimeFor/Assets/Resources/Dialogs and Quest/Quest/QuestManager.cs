@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static QuestManager;
 
-public class QuestSystem : MonoBehaviour
-{
+public class QuestManager : MonoBehaviour
+{ 
     [Header("Задание")]
     public Quest currentQuest;
-    public bool isDone = false;
+
+    public delegate void QuestCompleted(Quest quest);
+    public static event QuestCompleted onQuestCompleted;
+    public bool isQuestCompleted = false;
 
     // Для задания "убить врагов"
     public List<GameObject> enemiesToKill;
@@ -18,9 +22,11 @@ public class QuestSystem : MonoBehaviour
 
     public int progressQuestCount;
 
-    private void Start()
+    public void GetQuest(Quest quest)
     {
-        switch(currentQuest.questType)
+        this.currentQuest = quest;
+
+        switch (currentQuest.questType)
         {
             case Quest.QuestType.KillEnemies:
                 enemiesToKill = currentQuest.enemiesToKill;
@@ -33,18 +39,21 @@ public class QuestSystem : MonoBehaviour
                 break;
         }
 
-        this.progressQuestCount = currentQuest.progressQuestCount;
+        progressQuestCount = currentQuest.progressQuestCount;
     }
 
     private void Update()
     {
-        if(currentQuest.questType == Quest.QuestType.KillEnemies && progressQuestCount >= enemiesToKillCount)
+        if (currentQuest != null)
         {
-            isDone = true;
-        }
-        else if(currentQuest.questType == Quest.QuestType.CollectItems && progressQuestCount >= itemsToCollectCount)
-        {
-            isDone = true;
+            if (currentQuest.questType == Quest.QuestType.KillEnemies && progressQuestCount >= enemiesToKillCount)
+            {
+                CompleteQuest();
+            }
+            else if (currentQuest.questType == Quest.QuestType.CollectItems && progressQuestCount >= itemsToCollectCount)
+            {
+                CompleteQuest();
+            }
         }
     }
 
@@ -68,5 +77,12 @@ public class QuestSystem : MonoBehaviour
                 progressQuestCount++;
             }
         }
+    }
+
+    public void CompleteQuest()
+    {
+        // Выполняем действия для завершения задания
+        isQuestCompleted = true;
+        onQuestCompleted(currentQuest);
     }
 }

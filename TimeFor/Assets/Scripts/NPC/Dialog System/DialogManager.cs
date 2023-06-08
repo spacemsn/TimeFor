@@ -9,6 +9,10 @@ public class DialogManager : MonoBehaviour
     public PlayerEntryPoint playerEntry;
     public UIEntryPoint uIEntry;
 
+    [Header("Quest Manager")]
+    public QuestManager questManager;
+    public Quest currentQuest;
+
 
     public TMP_Text dialogText;
     public TMP_Text nameDialogText;
