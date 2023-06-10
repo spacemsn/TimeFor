@@ -77,7 +77,7 @@ public class EnemyGameManager : MonoBehaviour
                 {
                     enemy.GetComponent<EnemyDamage>().HealthUp();
                 }
-                else if (enemy.GetComponent<EnemyBehavior>().enemyLevel == IMoveBehavior.EnemyLevel.Опасный)
+                else if (enemy.GetComponent<EnemyBehavior>().enemyLevel == IMoveBehavior.EnemyLevel.Демонический)
                 {
                     enemy.GetComponent<EnemyDamage>().HealthUp();
                 }

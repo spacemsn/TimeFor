@@ -9,6 +9,9 @@ public class NPCBehaviour : MonoBehaviour, IMoveBehavior
 {
     public string name;
 
+    [Header("Базовые диалоги")]
+    public List<Dialog> standartDialog;
+
     [Header("����� �������")]
     public Dialog startDialog;
 
@@ -48,6 +51,8 @@ public class NPCBehaviour : MonoBehaviour, IMoveBehavior
 
         startDialog.name = name;
         currentDialog = startDialog;
+
+        QuestReward.onAfterDialog += ClearStartDialog;
     }
 
     private void Update()
@@ -121,5 +126,25 @@ public class NPCBehaviour : MonoBehaviour, IMoveBehavior
     public void Movement()
     {
 
+    }
+
+    public void ClearStartDialog()
+    {
+        if (quest.answer != null)
+        {
+            DialogAfterQuest();
+        }
+        else
+        {
+            var random = Random.Range(0, standartDialog.Count);
+            startDialog = standartDialog[random];
+            currentDialog = startDialog;
+        }
+    }
+
+    private void DialogAfterQuest()
+    {
+        startDialog = quest.answer;
+        currentDialog = startDialog;
     }
 }

@@ -7,6 +7,9 @@ using static QuestManager;
 public class QuestReward : MonoBehaviour
 {
     public static Action<int> onQuestReward;
+    public static Action onAfterDialog;
+
+    private NPCBehaviour npcBehaviour;
 
     [Header("Задание")]
     public Quest quest;
@@ -19,6 +22,8 @@ public class QuestReward : MonoBehaviour
     {
         // Подписываемся на событие OnQuestCompleted
         QuestManager.onQuestCompleted += GiveReward;
+
+        npcBehaviour = gameObject.GetComponent<NPCBehaviour>();
     }
 
     private void OnDestroy()
@@ -46,6 +51,17 @@ public class QuestReward : MonoBehaviour
         experiencePoints = quest.experiencePoints;
         rewardItem = quest.rewardItem;
 
+        if(quest.answer != null)
+        {
+            DialogAfterQuest();
+        }
+
         onQuestReward.Invoke(100);
+        onAfterDialog.Invoke();
+    }
+
+    private void DialogAfterQuest()
+    {
+        npcBehaviour.startDialog = quest.answer;
     }
 }

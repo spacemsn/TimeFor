@@ -12,16 +12,20 @@ public class EventSystem : MonoBehaviour
         // Подписываемся на событие OnQuestCompleted
         QuestManager.onQuestCompleted += Open;
 
-        portal = gameObject.GetComponent<BoxCollider>(); 
+        portal = gameObject.GetComponent<BoxCollider>();
         portal.enabled = false;
+    }
+
+    private void OnDestroy()
+    {
+        // Подписываемся на событие OnQuestCompleted
+        QuestManager.onQuestCompleted -= Open;
     }
 
     private void Open(Quest quest)
     {
+        Debug.Log("Дверь открытлась");
         portal.enabled = true;
-
-        // Подписываемся на событие OnQuestCompleted
-        QuestManager.onQuestCompleted -= Open;
     }
 
     private void OnTriggerEnter(Collider other)

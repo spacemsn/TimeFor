@@ -30,4 +30,7 @@ public class Quest : ScriptableObject
     [Header("Награда за выполнения задания")]
     public int experiencePoints;
     public GameObject rewardItem;
+
+    [Header("Диалог после выполнения задания")]
+    public Dialog answer;
 }

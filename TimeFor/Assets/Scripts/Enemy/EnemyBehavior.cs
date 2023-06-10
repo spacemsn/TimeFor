@@ -9,7 +9,6 @@ using System;
 public class EnemyBehavior : MonoBehaviour, IMoveBehavior
 {
     public static Action<int> onDeadEnemy;
-    public static bool isDeadEnemy;
 
     [Header("Характеристики Врага")]
     [SerializeField] EnemyObject enemyParam;
@@ -172,7 +171,6 @@ public class EnemyBehavior : MonoBehaviour, IMoveBehavior
                     GetComponent<CapsuleCollider>().enabled = false;
                     GetComponent<Rigidbody>().isKinematic = true;
                     Destroy(this.gameObject, 5f);
-                    isDeadEnemy = true;
                     break;
                 }
         }
@@ -204,12 +202,16 @@ public class EnemyBehavior : MonoBehaviour, IMoveBehavior
         else { return EnemyStage.Patrolling; }
     }
 
+    public void DeadEnemy()
+    {
+        onDeadEnemy.Invoke(experience);
+    }
+
     private void OnDestroy()
     {
         if(player != null)
         {
             player.GetComponent<QuestManager>().KillEnemy(enemyParam.objectPrefab);
-            onDeadEnemy.Invoke(experience);
         }
     }
 }

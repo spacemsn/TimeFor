@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc992f8ea8811ac46b49b2935ac89c0a, type: 3}
+  m_Name: "\u0421\u043E\u0433\u043B\u0430\u0441\u0438\u0442\u044C\u0441\u044F"
+  m_EditorClassIdentifier: 
+  name: 
+  answerText: "\u0425\u043E\u0440\u043E\u0448\u043E. \u0416\u0434\u0443 \u0442\u0435\u0431\u044F
+    \u043D\u0430 \u0442\u043E\u0439 \u0441\u0442\u043E\u0440\u043E\u043D\u0435."
+  nextDialog: {fileID: 11400000, guid: 219c85251c1d7b545a7bdbe19a08c61b, type: 2}
+  quest: {fileID: 0}

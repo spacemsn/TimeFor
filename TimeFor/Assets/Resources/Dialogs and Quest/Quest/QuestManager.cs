@@ -41,10 +41,11 @@ public class QuestManager : MonoBehaviour
         progressQuestCount = currentQuest.progressQuestCount;
     }
 
-    private void Update()
+    public void ProgressQuest()
     {
-        if (currentQuest != null)
+        if(!isQuestCompleted && currentQuest != null)
         {
+            progressQuestCount++;
             if (currentQuest.questType == Quest.QuestType.KillEnemies && progressQuestCount >= enemiesToKillCount)
             {
                 CompleteQuest();
@@ -54,6 +55,7 @@ public class QuestManager : MonoBehaviour
                 CompleteQuest();
             }
         }
+
     }
 
     public void KillEnemy(GameObject currentEnemy)
@@ -62,7 +64,7 @@ public class QuestManager : MonoBehaviour
         {
             if(enemy == currentEnemy)
             {
-                progressQuestCount++;
+                ProgressQuest();
             }
         }
     }
@@ -73,7 +75,7 @@ public class QuestManager : MonoBehaviour
         {
             if (item == currentItem)
             {
-                progressQuestCount++;
+                ProgressQuest();
             }
         }
     }
@@ -82,6 +84,22 @@ public class QuestManager : MonoBehaviour
     {
         // ¬ыполн€ем действи€ дл€ завершени€ задани€
         isQuestCompleted = true;
-        onQuestCompleted(currentQuest);
+        onQuestCompleted.Invoke(currentQuest);
+
+        ClearQuest();
+    }
+
+    public void ClearQuest()
+    {
+        isQuestCompleted = false;
+        currentQuest = null;
+
+        //enemiesToKill.Clear();
+        enemiesToKillCount = 0;
+
+        itemsToCollect.Clear();
+        itemsToCollectCount = 0;
+
+        progressQuestCount = 0;
     }
 }

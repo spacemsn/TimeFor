@@ -25,3 +25,4 @@ MonoBehaviour:
   progressQuestCount: 0
   experiencePoints: 100
   rewardItem: {fileID: 3944793617797155257, guid: 3d2e1b2f3128c1a47ae0d8ce9262d342, type: 3}
+  answer: {fileID: 11400000, guid: 89da4ac13490c944289f1fb123a120cc, type: 2}

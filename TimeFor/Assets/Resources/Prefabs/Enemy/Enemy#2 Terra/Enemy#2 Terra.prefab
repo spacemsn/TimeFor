@@ -1514,7 +1514,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5987330612907812491}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 918f06e849805464189af268ec211684, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 2c94c5db48fd56f40b55f0c293a5eda9, type: 2}
   m_Controller: {fileID: 9100000, guid: 7c9876af2f2ad2b4288b6a139ab326ca, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -1579,6 +1579,8 @@ MonoBehaviour:
   player: {fileID: 0}
   centerOfEnemy: {fileID: 0}
   currentState: 0
+  enemyLevel: 2
+  experience: 500
 --- !u!114 &2695270554815265215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1614,7 +1616,7 @@ MonoBehaviour:
   currentStatus: 4
   reaction: 3
   timeStatus: 7.5
-  timeReaction: 1.5
+  timeReaction: 2
 --- !u!136 &5550138314426150377
 CapsuleCollider:
   m_ObjectHideFlags: 0

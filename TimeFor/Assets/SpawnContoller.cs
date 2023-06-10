@@ -37,8 +37,9 @@ public class SpawnContoller : MonoBehaviour
         playerEntry = GameObject.FindObjectOfType<PlayerEntryPoint>();
         indexScene = SceneManager.GetActiveScene().buildIndex;
 
-        foreach (PlayerData data in playerEntry.saveData.savedData)
+        if (playerEntry.saveData.savedData.Count > 0)
         {
+            var data = playerEntry.saveData.savedData[playerEntry.saveData.savedData.Count - 1];
             if (data.levelId == SceneManager.GetActiveScene().buildIndex)
             {
                 playerEntry.currentPlayer = Instantiate(playerEntry.playerPrefab, data.position, data.rotation);

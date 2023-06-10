@@ -51,9 +51,11 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
 
     [Header("Время наложения статуса")]
     public float timeStatus;
+    public bool runStatusCorouutine;
 
     [Header("Время наложения реакции")]
     public float timeReaction;
+    public bool runReactionCorouutine;
 
 
     public float Health
@@ -168,6 +170,8 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
         // обновить максимальные показатели в UI 
         healthBar.maxValue = healthMax;
         staminaBar.maxValue = staminaMax;
+
+        health = healthMax; stamina = staminaMax;
     }
 
     private void SetIcon()
@@ -247,7 +251,15 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
             Debug.Log("Реация увеличения урона!");
             reaction = IElementBehavior.Reactions.DamageUp;
             SetDefauntStatus();
-            StartCoroutine(WaitReaction(timeReaction));
+            if (runStatusCorouutine)
+            {
+                StartCoroutine(WaitReaction(timeReaction));
+            }
+            else
+            {
+                StopCoroutine(WaitReaction(timeReaction));
+                StartCoroutine(WaitReaction(timeReaction));
+            }
             damage *= buff;
             TakeDamage(damage);
         }
@@ -256,7 +268,15 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
             Debug.Log("Реация оглушения движения");
             reaction = IElementBehavior.Reactions.MovementDown;
             SetDefauntStatus();
-            StartCoroutine(WaitReaction(timeReaction));
+            if (runStatusCorouutine)
+            {
+                StartCoroutine(WaitReaction(timeReaction));
+            }
+            else
+            {
+                StopCoroutine(WaitReaction(timeReaction));
+                StartCoroutine(WaitReaction(timeReaction));
+            }
             //navAgent.speed -= buff;
             TakeDamage(damage);
         }
@@ -265,7 +285,15 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
             Debug.Log("Реация оглушения зрения");
             reaction = IElementBehavior.Reactions.VisionDown;
             SetDefauntStatus();
-            StartCoroutine(WaitReaction(timeReaction));
+            if (runStatusCorouutine)
+            {
+                StartCoroutine(WaitReaction(timeReaction));
+            }
+            else
+            {
+                StopCoroutine(WaitReaction(timeReaction));
+                StartCoroutine(WaitReaction(timeReaction));
+            }
             //viewAngle -= buff;
             TakeDamage(damage);
         }
@@ -273,20 +301,34 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
         {
             currentStatus = secondary;
             TakeDamage(damage);
-            StartCoroutine(WaitStatus(timeStatus));
+            if (runStatusCorouutine)
+            {
+                StartCoroutine(WaitStatus(timeStatus));
+            }
+            else
+            {
+                StopCoroutine(WaitStatus(timeStatus));
+                StartCoroutine(WaitStatus(timeStatus));
+            }
         }
     }
 
     IEnumerator WaitStatus(float timeStatus)
     {
+        runStatusCorouutine = true;
+
         yield return new WaitForSeconds(timeStatus);
         currentStatus = IElementBehavior.Elements.Null;
+        runStatusCorouutine = false;
     }
 
     IEnumerator WaitReaction(float timeStatus)
     {
+        runReactionCorouutine = true;
+
         yield return new WaitForSeconds(timeStatus);
         reaction = IElementBehavior.Reactions.Null;
+        runReactionCorouutine = false;
     }
 
     void SetDefauntStatus()

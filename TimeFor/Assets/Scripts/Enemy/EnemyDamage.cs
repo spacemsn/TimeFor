@@ -45,9 +45,11 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
 
     [Header("Время наложения статуса")]
     public float timeStatus;
+    public bool runStatusCorouutine;
 
     [Header("Время наложения реакции")]
     public float timeReaction;
+    public bool runReactionCorouutine;
 
     private void Start()
     {
@@ -156,6 +158,7 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
         if (hp <= 0)
         {
             enemyBehavior.currentState = EnemyBehavior.EnemyStage.Death;
+            enemyBehavior.DeadEnemy();
             enemyUI.gameObject.SetActive(false);
             
         }
@@ -181,7 +184,7 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
         indicatorCharacter player = other.gameObject.GetComponent<indicatorCharacter>();
         if (player)
         {
-            player.Reaction(currentStatus, 0, enemyDamage);
+            player.Reaction(currentStatus, 1, enemyDamage);
         }
     }
 
@@ -203,7 +206,15 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
         {
             reaction = IElementBehavior.Reactions.DamageUp;
             SetDefauntStatus();
-            StartCoroutine(WaitReaction(timeReaction));
+            if (runStatusCorouutine)
+            {
+                StartCoroutine(WaitReaction(timeReaction));
+            }
+            else
+            {
+                StopCoroutine(WaitReaction(timeReaction));
+                StartCoroutine(WaitReaction(timeReaction));
+            }
             damage *= buff;
             TakeDamage(damage);
         }
@@ -211,7 +222,15 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
         {
             reaction = IElementBehavior.Reactions.MovementDown;
             SetDefauntStatus();
-            StartCoroutine(WaitReaction(timeReaction));
+            if (runStatusCorouutine)
+            {
+                StartCoroutine(WaitReaction(timeReaction));
+            }
+            else
+            {
+                StopCoroutine(WaitReaction(timeReaction));
+                StartCoroutine(WaitReaction(timeReaction));
+            }
             //navAgent.speed -= buff;
             TakeDamage(damage);
         }
@@ -219,7 +238,15 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
         {
             reaction = IElementBehavior.Reactions.VisionDown;
             SetDefauntStatus();
-            StartCoroutine(WaitReaction(timeReaction));
+            if (runStatusCorouutine)
+            {
+                StartCoroutine(WaitReaction(timeReaction));
+            }
+            else
+            {
+                StopCoroutine(WaitReaction(timeReaction));
+                StartCoroutine(WaitReaction(timeReaction));
+            }
             //viewAngle -= buff;
             TakeDamage(damage);
         }
@@ -227,20 +254,34 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
         {
             currentStatus = secondary;
             TakeDamage(damage);
-            StartCoroutine(WaitStatus(timeStatus));
+            if (runStatusCorouutine)
+            {
+                StartCoroutine(WaitStatus(timeStatus));
+            }
+            else
+            {
+                StopCoroutine(WaitStatus(timeStatus));
+                StartCoroutine(WaitStatus(timeStatus));
+            }
         }
     }
 
     IEnumerator WaitStatus(float timeStatus)
     {
+        runStatusCorouutine = true;
+
         yield return new WaitForSeconds(timeStatus);
         currentStatus = IElementBehavior.Elements.Null;
+        runStatusCorouutine = false;
     }
 
     IEnumerator WaitReaction(float timeStatus)
     {
+        runReactionCorouutine = true;
+
         yield return new WaitForSeconds(timeStatus);
         reaction = IElementBehavior.Reactions.Null;
+        runReactionCorouutine = false;
     }
 
     private void SetDefauntStatus()

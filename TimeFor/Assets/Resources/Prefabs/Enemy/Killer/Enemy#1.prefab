@@ -2694,8 +2694,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   currentPoint: 0
+  player: {fileID: 0}
   centerOfEnemy: {fileID: 517044795}
-  enemyStage: 0
+  currentState: 0
+  enemyLevel: 1
+  experience: 100
 --- !u!114 &8491869476437811946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2731,7 +2734,7 @@ MonoBehaviour:
   currentStatus: 4
   reaction: 3
   timeStatus: 7.5
-  timeReaction: 1.5
+  timeReaction: 2
 --- !u!1 &6860551720061837384
 GameObject:
   m_ObjectHideFlags: 0
