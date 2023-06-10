@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine.UI;
 
 public class Chest : MonoBehaviour
 {
+    public static Action<int> onOpenChest;
+
     [Header("Характеристики стандартного сундука")]
     public ChestObject chest;
 
@@ -56,6 +59,7 @@ public class Chest : MonoBehaviour
         if (currentButton != null)
         {
             Destroy(currentButton.gameObject);
+            onOpenChest.Invoke(100);
         }
     }
 }

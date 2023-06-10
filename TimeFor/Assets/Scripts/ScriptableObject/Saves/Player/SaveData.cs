@@ -39,7 +39,7 @@ public class SaveData : ItemObject
 
     // «агрузить список сохраненных игроков
     PlayerData playerData;
-    public List<PlayerData> savedPlayers;
+    public List<PlayerData> savedData;
 
     private void Awake()
     {
@@ -51,7 +51,7 @@ public class SaveData : ItemObject
         character.GetSceneIndex();
 
         levelId = character.levelId;
-        levelPlayer = indicators.lvlPlayer;
+        levelPlayer = indicators.level;
         health = indicators.Health;
         stamina = indicators.Stamina;
         damageBase = character.damageBase;
@@ -64,14 +64,14 @@ public class SaveData : ItemObject
         rotation = move.gameObject.transform.rotation;
 
         playerData = new PlayerData(this);
-        savedPlayers.Add(playerData);
+        savedData.Add(playerData);
     }
 
     public void LoadSave(mainCharacter character, indicatorCharacter indicators, moveCharacter move)
     {
-        savedPlayers[savedPlayers.Count - 1].LoadSave(this);
+        savedData[savedData.Count - 1].LoadSave(this);
 
-        indicators.lvlPlayer = levelPlayer;
+        indicators.level = levelPlayer;
         indicators.Health = health;
         indicators.Stamina = stamina;
         character.damageBase = damageBase;

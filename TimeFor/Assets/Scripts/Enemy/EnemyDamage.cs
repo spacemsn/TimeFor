@@ -4,7 +4,7 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
-using static EnemyBehavior;
+using System;
 
 public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
 {
@@ -169,6 +169,12 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
     {
         hp += bonus;
     }
+
+    public void HealthUp()
+    {
+        hp = Mathf.RoundToInt(hp * 1.5f);
+        healthBar.maxValue = hp;
+    }    
 
     private void OnTriggerEnter(Collider other)
     {

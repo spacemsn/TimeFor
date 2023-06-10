@@ -41,12 +41,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405121204355195159}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7dbff30527aa074b866a9ee9ecd9268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeOfDay: 0
+  TimeOfDay: 0.5
   DayDuration: 120
   TimeScale: 0.001
   SunCurve:

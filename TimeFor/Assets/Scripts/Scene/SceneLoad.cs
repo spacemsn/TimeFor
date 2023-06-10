@@ -7,16 +7,19 @@ using UnityEngine.UI;
 
 public class SceneLoad : MonoBehaviour
 {
-    public TextMeshProUGUI loadingText;
-    public Image loadingImage;
+    public delegate void SceneLoadDelegate();
+    public static event SceneLoadDelegate onSceneLoaded;
+    private static bool isSceneLoaded = false;
 
     static SceneLoad load;
-    static bool isPlayAnim = false;
 
     Animator animator;
     AsyncOperation operation;
 
-    public static void SwitchScene(string name)
+    public TextMeshProUGUI loadingText;
+    public Image loadingImage;
+
+    public static void SwitchScene(string name) // переход из одной сцены в другую
     {
         load.animator.SetTrigger("Start");
     
@@ -24,13 +27,24 @@ public class SceneLoad : MonoBehaviour
         load.operation.allowSceneActivation = false;
     }
 
+    public static void SwitchIndexScene(int index) // переход из одной сцены в другую
+    {
+        load.animator.SetTrigger("Start");
+
+        load.operation = SceneManager.LoadSceneAsync(index);
+        load.operation.allowSceneActivation = false;
+    }
+
     private void Start()
     {
-        load = this;
-
         animator = GetComponent<Animator>();
 
-        if (isPlayAnim) animator.SetTrigger("End");
+        load = this;
+        if (isSceneLoaded) 
+        {
+            //onSceneLoaded.Invoke();
+            animator.SetTrigger("End");
+        }
     }
 
     private void Update()
@@ -42,9 +56,9 @@ public class SceneLoad : MonoBehaviour
         }
     }
 
-    public void OnAnimationOver()
+    public void OnAnimationOver() // узнаем закончилась ли загрузка уровня 
     {
-        isPlayAnim = true;
+        isSceneLoaded = true;
         load.operation.allowSceneActivation = true;
     }
 }

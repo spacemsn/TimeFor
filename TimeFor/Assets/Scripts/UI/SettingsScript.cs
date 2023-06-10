@@ -1,4 +1,5 @@
 using Cinemachine;
+using System.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,9 +43,17 @@ public class SettingsScript : MonoBehaviour
         setting = GetComponent<GloballSetting>(); entryPoint = setting.entryPoint; SettingsPanel = entryPoint.UI.SettingPanel.gameObject;
         pauseScript = GetComponent<PauseScript>();
 
-        if (entryPoint)
+        //SceneLoad.onSceneLoaded += UpdateStatus;
+        //PlayerEntryPoint.onPlayerSceneLoaded += UpdateStatus;
+
+        #endregion
+    }
+
+    public void UpdateStatus()
+    {
+        if (SpawnContoller.isPlayerSceneLoaded)
         {
-            freeLook = entryPoint.UI.freeLook;
+            freeLook = entryPoint.player.currentFreeLook;
             freeLook.m_YAxis.m_MaxSpeed = Settings.SensitivityY;
             freeLook.m_XAxis.m_MaxSpeed = Settings.SensitivityX;
 
@@ -54,8 +63,11 @@ public class SettingsScript : MonoBehaviour
             SensitivityYSlider.value = Settings.SensitivityY;
             SensitivityXSlider.value = Settings.SensitivityX;
         }
-
-        #endregion
+        else
+        {
+            SettingsPanel.gameObject.SetActive(false);
+            isOpenPanel = false;
+        }
     }
 
     public void SaveSettings()

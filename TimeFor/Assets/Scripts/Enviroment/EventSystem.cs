@@ -5,19 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class EventSystem : MonoBehaviour
 {
-    private Collider portal;
+    private BoxCollider portal;
 
     private void Start()
     {
         // Подписываемся на событие OnQuestCompleted
         QuestManager.onQuestCompleted += Open;
 
+        portal = gameObject.GetComponent<BoxCollider>(); 
         portal.enabled = false;
     }
 
     private void Open(Quest quest)
     {
-        Debug.Log("Дверь открылась");
         portal.enabled = true;
 
         // Подписываемся на событие OnQuestCompleted
@@ -29,7 +29,6 @@ public class EventSystem : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            DontDestroyOnLoad(other.gameObject);
         }
     }
 }

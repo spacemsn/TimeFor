@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class ItemGameManager : MonoBehaviour
 {
-    [Header("Игровые компоненты")]
+    [Header("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ")]
     public PlayerEntryPoint player;
     public UIEntryPoint ui;
 
-    [Header("Враги на сцене")]
+    [Header("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ")]
     public List<GameObject> Items;
 
     private void Start()
@@ -27,7 +27,7 @@ public class ItemGameManager : MonoBehaviour
             foreach (GameObject enemy in Items)
             {
                 enemy.GetComponent<EnemyDamage>().player = player.currentPlayer.transform;
-                enemy.GetComponent<EnemyDamage>().camera = ui.camera.transform;
+                enemy.GetComponent<EnemyDamage>().camera = ui.GetComponent<Camera>().transform;
 
                 enemy.GetComponent<EnemyBehavior>().player = player.currentPlayer.transform;
             }

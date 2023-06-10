@@ -7,7 +7,7 @@ public class moveCharacter : MonoBehaviour, IMoveBehavior
     public PlayerEntryPoint playerEntry;
     public UIEntryPoint uIEntry;
 
-    [Header("Компоненты")]
+    [Header("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ")]
     [SerializeField] private mainCharacter status;
     [SerializeField] private indicatorCharacter indicators;
     [SerializeField] private attackCharacter abilities;
@@ -16,7 +16,7 @@ public class moveCharacter : MonoBehaviour, IMoveBehavior
     [SerializeField] private Animator animator;
     [SerializeField] public Camera camera;
 
-    [Header("Характеристики")]
+    [Header("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ")]
     public float moveSpeed;
     public float runSpeed;
     public float jumpForce;
@@ -45,7 +45,7 @@ public class moveCharacter : MonoBehaviour, IMoveBehavior
         this.playerEntry = player;
         this.uIEntry = uI;
 
-        camera = uI.camera;
+        camera = playerEntry.currentCamera.GetComponent<Camera>();
     }
 
     private void Update()
@@ -98,7 +98,7 @@ public class moveCharacter : MonoBehaviour, IMoveBehavior
     {
         if (isManagement)
         {
-            // Прыжок
+            // пїЅпїЅпїЅпїЅпїЅпїЅ
             if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
             {
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);

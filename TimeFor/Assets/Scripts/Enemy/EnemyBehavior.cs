@@ -4,10 +4,13 @@ using UnityEngine.AI;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
-using static EnemyBehavior;
+using System;
 
 public class EnemyBehavior : MonoBehaviour, IMoveBehavior
 {
+    public static Action<int> onDeadEnemy;
+    public static bool isDeadEnemy;
+
     [Header("Характеристики Врага")]
     [SerializeField] EnemyObject enemyParam;
     [HideInInspector] public float viewAngle;
@@ -42,6 +45,12 @@ public class EnemyBehavior : MonoBehaviour, IMoveBehavior
     }
     [Header("Стадия поведения врага")]
     [SerializeField] public EnemyStage currentState;
+
+    [Header("Уровень врага")]
+    public IMoveBehavior.EnemyLevel enemyLevel;
+
+    [Header("Уровень врага")]
+    public int experience;
 
     void Start()
     {
@@ -163,10 +172,11 @@ public class EnemyBehavior : MonoBehaviour, IMoveBehavior
                     GetComponent<CapsuleCollider>().enabled = false;
                     GetComponent<Rigidbody>().isKinematic = true;
                     Destroy(this.gameObject, 5f);
+                    isDeadEnemy = true;
                     break;
-}
-}
-}
+                }
+        }
+    }
 
     public void ChangeState(EnemyStage newState)
     {
@@ -199,6 +209,7 @@ public class EnemyBehavior : MonoBehaviour, IMoveBehavior
         if(player != null)
         {
             player.GetComponent<QuestManager>().KillEnemy(enemyParam.objectPrefab);
+            onDeadEnemy.Invoke(experience);
         }
     }
 }

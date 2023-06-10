@@ -10,10 +10,6 @@ public class UIEntryPoint : MonoBehaviour
     public GameObject CanvasPrefab;
     public GameObject currentCanvas;
 
-    [Header("Компоненты")]
-    public Camera camera;
-    public CinemachineFreeLook freeLook;
-
     public Transform headPlayer;
     public Transform centerPlayer;
     public Transform bottomPlayer;
@@ -65,4 +61,29 @@ public class UIEntryPoint : MonoBehaviour
     [Header("ItemPanel")]
     public Transform ItemPanel;
     public Transform buttonParent;
+
+    private void Start()
+    {
+        SpawnContoller.onPlayerSceneLoaded += ActiveCanvas;
+    }
+
+    private void OnDisable()
+    {
+        SpawnContoller.onPlayerSceneLoaded -= ActiveCanvas;
+    }
+
+    public void ActiveCanvas()
+    {
+        if (SpawnContoller.isPlayerSceneLoaded)
+        {
+            PlayerEntryPoint playerEntry = GetComponent<PlayerEntryPoint>(); 
+            currentCanvas.GetComponent<Canvas>().renderMode = RenderMode.ScreenSpaceCamera;
+            currentCanvas.GetComponent<Canvas>().worldCamera = playerEntry.currentCamera;
+            currentCanvas.gameObject.SetActive(true);
+        }
+        else
+        {
+            currentCanvas.gameObject.SetActive(false);
+        }
+    }
 }

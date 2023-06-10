@@ -1,15 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static QuestManager;
 
 public class QuestManager : MonoBehaviour
 { 
     [Header("Задание")]
     public Quest currentQuest;
 
-    public delegate void QuestCompleted(Quest quest);
-    public static event QuestCompleted onQuestCompleted;
+    public static Action<Quest> onQuestCompleted;
     public bool isQuestCompleted = false;
 
     // Для задания "убить врагов"

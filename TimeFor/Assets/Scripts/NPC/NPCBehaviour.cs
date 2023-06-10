@@ -9,10 +9,10 @@ public class NPCBehaviour : MonoBehaviour, IMoveBehavior
 {
     public string name;
 
-    [Header("Старт диалога")]
+    [Header("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ")]
     public Dialog startDialog;
 
-    [Header("Задание персонажа")]
+    [Header("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ")]
     public Quest quest;
 
     private Dialog currentDialog;
@@ -45,7 +45,6 @@ public class NPCBehaviour : MonoBehaviour, IMoveBehavior
     {
         dialogManager = FindObjectOfType<EntryPoint>().player.dialogManager;
         questManager = FindObjectOfType<EntryPoint>().player.questManager;
-        camera = FindObjectOfType<UIEntryPoint>().camera.transform;
 
         startDialog.name = name;
         currentDialog = startDialog;
@@ -63,6 +62,9 @@ public class NPCBehaviour : MonoBehaviour, IMoveBehavior
             currentButton = Instantiate(buttonPrefab, buttonParent);
             currentButton.GetComponent<SelectObjectButton>().GetComponentNPC(this, Player[0].gameObject);
             currentButton.transform.GetChild(0).GetComponent<Text>().text = "   (F) " + name;
+
+            dialogManager = Player[0].GetComponent<DialogManager>();
+            questManager = Player[0].GetComponent<QuestManager>();
 
         }
         else if (Player.Length == 0 && currentButton != null)

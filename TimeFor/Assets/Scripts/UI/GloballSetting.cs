@@ -22,6 +22,24 @@ public class GloballSetting : MonoBehaviour
     [SerializeField] bool isVisible = true;
     [SerializeField] public CinemachineFreeLook freeLook;
 
+    private void Start()
+    {
+        SpawnContoller.onPlayerSceneLoaded += UpdateStatus;
+    }
+
+    public void UpdateStatus()
+    {
+        if (SpawnContoller.isPlayerSceneLoaded)
+        {
+            freeLook = playerEntry.currentFreeLook;
+            notVisible();
+        }
+        else
+        {
+            Visible();
+        }
+    }
+
     public void EntryPoint(EntryPoint entryPoint)
     {
         this.entryPoint = entryPoint;
@@ -32,7 +50,6 @@ public class GloballSetting : MonoBehaviour
         pauseScript = GetComponent<PauseScript>();
         deathScript = GetComponent<DeathScript>();
 
-        freeLook = uIEntry.freeLook;
         deathScript.SetComponent(uIEntry.dealthPanel.gameObject);
     }
 

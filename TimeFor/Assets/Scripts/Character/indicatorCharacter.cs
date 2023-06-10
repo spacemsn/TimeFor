@@ -3,20 +3,27 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
 {
+    public static Action onLevelUp;
+
     [Header("EntryPoint")]
     public EntryPoint entryPoint;
     public PlayerEntryPoint playerEntry;
     public UIEntryPoint uIEntry;
 
     [Header("Показатели персонажа")]
-    public int lvlPlayer;
     [SerializeField] private float health;
     [SerializeField] private float stamina;
     [SerializeField] private float healthMax;
     [SerializeField] private float staminaMax;
+
+    [Header("Прокачка персонажа")]
+    public int level; // текущий уровень персонажа
+    public int experience; // текущий опыт
+    public int experienceRequired; // требуемый опыт для нового уровня
 
     [SerializeField] Slider healthBar;
     [SerializeField] Slider staminaBar;
@@ -101,6 +108,17 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
         MovementDownSprite = Resources.Load<Sprite>("UI/Sprites/Reactions/movementDebuffImage");
 
         #endregion
+
+        EnemyBehavior.onDeadEnemy += GainExperience;
+        Chest.onOpenChest += GainExperience;
+        QuestReward.onQuestReward += GainExperience;
+    }
+
+    private void OnDisable()
+    {
+        EnemyBehavior.onDeadEnemy -= GainExperience;
+        Chest.onOpenChest -= GainExperience;
+        QuestReward.onQuestReward -= GainExperience;
     }
 
     public void GetUI(PlayerEntryPoint player, UIEntryPoint uI)
@@ -120,6 +138,36 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
     private void Update()
     {
         SetIcon();
+    }
+
+    public void GainExperience(int amount) // метод получения уровня 
+    {
+        experience += amount;
+        if (experience >= experienceRequired)
+        {
+            LevelUp();
+        }
+    }
+
+    private void LevelUp() // метод прокачки уровня 
+    {
+        level++;
+        experience -= experienceRequired;
+        experienceRequired = Mathf.RoundToInt(experienceRequired * 1.5f);
+        healthMax += 50;
+
+        UpdateStats();
+
+        Debug.Log("Level Up! Current Level: " + level);
+
+        onLevelUp.Invoke();
+    }
+
+    public void UpdateStats()
+    {
+        // обновить максимальные показатели в UI 
+        healthBar.maxValue = healthMax;
+        staminaBar.maxValue = staminaMax;
     }
 
     private void SetIcon()

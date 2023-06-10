@@ -35,6 +35,6 @@ public class BoostrapEntryPoint : MonoBehaviour
 
     void EndReached(VideoPlayer vp)
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneLoad.SwitchIndexScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

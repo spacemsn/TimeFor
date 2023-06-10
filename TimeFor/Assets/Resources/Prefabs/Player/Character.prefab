@@ -1022,11 +1022,13 @@ MonoBehaviour:
   entryPoint: {fileID: 0}
   playerEntry: {fileID: 0}
   uIEntry: {fileID: 0}
-  lvlPlayer: 1
   health: 100
   stamina: 100
   healthMax: 100
   staminaMax: 100
+  level: 0
+  experience: 0
+  experienceRequired: 100
   healthBar: {fileID: 0}
   staminaBar: {fileID: 0}
   reactionImage: {fileID: 0}
@@ -1142,7 +1144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentQuest: {fileID: 0}
-  isDone: 0
+  isQuestCompleted: 0
   enemiesToKill: []
   enemiesToKillCount: 0
   itemsToCollect: []

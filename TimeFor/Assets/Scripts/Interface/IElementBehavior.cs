@@ -26,6 +26,14 @@ public interface IMoveBehavior
 {
     static float speed;
 
+    public enum EnemyLevel 
+    {
+        Дружелюбный,
+        Враждебный,
+        Опасный,
+        Демонический,
+    }
+
     void Movement()
     {
 

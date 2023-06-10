@@ -1,11 +1,22 @@
 using Cinemachine;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using static SceneLoad;
 
 public class PlayerEntryPoint : MonoBehaviour
 {
     public GameObject playerPrefab;
     public GameObject currentPlayer;
     public SaveData saveData;
+
+    [Header("Камера")]
+    public GameObject cameraPrefab;
+    public Camera currentCamera;
+
+    [Header("Виртуальная камера")]
+    public GameObject freeLookPrefab;
+    public CinemachineFreeLook currentFreeLook;
 
     [Header("Скрипты")]
     public attackCharacter attack;
@@ -26,11 +37,6 @@ public class PlayerEntryPoint : MonoBehaviour
         UIPoint = GetComponent<UIEntryPoint>();
         globallEntry = GetComponent<GloballEntryPoint>();
         enemyManager = GetComponent<EnemyGameManager>();
-
-        if(currentPlayer != null && saveData.savedPlayers.Count > 0)
-        {
-            LoadSaveData();
-        }
     }
 
     private void Update()
@@ -42,21 +48,6 @@ public class PlayerEntryPoint : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F6))
         {
             LoadSaveData();
-        }
-
-        if (currentPlayer == null)
-        {
-            SpawnPlayer();
-        }
-    }
-
-    public void SpawnPlayer()
-    {
-        GameObject spawn = GameObject.FindGameObjectWithTag("Spawn Point");
-        if(spawn != null)
-        {
-            currentPlayer = Instantiate(playerPrefab, spawn.transform.position, spawn.transform.rotation);
-            GetComponents();
         }
     }
 
@@ -77,17 +68,15 @@ public class PlayerEntryPoint : MonoBehaviour
 
         globallEntry.globall.character = currentPlayer;
 
-        UIPoint.freeLook.gameObject.transform.position = currentPlayer.transform.position;
-        UIPoint.freeLook.gameObject.transform.rotation = currentPlayer.transform.rotation;
+        currentFreeLook.gameObject.transform.position = currentPlayer.transform.position;
+        currentFreeLook.gameObject.transform.rotation = currentPlayer.transform.rotation;
 
-        UIPoint.freeLook.Follow = currentPlayer.transform; 
-        UIPoint.freeLook.LookAt = currentPlayer.transform;
+        currentFreeLook.GetComponent<CinemachineFreeLook>().Follow = currentPlayer.transform; 
+        currentFreeLook.GetComponent<CinemachineFreeLook>().LookAt = currentPlayer.transform;
 
-        UIPoint.headPlayer = currentPlayer.transform.GetChild(0); UIPoint.freeLook.GetRig(0).m_LookAt = UIPoint.headPlayer;
-        UIPoint.centerPlayer = currentPlayer.transform.GetChild(1); UIPoint.freeLook.GetRig(1).m_LookAt = UIPoint.centerPlayer;
-        UIPoint.bottomPlayer = currentPlayer.transform.GetChild(2); UIPoint.freeLook.GetRig(2).m_LookAt = UIPoint.bottomPlayer;
-
-        enemyManager.GetEnemyComponent();
+        UIPoint.headPlayer = currentPlayer.transform.GetChild(0); currentFreeLook.GetComponent<CinemachineFreeLook>().GetRig(0).m_LookAt = UIPoint.headPlayer;
+        UIPoint.centerPlayer = currentPlayer.transform.GetChild(1); currentFreeLook.GetComponent<CinemachineFreeLook>().GetRig(1).m_LookAt = UIPoint.centerPlayer;
+        UIPoint.bottomPlayer = currentPlayer.transform.GetChild(2); currentFreeLook.GetComponent<CinemachineFreeLook>().GetRig(2).m_LookAt = UIPoint.bottomPlayer;
     }
 
     private void SavePlayerData()

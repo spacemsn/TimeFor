@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static QuestManager;
 
 public class QuestReward : MonoBehaviour
-{ 
+{
+    public static Action<int> onQuestReward;
+
     [Header("Задание")]
     public Quest quest;
 
@@ -42,5 +45,7 @@ public class QuestReward : MonoBehaviour
         this.quest = quest;
         experiencePoints = quest.experiencePoints;
         rewardItem = quest.rewardItem;
+
+        onQuestReward.Invoke(100);
     }
 }
