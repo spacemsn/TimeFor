@@ -43,6 +43,7 @@ public class UIEntryPoint : MonoBehaviour
     public Slider SensitivityXSlider;
 
     [Header("Book")]
+    public Transform bookPanel;
     public Transform playerPage;
     public Transform mapPage;
     public Transform inventoryPage;

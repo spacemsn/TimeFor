@@ -18,155 +18,155 @@ MonoBehaviour:
   aboutObject: "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u043D\u044B\u0439
     \u0438\u0433\u0440\u043E\u043A"
   icon: {fileID: 0}
-  dateSave: 30.05.2023 3:28:37
+  dateSave: 12.06.2023 1:12:07
   playerName: 
-  levelId: 2
-  levelPlayer: 0
-  health: 100
-  stamina: 100
+  levelId: 3
+  levelPlayer: 1
+  health: 150
+  stamina: 90.549904
   damageBase: 20
   damagePercent: 1
   moveSpeed: 6.7
   runSpeed: 9.5
   jumpForce: 2.2
   debuff: 0.15
-  currentPosition: {x: 89.950676, y: 0.99999654, z: 87.60329}
+  currentPosition: {x: 420.5404, y: 3.9512212, z: 848.2601}
   lastSavePosition: {x: 0, y: 0, z: 0}
-  rotation: {x: 0, y: 0.7397144, z: 0, w: 0.67292094}
+  rotation: {x: 0, y: 0.4641878, z: 0, w: -0.8857368}
   slots:
+  - Id: 0
+    item: {fileID: 11400000, guid: a34d216a516c58d4d939fbf4f0cc4044, type: 2}
+    amount: 2
+    isEmpty: 0
+  - Id: 0
+    item: {fileID: 11400000, guid: 258c6e91e553dae468dfec572fdbd3cf, type: 2}
+    amount: 1
+    isEmpty: 0
   - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 1
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 2
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 3
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 4
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 5
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 6
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 7
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 8
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 9
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 10
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 11
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 12
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 13
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 14
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 15
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 16
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 17
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 18
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 19
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 20
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 21
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 22
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 23
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 24
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 25
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 26
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 27
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 28
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 29
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 30
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1
-  - Id: 31
-    item: {fileID: 0}
-    amount: 0
-    isEmpty: 1
-  - Id: 32
-    item: {fileID: 0}
-    amount: 0
-    isEmpty: 1
-  - Id: 33
+  - Id: 0
     item: {fileID: 0}
     amount: 0
     isEmpty: 1

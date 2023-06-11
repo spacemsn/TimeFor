@@ -19,15 +19,16 @@ public class SpawnPoint
 
 public class SpawnContoller : MonoBehaviour
 {
+    public static Action onPlayerSceneSaved;
     public static Action onPlayerSceneLoaded;
     public static bool isPlayerSceneLoaded = false;
+    public static bool firstLoadScene = true;
 
     [Header("Контроллер игрока")]
     [SerializeField] private PlayerEntryPoint playerEntry;
 
     [Header("Точка спавна")]
     public List<SpawnPoint> spawnPoints;
-    public bool firstLoadScene = true;
 
     [Header("Текщая сцена")]
     public int indexScene;
@@ -49,6 +50,11 @@ public class SpawnContoller : MonoBehaviour
 
                 isPlayerSceneLoaded = true;
                 firstLoadScene = false;
+
+                if (isPlayerSceneLoaded)
+                {
+                    onPlayerSceneLoaded.Invoke(); Debug.Log("Перснаж уже был на этой сцене и загрузился с сохранением");
+                }
             }
         }
 
@@ -60,9 +66,12 @@ public class SpawnContoller : MonoBehaviour
             playerEntry.GetComponents();
 
             isPlayerSceneLoaded = true;
-        }
 
-        if (isPlayerSceneLoaded) { onPlayerSceneLoaded.Invoke(); }
+            if (isPlayerSceneLoaded)
+            {
+                onPlayerSceneLoaded.Invoke(); Debug.Log("Персонаж впервые на этой сцене");
+            }
+        }
     }
 
     private void OnDisable()

@@ -2,10 +2,13 @@ using Cinemachine;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using static SceneLoad;
+using System;
 
 public class PlayerEntryPoint : MonoBehaviour
 {
+    public static Action<mainCharacter, indicatorCharacter, moveCharacter> onSavePlayer;
+    public static Action<mainCharacter, indicatorCharacter, moveCharacter> onLoadPlayer;
+
     public GameObject playerPrefab;
     public GameObject currentPlayer;
     public SaveData saveData;
@@ -21,8 +24,8 @@ public class PlayerEntryPoint : MonoBehaviour
     [Header("Скрипты")]
     public attackCharacter attack;
     public indicatorCharacter indicators;
+    public mainCharacter main;
     public moveCharacter movement;
-    public interactionCharacter interaction;
     public bookCharacter book;
     public DialogManager dialogManager;
     public QuestManager questManager;
@@ -37,6 +40,9 @@ public class PlayerEntryPoint : MonoBehaviour
         UIPoint = GetComponent<UIEntryPoint>();
         globallEntry = GetComponent<GloballEntryPoint>();
         enemyManager = GetComponent<EnemyGameManager>();
+
+        SpawnContoller.onPlayerSceneSaved += SavePlayerData;
+        SpawnContoller.onPlayerSceneLoaded += LoadSaveData;
     }
 
     private void Update()
@@ -55,14 +61,16 @@ public class PlayerEntryPoint : MonoBehaviour
     {
         attack = currentPlayer.GetComponent<attackCharacter>();
         indicators = currentPlayer.GetComponent<indicatorCharacter>();
+        main = currentPlayer.GetComponent<mainCharacter>();
         movement = currentPlayer.GetComponent<moveCharacter>();
-        interaction = currentPlayer.GetComponent<interactionCharacter>();
-        book = globallEntry.globall.bookScript.GetComponent<bookCharacter>();
         dialogManager = currentPlayer.GetComponent<DialogManager>();
         questManager = currentPlayer.GetComponent<QuestManager>();
+        currentPlayer.GetComponent<mainCharacter>().camera = currentCamera;
+
 
         attack.GetUI(this, UIPoint);
         indicators.GetUI(this, UIPoint);
+        main.GetUI(this, UIPoint);
         movement.GetUI(this, UIPoint);
         dialogManager.GetUI(this, UIPoint);
 
@@ -81,13 +89,25 @@ public class PlayerEntryPoint : MonoBehaviour
 
     private void SavePlayerData()
     {
-        var player = currentPlayer.GetComponent<mainCharacter>();
-        saveData.SetSave(player, player.indicators, player.movement);
+        if (currentPlayer != null)
+        {
+            onSavePlayer += saveData.SetSave;
+
+            onSavePlayer.Invoke(main, indicators, movement);
+
+            onSavePlayer -= saveData.SetSave;
+        }
     }
 
     private void LoadSaveData()
     {
-        var player = currentPlayer.GetComponent<mainCharacter>();
-        saveData.LoadSave(player, player.indicators, player.movement);
+        if (currentPlayer != null && !SpawnContoller.firstLoadScene)
+        {
+            onLoadPlayer += saveData.LoadSave;
+
+            onLoadPlayer.Invoke(main, indicators, movement);
+
+            onLoadPlayer -= saveData.LoadSave;
+        }
     }
 }

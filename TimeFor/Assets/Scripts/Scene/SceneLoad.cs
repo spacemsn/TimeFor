@@ -25,6 +25,11 @@ public class SceneLoad : MonoBehaviour
     
         load.operation = SceneManager.LoadSceneAsync(name);
         load.operation.allowSceneActivation = false;
+
+        if(SpawnContoller.isPlayerSceneLoaded)
+        {
+            SpawnContoller.onPlayerSceneSaved.Invoke();
+        }
     }
 
     public static void SwitchIndexScene(int index) // переход из одной сцены в другую
@@ -33,6 +38,11 @@ public class SceneLoad : MonoBehaviour
 
         load.operation = SceneManager.LoadSceneAsync(index);
         load.operation.allowSceneActivation = false;
+
+        if (SpawnContoller.isPlayerSceneLoaded)
+        {
+            SpawnContoller.onPlayerSceneSaved.Invoke();
+        }
     }
 
     private void Start()

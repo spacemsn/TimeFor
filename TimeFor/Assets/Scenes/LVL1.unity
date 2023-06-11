@@ -4817,6 +4817,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1245134832}
     m_Modifications:
+    - target: {fileID: 689143691, guid: 163099117d8b97a4bb83120a495b01f9, type: 3}
+      propertyPath: portal
+      value: 
+      objectReference: {fileID: 689143690}
+    - target: {fileID: 689143691, guid: 163099117d8b97a4bb83120a495b01f9, type: 3}
+      propertyPath: needQuest
+      value: 
+      objectReference: {fileID: 11400000, guid: 8521f6719251bc54e81e743a5dd1cc43, type: 2}
     - target: {fileID: 4870010141513049078, guid: 163099117d8b97a4bb83120a495b01f9, type: 3}
       propertyPath: m_Name
       value: CountryHouse
@@ -4870,6 +4878,11 @@ PrefabInstance:
 --- !u!4 &689143689 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7141927108607896883, guid: 163099117d8b97a4bb83120a495b01f9, type: 3}
+  m_PrefabInstance: {fileID: 689143688}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &689143690 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 689143692, guid: 163099117d8b97a4bb83120a495b01f9, type: 3}
   m_PrefabInstance: {fileID: 689143688}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &693210424

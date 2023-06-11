@@ -52,6 +52,8 @@ public class PlayerData
         jumpForce = character.jumpForce;
         debuff = character.debuff;
         position = character.currentPosition;
+
+        slots = new List<InventorySlot>(character.slots);
     }
 
     public void LoadSave(SaveData character)
@@ -74,6 +76,10 @@ public class PlayerData
 
 public class mainCharacter : MonoCache
 {
+    [Header("EntryPoint")]
+    public PlayerEntryPoint playerEntry;
+    public UIEntryPoint uIEntry;
+
     [Header("Игрок")]
     public string playerName;
 
@@ -85,14 +91,10 @@ public class mainCharacter : MonoCache
     [Header("Сохранение")]
     public SaveData saveData;
 
-    [Header("Инвентарь")]
-    public bookCharacter inventory;
-
     [Header("Компоненты")]
     public attackCharacter attack;
     public indicatorCharacter indicators;
     public moveCharacter movement;
-    public interactionCharacter interaction;
     public bookCharacter book;
     public DialogManager dialogManager;
 
@@ -113,17 +115,21 @@ public class mainCharacter : MonoCache
 
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
-        inventory = GetComponent<bookCharacter>();
         movement = this.GetComponent<moveCharacter>();
         attack = this.GetComponent<attackCharacter>();
         indicators = this.GetComponent<indicatorCharacter>();
-        interaction = this.GetComponent<interactionCharacter>();
-        book = this.GetComponent<bookCharacter>();
         dialogManager = this.GetComponent<DialogManager>();
 
         #endregion
+    }
+
+    public void GetUI(PlayerEntryPoint player, UIEntryPoint uI)
+    {
+        this.playerEntry = player;
+        this.uIEntry = uI;
+
+        book = player.book;
     }
 
     public int GetSceneIndex()

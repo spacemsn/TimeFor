@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class EventSystem : MonoBehaviour
 {
-    private BoxCollider portal;
+    [SerializeField] private BoxCollider portal;
+    [SerializeField] private Quest needQuest;
 
     private void Start()
     {
@@ -13,7 +14,7 @@ public class EventSystem : MonoBehaviour
         QuestManager.onQuestCompleted += Open;
 
         portal = gameObject.GetComponent<BoxCollider>();
-        portal.enabled = false;
+        portal.isTrigger = false;
     }
 
     private void OnDestroy()
@@ -24,15 +25,18 @@ public class EventSystem : MonoBehaviour
 
     private void Open(Quest quest)
     {
-        Debug.Log("Дверь открытлась");
-        portal.enabled = true;
+        if (quest == needQuest)
+        {
+            Debug.Log("Дверь открытлась");
+            portal.isTrigger = true;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            SceneLoad.SwitchIndexScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }

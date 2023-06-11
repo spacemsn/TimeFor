@@ -1045,7 +1045,9 @@ MonoBehaviour:
   currentStatus: 4
   reaction: 3
   timeStatus: 5
+  runStatusCorouutine: 0
   timeReaction: 1.5
+  runReactionCorouutine: 0
 --- !u!114 &7866213678889492255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1063,7 +1065,6 @@ MonoBehaviour:
   rb: {fileID: 1749478371}
   camera: {fileID: 0}
   saveData: {fileID: 11400000, guid: 051a891380d61a240a5dfc3786c4c9e9, type: 2}
-  inventory: {fileID: 0}
   attack: {fileID: 7743992275149916690}
   indicators: {fileID: 6953651796804816563}
   movement: {fileID: 9184657922853418971}

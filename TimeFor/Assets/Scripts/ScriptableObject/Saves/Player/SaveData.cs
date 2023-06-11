@@ -41,11 +41,6 @@ public class SaveData : ItemObject
     PlayerData playerData;
     public List<PlayerData> savedData;
 
-    private void Awake()
-    {
-        objectPrefab = Resources.Load<GameObject>("Prefabs/Player/Character");
-    }
-
     public void SetSave(mainCharacter character, indicatorCharacter indicators, moveCharacter move)
     {
         character.GetSceneIndex();
@@ -62,6 +57,8 @@ public class SaveData : ItemObject
         debuff = move.debuff;
         currentPosition = move.gameObject.transform.position;
         rotation = move.gameObject.transform.rotation;
+
+        character.book.SaveInventory();
 
         playerData = new PlayerData(this);
         savedData.Add(playerData);
@@ -82,5 +79,7 @@ public class SaveData : ItemObject
         move.debuff = debuff;
         move.gameObject.transform.position = currentPosition;
         move.gameObject.transform.rotation = rotation;
+
+        character.book.SaveInventory();
     }
 }

@@ -10,7 +10,6 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
     public static Action onLevelUp;
 
     [Header("EntryPoint")]
-    public EntryPoint entryPoint;
     public PlayerEntryPoint playerEntry;
     public UIEntryPoint uIEntry;
 

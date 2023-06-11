@@ -86,7 +86,7 @@ public class QuestManager : MonoBehaviour
         isQuestCompleted = true;
         onQuestCompleted.Invoke(currentQuest);
 
-        ClearQuest();
+        //ClearQuest();
     }
 
     public void ClearQuest()
@@ -94,12 +94,8 @@ public class QuestManager : MonoBehaviour
         isQuestCompleted = false;
         currentQuest = null;
 
-        //enemiesToKill.Clear();
         enemiesToKillCount = 0;
-
-        itemsToCollect.Clear();
         itemsToCollectCount = 0;
-
         progressQuestCount = 0;
     }
 }
