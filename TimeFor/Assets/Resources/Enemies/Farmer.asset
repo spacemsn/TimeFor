@@ -18,6 +18,8 @@ MonoBehaviour:
   aboutObject: "\u0412\u0440\u0430\u0433"
   icon: {fileID: 0}
   hp: 100
+  baseHP: 100
   enemyDamage: 20
+  baseDamage: 20
   viewAngle: 90
   viewDistance: 10

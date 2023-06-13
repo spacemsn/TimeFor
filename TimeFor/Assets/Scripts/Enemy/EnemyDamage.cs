@@ -75,7 +75,6 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
 
     private void Update()
     {
-        healthBar.value = hp;
         SetIcon();
     }
 
@@ -151,7 +150,7 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
 
     public void TakeDamage(float damage)
     {
-        hp -= damage;
+        hp -= damage; healthBar.value = hp;
 
         enemyBehavior.currentState = EnemyBehavior.EnemyStage.Chase;
 
@@ -170,13 +169,21 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
 
     private void SetHealth(float bonus)
     {
-        hp += bonus;
+        hp += bonus; healthBar.value = hp;
     }
 
     public void HealthUp()
     {
-        hp = Mathf.RoundToInt(hp * 1.5f);
-        healthBar.maxValue = hp;
+        if (hp >= healthBar.value)
+        {
+            hp = Mathf.RoundToInt(hp * 1.5f);
+            healthBar.maxValue = hp;
+        }
+        else
+        {
+            healthBar.maxValue = Mathf.RoundToInt(hp * 1.5f);
+        }
+        enemyParam.LevelUp(this);
     }    
 
     private void OnTriggerEnter(Collider other)

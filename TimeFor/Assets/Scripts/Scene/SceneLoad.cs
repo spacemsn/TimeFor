@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,8 +8,7 @@ using UnityEngine.UI;
 
 public class SceneLoad : MonoBehaviour
 {
-    public delegate void SceneLoadDelegate();
-    public static event SceneLoadDelegate onSceneLoaded;
+    public static Action onSceneLoaded;
     private static bool isSceneLoaded = false;
 
     static SceneLoad load;

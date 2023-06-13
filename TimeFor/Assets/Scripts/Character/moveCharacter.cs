@@ -7,7 +7,13 @@ public class moveCharacter : MonoBehaviour, IMoveBehavior
     public PlayerEntryPoint playerEntry;
     public UIEntryPoint uIEntry;
 
-    [Header("����������")]
+    [Header("Звук")]
+    public AudioSource audioSource;
+    public AudioClip stepSound;
+    public AudioClip runSound;
+    public AudioClip jumpSound;
+
+    [Header("Компоненты")]
     [SerializeField] private mainCharacter status;
     [SerializeField] private indicatorCharacter indicators;
     [SerializeField] private attackCharacter abilities;
@@ -16,21 +22,32 @@ public class moveCharacter : MonoBehaviour, IMoveBehavior
     [SerializeField] private Animator animator;
     [SerializeField] public Camera camera;
 
-    [Header("��������������")]
+    [Header("Характеристики игрока")]
+    [Header("Скорость хотьбы")]
     public float moveSpeed;
+    [Header("Скорость бега")]
     public float runSpeed;
+    [Header("Сила прыжка")]
     public float jumpForce;
-    public float maxStamina;
+    [Header("Бафф/ебафф")]
     public float debuff;
+    [Header("Время поворота")]
     public float smoothTime;
+    [Header("Угол поворота")]
     private float smoothVelocity;
-    Vector3 movement;
+    [Header("Возможность двигаться")]
     public bool isManagement;
+    [Header("Можно ли прыгать")]
     private bool isGrounded = true;
+    [Header("Последнее местоположение")]
+    public Vector3 position;
+    [Header("Поворот")]
+    public Quaternion rotation;
+
+    Vector3 movement;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundDistance;
     [SerializeField] private LayerMask groundMask;
-
     void Start()
     {
         indicators = GetComponent<indicatorCharacter>();
@@ -38,6 +55,8 @@ public class moveCharacter : MonoBehaviour, IMoveBehavior
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         status = GetComponent<mainCharacter>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void GetUI(PlayerEntryPoint player, UIEntryPoint uI)
@@ -74,13 +93,11 @@ public class moveCharacter : MonoBehaviour, IMoveBehavior
             if (Input.GetKey(KeyCode.LeftShift) && indicators.Stamina > 0 && movement.magnitude > 0)
             {
                 indicators.TakeStamina(debuff * 2);
-                //animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(movement, 1).magnitude);
                 animator.SetFloat("CharacterBehavior", Vector3.ClampMagnitude(movement, 1).magnitude);
             }
-            else if (!Input.GetKey(KeyCode.LeftShift) && indicators.Stamina < maxStamina)
+            else if (!Input.GetKey(KeyCode.LeftShift) && indicators.Stamina < indicators.staminaMax)
             {
                 indicators.SetStamina(debuff);
-                //animator.SetFloat("StandartMotion", Vector3.ClampMagnitude(movement, 0.35f).magnitude);
                 animator.SetFloat("CharacterBehavior", Vector3.ClampMagnitude(movement, 0.55f).magnitude);
             }
 

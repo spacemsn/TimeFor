@@ -41,7 +41,7 @@ public class SpawnContoller : MonoBehaviour
         if (playerEntry.saveData.savedData.Count > 0)
         {
             var data = playerEntry.saveData.savedData[playerEntry.saveData.savedData.Count - 1];
-            if (data.levelId == SceneManager.GetActiveScene().buildIndex)
+            if (data.LevelScene == SceneManager.GetActiveScene().buildIndex)
             {
                 playerEntry.currentPlayer = Instantiate(playerEntry.playerPrefab, data.position, data.rotation);
                 playerEntry.currentCamera = Instantiate(playerEntry.cameraPrefab, data.position, data.rotation).GetComponent<Camera>();
@@ -77,6 +77,6 @@ public class SpawnContoller : MonoBehaviour
     private void OnDisable()
     {
         isPlayerSceneLoaded = false;
-        onPlayerSceneLoaded.Invoke();
+        if (onPlayerSceneLoaded != null) { onPlayerSceneLoaded.Invoke(); }
     }
 }

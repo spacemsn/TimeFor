@@ -1,24 +1,47 @@
 using Cinemachine;
-using System.Data;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
+using System;
 
-[System.Serializable]
+[Serializable]
 public class Controlls
 {
-    [Header("Mouse")]
-    public float SensitivityY;
-    public float SensitivityX;
+    [Header("Настройка мыши")]
+    [SerializeField] private float SensitivityY;
+    [SerializeField] private float SensitivityX;
 
-    public Controlls(float sensitivityY, float sensitivityX)
+    [Header("Настройка звука")]
+    [SerializeField] private float MusicValue;
+    [SerializeField] private float SoundValue;
+    [SerializeField] private bool allSound;
+
+    public Controlls(SettingsObject settings)
     {
-        this.SensitivityY = sensitivityY;
-        this.SensitivityX = sensitivityX;
+        SensitivityY = settings.SensitivityY;
+        SensitivityX = settings.SensitivityX;
+
+        MusicValue = settings.MusicValue;
+        SoundValue = settings.SoundValue;
+        allSound = settings.isMute;
+    }
+
+    public void LoadControlls(SettingsObject settings)
+    {
+        settings.SensitivityY = SensitivityY;
+        settings.SensitivityX = SensitivityX;
+
+        settings.MusicValue = MusicValue;
+        settings.SoundValue = SoundValue;
+        settings.isMute = allSound;
     }
 }
 
 public class SettingsScript : MonoBehaviour
 {
+    public static Action onSaveSetting;
+    public static Action onLoadSetting;
+
     public EntryPoint entryPoint;
 
     [Header("Компоненты")]
@@ -32,9 +55,16 @@ public class SettingsScript : MonoBehaviour
     [SerializeField] private GameObject SettingsPanel;
     public bool isOpenPanel = true;
 
-    [Header("UI")]
-    [SerializeField] private Slider SensitivityYSlider;
-    [SerializeField] private Slider SensitivityXSlider;
+    [Header("Настройка мыши")]
+    public Slider SensitivityYSlider;
+    public Slider SensitivityXSlider;
+
+    [Header("Настройка звука")]
+    public AudioMixerGroup MusicMixed;
+    public AudioMixerGroup SoundMixed;
+    public Slider MusicValue;
+    public Slider SoundValue;
+    public bool isMute;
 
     private void Start()
     {
@@ -43,10 +73,14 @@ public class SettingsScript : MonoBehaviour
         setting = GetComponent<GloballSetting>(); entryPoint = setting.entryPoint; SettingsPanel = entryPoint.UI.SettingPanel.gameObject;
         pauseScript = GetComponent<PauseScript>();
 
-        //SceneLoad.onSceneLoaded += UpdateStatus;
-        //PlayerEntryPoint.onPlayerSceneLoaded += UpdateStatus;
+        SpawnContoller.onPlayerSceneLoaded += UpdateStatus;
 
         #endregion
+    }
+
+    private void OnDisable()
+    {
+        SpawnContoller.onPlayerSceneLoaded -= UpdateStatus;
     }
 
     public void UpdateStatus()
@@ -62,6 +96,8 @@ public class SettingsScript : MonoBehaviour
 
             SensitivityYSlider.value = Settings.SensitivityY;
             SensitivityXSlider.value = Settings.SensitivityX;
+
+            Settings.LoadSave(this); Debug.Log("Настройки загрузились");
         }
         else
         {
@@ -80,6 +116,8 @@ public class SettingsScript : MonoBehaviour
             freeLook.m_YAxis.m_MaxSpeed = Settings.SensitivityY;
             freeLook.m_XAxis.m_MaxSpeed = Settings.SensitivityX;
         }
+
+        Settings.SetSave(this);
     }
 
     public void SetDefault()
@@ -114,4 +152,28 @@ public class SettingsScript : MonoBehaviour
         OpenMenu();
     }
 
+    public void OnMuteMusic(bool mute)
+    {
+        isMute = mute;
+        if (isMute) 
+        { 
+            MusicMixed.audioMixer.SetFloat("Mute", 0);
+            SoundMixed.audioMixer.SetFloat("Mute", 0);
+        }
+        else if(!isMute)
+        { 
+            MusicMixed.audioMixer.SetFloat("Mute", -80);
+            SoundMixed.audioMixer.SetFloat("Mute", -80); 
+        }
+    }
+
+    public void ChangeMusic(float volume)
+    {
+        MusicMixed.audioMixer.SetFloat("Music", Mathf.Lerp(-80, 0, volume));
+    }
+
+    public void ChangeSound(float volume)
+    {
+        SoundMixed.audioMixer.SetFloat("Effect", Mathf.Lerp(-80, 0, volume));
+    }
 }

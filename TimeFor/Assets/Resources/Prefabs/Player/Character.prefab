@@ -913,6 +913,7 @@ GameObject:
   - component: {fileID: 7866213678889492258}
   - component: {fileID: 1749478371}
   - component: {fileID: 1749478373}
+  - component: {fileID: 6640466782846982300}
   m_Layer: 3
   m_Name: Character
   m_TagString: Player
@@ -985,6 +986,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   move: {fileID: 9184657922853418971}
+  indicator: {fileID: 6953651796804816563}
   animator: {fileID: 7866213678889492259}
   QuickslotPanel: {fileID: 0}
   FireSelectSprite: {fileID: 21300000, guid: c4d0d7a82be36544c80d6a707d42bf51, type: 3}
@@ -993,6 +995,11 @@ MonoBehaviour:
   TerraSelectSprite: {fileID: 21300000, guid: 806b48358e51d83488c0ae54cfb414cb, type: 3}
   selectedSprite: {fileID: 21300000, guid: c4d0d7a82be36544c80d6a707d42bf51, type: 3}
   notSelectedSprite: {fileID: 21300000, guid: 556aad21ddce518448b0317c692ba638, type: 3}
+  audioSource: {fileID: 6640466782846982300}
+  fireSound: {fileID: 8300000, guid: 44cd074690c83644496bd50618b71eaf, type: 3}
+  waterSound: {fileID: 8300000, guid: 44cd074690c83644496bd50618b71eaf, type: 3}
+  airSound: {fileID: 8300000, guid: 44cd074690c83644496bd50618b71eaf, type: 3}
+  terraSound: {fileID: 8300000, guid: 44cd074690c83644496bd50618b71eaf, type: 3}
   WaterSlot: {fileID: 0}
   FireSlot: {fileID: 0}
   AirSlot: {fileID: 0}
@@ -1019,16 +1026,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5c5c2caaa4a837449767e83150b4736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entryPoint: {fileID: 0}
   playerEntry: {fileID: 0}
   uIEntry: {fileID: 0}
-  health: 100
-  stamina: 100
-  healthMax: 100
-  staminaMax: 100
-  level: 0
+  playerName: "\u041D\u043E\u0432\u044B\u0439 \u0438\u0433\u0440\u043E\u043A"
+  LevelScene: 0
+  levelPlayer: 0
   experience: 0
   experienceRequired: 100
+  health: 100
+  healthMax: 100
+  stamina: 100
+  staminaMax: 100
+  damageBase: 20
+  damagePercent: 1
   healthBar: {fileID: 0}
   staminaBar: {fileID: 0}
   reactionImage: {fileID: 0}
@@ -1060,22 +1070,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d675610ed505114dbeb8391f160a143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: Spacemsn
-  animator: {fileID: 7866213678889492259}
-  rb: {fileID: 1749478371}
-  camera: {fileID: 0}
+  playerEntry: {fileID: 0}
+  uIEntry: {fileID: 0}
   saveData: {fileID: 11400000, guid: 051a891380d61a240a5dfc3786c4c9e9, type: 2}
   attack: {fileID: 7743992275149916690}
   indicators: {fileID: 6953651796804816563}
   movement: {fileID: 9184657922853418971}
-  interaction: {fileID: 0}
   book: {fileID: 0}
-  dialogManager: {fileID: 0}
-  position: {x: 126.5933, y: 0.9999962, z: 123.1386}
-  rotation: {x: 0, y: 0, z: 0, w: 0}
-  levelId: 1
-  damageBase: 20
-  damagePercent: 1
+  dialogManager: {fileID: 1516597143}
 --- !u!114 &9184657922853418971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1091,6 +1093,10 @@ MonoBehaviour:
   entryPoint: {fileID: 0}
   playerEntry: {fileID: 0}
   uIEntry: {fileID: 0}
+  audioSource: {fileID: 6640466782846982300}
+  stepSound: {fileID: 8300000, guid: 2c481f1d603ece747b18f6fcf0a04b3c, type: 3}
+  runSound: {fileID: 8300000, guid: 5aaeec24f3ca64440accd64d67048cd8, type: 3}
+  jumpSound: {fileID: 0}
   status: {fileID: 7866213678889492255}
   indicators: {fileID: 6953651796804816563}
   abilities: {fileID: 7743992275149916690}
@@ -1100,10 +1106,11 @@ MonoBehaviour:
   moveSpeed: 6.7
   runSpeed: 9.5
   jumpForce: 2.2
-  maxStamina: 100
   debuff: 0.15
   smoothTime: 0.14
   isManagement: 1
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
   groundCheck: {fileID: 849173800}
   groundDistance: 0.4
   groundMask:
@@ -1124,14 +1131,14 @@ MonoBehaviour:
   entryPoint: {fileID: 0}
   playerEntry: {fileID: 0}
   uIEntry: {fileID: 0}
-  questManager: {fileID: 0}
+  questManager: {fileID: -8793717163258794772}
   currentQuest: {fileID: 0}
   dialogText: {fileID: 0}
   nameDialogText: {fileID: 0}
   answerButtonPrefab: {fileID: 6257487495648723009, guid: b8b6008b79da0014aa7575e421141fe4, type: 3}
   answerButtonParent: {fileID: 0}
   npc: {fileID: 0}
-  player: {fileID: 0}
+  player: {fileID: 970037715054327440}
 --- !u!114 &-8793717163258794772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1286,6 +1293,102 @@ CapsuleCollider:
   m_Height: 2.8
   m_Direction: 1
   m_Center: {x: 0, y: 1.4, z: 0}
+--- !u!82 &6640466782846982300
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970037715054327440}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 2005086020849138280, guid: 9ef3608a4db9278409d12e3c4b69cbed, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1025562390614401955
 GameObject:
   m_ObjectHideFlags: 0

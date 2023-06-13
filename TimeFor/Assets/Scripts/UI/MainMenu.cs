@@ -58,7 +58,7 @@ public class MainMenu : MonoBehaviour
     {
         if (currentSave.savedData.Count > 0) // проверка на рабочие сохранения у игрока
         {
-            SceneLoad.SwitchIndexScene(currentSave.savedData[currentSave.savedData.Count - 1].levelId);
+            SceneLoad.SwitchIndexScene(currentSave.savedData[currentSave.savedData.Count - 1].LevelScene);
             entryPoint.globallSetting.globall.notVisible();
             Time.timeScale = 1f;
         }

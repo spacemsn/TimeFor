@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.SceneManagement;
 
 public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
 {
@@ -13,16 +14,29 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
     public PlayerEntryPoint playerEntry;
     public UIEntryPoint uIEntry;
 
-    [Header("Показатели персонажа")]
-    [SerializeField] private float health;
-    [SerializeField] private float stamina;
-    [SerializeField] private float healthMax;
-    [SerializeField] private float staminaMax;
-
-    [Header("Прокачка персонажа")]
-    public int level; // текущий уровень персонажа
-    public int experience; // текущий опыт
-    public int experienceRequired; // требуемый опыт для нового уровня
+    [Header("Характеристики игрока")]
+    [Header("Игрок")]
+    public string playerName;
+    [Header("Уровень сцены")]
+    public int LevelScene;
+    [Header("Уровень игрока")]
+    public int levelPlayer;
+    [Header("Текущий опыт")]
+    public int experience;
+    [Header("Требуемый опыт")]
+    public int experienceRequired;
+    [Header("Здоровье")]
+    public float health;
+    [Header("Максимальное здоровье")]
+    public float healthMax;
+    [Header("Вынросливость")]
+    public float stamina;
+    [Header("Максимальная выносливость")]
+    public float staminaMax;
+    [Header("Базовый урон")]
+    public float damageBase;
+    [Header("Процент от урона")]
+    public float damagePercent;
 
     [SerializeField] Slider healthBar;
     [SerializeField] Slider staminaBar;
@@ -113,6 +127,8 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
         EnemyBehavior.onDeadEnemy += GainExperience;
         Chest.onOpenChest += GainExperience;
         QuestReward.onQuestReward += GainExperience;
+
+        SpawnContoller.onPlayerSceneLoaded += LoadStatus;
     }
 
     private void OnDisable()
@@ -120,6 +136,8 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
         EnemyBehavior.onDeadEnemy -= GainExperience;
         Chest.onOpenChest -= GainExperience;
         QuestReward.onQuestReward -= GainExperience;
+
+        SpawnContoller.onPlayerSceneLoaded -= LoadStatus;
     }
 
     public void GetUI(PlayerEntryPoint player, UIEntryPoint uI)
@@ -152,19 +170,28 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
 
     private void LevelUp() // метод прокачки уровня 
     {
-        level++;
+        levelPlayer++;
         experience -= experienceRequired;
         experienceRequired = Mathf.RoundToInt(experienceRequired * 1.5f);
         healthMax += 50;
 
         UpdateStats();
 
-        Debug.Log("Level Up! Current Level: " + level);
+        Debug.Log("Level Up! Current Level: " + levelPlayer);
 
         onLevelUp.Invoke();
     }
 
     public void UpdateStats()
+    {
+        // обновить максимальные показатели в UI 
+        healthBar.maxValue = healthMax;
+        staminaBar.maxValue = staminaMax;
+
+        health = healthMax; stamina = staminaMax;
+    }
+
+    public void LoadStatus()
     {
         // обновить максимальные показатели в UI 
         healthBar.maxValue = healthMax;
@@ -236,11 +263,6 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
                     }
             }
         }
-    }
-
-    private void LateUpdate()
-    {
-        healthBar.value = Health; staminaBar.value = Stamina;
     }
 
     public void Reaction(IElementBehavior.Elements secondary, float buff, float damage)
@@ -337,21 +359,27 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
 
     public void TakeDamage(float damage)
     {
-        Health -= damage;
+        Health -= damage; healthBar.value = Health;
     }
 
     public void SetHealth(float bonushealth)
     {
-        Health += bonushealth;
+        Health += bonushealth; healthBar.value = Health;
     }
 
     public void TakeStamina(float amount)
     {
-            Stamina -= amount;
+        Stamina -= amount; staminaBar.value = Stamina;
     }
 
     public void SetStamina(float bonusstamina)
     {
-        Stamina += bonusstamina;
+        Stamina += bonusstamina; staminaBar.value = Stamina;
+    }
+
+    public int GetSceneIndex()
+    {
+        LevelScene = SceneManager.GetActiveScene().buildIndex;
+        return LevelScene;
     }
 }

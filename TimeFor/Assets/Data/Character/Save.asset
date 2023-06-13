@@ -13,35 +13,39 @@ MonoBehaviour:
   m_Name: Save
   m_EditorClassIdentifier: 
   type: 2
-  name: Character
+  name: Save
   objectPrefab: {fileID: 970037715054327440, guid: 2e88bfe9ee9b2734ba23a1ef53c6b9ae, type: 3}
-  aboutObject: "\u041F\u0435\u0440\u0432\u044B\u0439 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u043D\u044B\u0439
-    \u0438\u0433\u0440\u043E\u043A"
+  aboutObject: "\u0421\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u0435 \u0438\u0433\u0440\u043E\u043A\u0430"
   icon: {fileID: 0}
-  dateSave: 12.06.2023 1:12:07
-  playerName: 
-  levelId: 3
-  levelPlayer: 1
-  health: 150
-  stamina: 90.549904
+  dateSave: 0
+  playerName: "\u041D\u043E\u0432\u044B\u0439 \u0438\u0433\u0440\u043E\u043A"
+  LevelScene: 0
+  levelPlayer: 0
+  experience: 0
+  experienceRequired: 0
+  health: 100
+  healthMax: 0
+  stamina: 100
+  staminaMax: 0
   damageBase: 20
   damagePercent: 1
   moveSpeed: 6.7
   runSpeed: 9.5
   jumpForce: 2.2
   debuff: 0.15
-  currentPosition: {x: 420.5404, y: 3.9512212, z: 848.2601}
-  lastSavePosition: {x: 0, y: 0, z: 0}
-  rotation: {x: 0, y: 0.4641878, z: 0, w: -0.8857368}
+  smoothTime: 0
+  isManagement: 0
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 1}
   slots:
   - Id: 0
-    item: {fileID: 11400000, guid: a34d216a516c58d4d939fbf4f0cc4044, type: 2}
-    amount: 2
-    isEmpty: 0
+    item: {fileID: 0}
+    amount: 0
+    isEmpty: 1
   - Id: 0
-    item: {fileID: 11400000, guid: 258c6e91e553dae468dfec572fdbd3cf, type: 2}
-    amount: 1
-    isEmpty: 0
+    item: {fileID: 0}
+    amount: 0
+    isEmpty: 1
   - Id: 0
     item: {fileID: 0}
     amount: 0

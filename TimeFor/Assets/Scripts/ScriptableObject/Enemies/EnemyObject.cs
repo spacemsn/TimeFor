@@ -6,9 +6,11 @@ public class EnemyObject : ItemObject
     [Header("Характеристики врага")]
     [Header("Здоровье врага")]
     [SerializeField] private float hp;
+    [SerializeField] private float baseHP;
 
     [Header("Урон врага")]
     [SerializeField] private int enemyDamage;
+    [SerializeField] private int baseDamage;
 
     [Header("Угол обнуражения врага")]
     [SerializeField] private float viewAngle;
@@ -26,5 +28,16 @@ public class EnemyObject : ItemObject
     {
         enemy.viewAngle = viewAngle;
         enemy.viewDistance = viewDistance;
+    }
+
+    public void LevelUp(EnemyDamage enemy)
+    {
+        hp = enemy.hp;
+    }
+
+    public void NewGame()
+    {
+        hp = baseHP;
+        enemyDamage = baseDamage;
     }
 }

@@ -65,7 +65,6 @@ public class PlayerEntryPoint : MonoBehaviour
         movement = currentPlayer.GetComponent<moveCharacter>();
         dialogManager = currentPlayer.GetComponent<DialogManager>();
         questManager = currentPlayer.GetComponent<QuestManager>();
-        currentPlayer.GetComponent<mainCharacter>().camera = currentCamera;
 
 
         attack.GetUI(this, UIPoint);

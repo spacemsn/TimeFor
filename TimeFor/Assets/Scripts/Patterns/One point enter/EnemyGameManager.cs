@@ -25,11 +25,8 @@ public class EnemyGameManager : MonoBehaviour
 
     private void OnDisable()
     {
-        if (!SpawnContoller.isPlayerSceneLoaded)
-        {
-            SpawnContoller.onPlayerSceneLoaded -= GetEnemyComponent;
-            indicatorCharacter.onLevelUp -= HealthUpEnemy;
-        }
+        SpawnContoller.onPlayerSceneLoaded -= GetEnemyComponent;
+        indicatorCharacter.onLevelUp -= HealthUpEnemy;
     }
 
     public void GetEnemyComponent()

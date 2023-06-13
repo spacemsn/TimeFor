@@ -21,6 +21,7 @@ public class attackCharacter : MonoCache
 
     [Header("Интерфейс")]
     [SerializeField] public moveCharacter move;
+    [SerializeField] public indicatorCharacter indicator;
     [SerializeField] public Animator animator;
 
     [Header("UI")]
@@ -33,6 +34,13 @@ public class attackCharacter : MonoCache
 
     [SerializeField] public Sprite selectedSprite;
     [SerializeField] public Sprite notSelectedSprite;
+
+    [Header("Звук")]
+    public AudioSource audioSource;
+    public AudioClip fireSound;
+    public AudioClip waterSound;
+    public AudioClip airSound;
+    public AudioClip terraSound;
 
     [Header("Слоты атак")]
     [SerializeField] public SkillSlot WaterSlot;
@@ -61,7 +69,9 @@ public class attackCharacter : MonoCache
     private void Start()
     {
         move = GetComponent<moveCharacter>();
+        indicator = GetComponent<indicatorCharacter>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
         rightHand = GameObject.Find("ArmSmall").transform;
     }
@@ -115,28 +125,6 @@ public class attackCharacter : MonoCache
                 }
             }
         }
-        // Используем предмет по нажатию на левую кнопку мыши
-        //if (Input.GetKeyDown(KeyCode.Mouse0))
-        //{
-        //    if (quickslotParent.GetChild(currentQuickslotID).GetComponent<Slot>().foodItem != null && quickslotParent.GetChild(currentQuickslotID).GetComponent<Slot>().foodItem)
-        //    {
-        //        if (!rayCharacter.isOpenPanel && quickslotParent.GetChild(currentQuickslotID).GetComponent<Image>().sprite == selectedSprite)
-        //        {
-        //            // Применяем изменения к здоровью (будущем к голоду и жажде) 
-        //            ChangeCharacteristics();
-
-        //            if (quickslotParent.GetChild(currentQuickslotID).GetComponent<Slot>().amount <= 1)
-        //            {
-        //                quickslotParent.GetChild(currentQuickslotID).GetComponentInChildren<DragAndDropItem>().NullifySlotData();
-        //            }
-        //            else
-        //            {
-        //                quickslotParent.GetChild(currentQuickslotID).GetComponent<Slot>().amount--;
-        //                quickslotParent.GetChild(currentQuickslotID).GetComponent<Slot>().itemAmount.text = quickslotParent.GetChild(currentQuickslotID).GetComponent<Slot>().amount.ToString();
-        //            }
-        //        }
-        //    }
-        //}
     }
 
     private void FixedUpdate()
@@ -145,27 +133,27 @@ public class attackCharacter : MonoCache
         {
             case 0:
                 {
-                    currentAttack = WaterAttack;
+                    currentAttack = WaterAttack; audioSource.clip = fireSound;
                     QuickslotPanel.GetChild(currentQuickslotID).GetComponent<Image>().sprite = FireSelectSprite;
                     break;
                 }
 
             case 1:
                 {
-                    currentAttack = FireAttack;
+                    currentAttack = FireAttack; audioSource.clip = waterSound;
                     QuickslotPanel.GetChild(currentQuickslotID).GetComponent<Image>().sprite = WaterSelectSprite;
                     break;
                 }
 
             case 2:
                 {
-                    currentAttack = AirAttack;
+                    currentAttack = AirAttack; audioSource.clip = airSound;
                     QuickslotPanel.GetChild(currentQuickslotID).GetComponent<Image>().sprite = AirSelectSprite; break;
                 }
 
             case 3:
                 {
-                    currentAttack = TerraAttack;
+                    currentAttack = TerraAttack; audioSource.clip = terraSound;
                     QuickslotPanel.GetChild(currentQuickslotID).GetComponent<Image>().sprite = TerraSelectSprite; break;
                 }
 
@@ -207,7 +195,7 @@ public class attackCharacter : MonoCache
         {
             if (Input.GetKeyDown(KeyCode.Mouse0) && currentEnemy != null)
             {
-                move.isManagement = false;
+                move.isManagement = false; audioSource.pitch = 1.25f; audioSource.Play();
                 transform.LookAt(currentEnemy.transform.position, Vector3.up);
                 animator.SetBool("Attack1", true);
             }
@@ -226,7 +214,7 @@ public class attackCharacter : MonoCache
         // Выстрел самонаводящегося снаряда в ближайшего врага
         GameObject centerOfEnemy = currentEnemy.GetComponent<EnemyBehavior>().centerOfEnemy.gameObject;
         currentSpell = Instantiate(currentAttack.itemPrefab, rightHand.position, rightHand.transform.rotation);
-        currentSpell.GetComponent<FireBall>().SetTarget(centerOfEnemy.transform, currentAttack.speed);
+        currentSpell.GetComponent<FireBall>().SetTarget(centerOfEnemy.transform, currentAttack.speed, indicator.damageBase);
 
         // Запуск таймера для следующей атаки
         attacking = true;
