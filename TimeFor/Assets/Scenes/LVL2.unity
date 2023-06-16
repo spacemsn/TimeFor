@@ -21695,6 +21695,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 576531136}
     m_Modifications:
+    - target: {fileID: -413770858606596304, guid: 9b0bf283f5b612e49ad69fbda910075b, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7351623186214680089, guid: 9b0bf283f5b612e49ad69fbda910075b, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -22671,7 +22675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1867517000051429799, guid: 5db8465442f4d0847b7eb59fe6ee1ad6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 33.534798
+      value: 33.414
       objectReference: {fileID: 0}
     - target: {fileID: 1867517000051429799, guid: 5db8465442f4d0847b7eb59fe6ee1ad6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -24759,6 +24763,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 576531136}
     m_Modifications:
+    - target: {fileID: -4902627926410545053, guid: 1b39cdd3e7e81594685dfec50dfff408, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7133015205625069937, guid: 1b39cdd3e7e81594685dfec50dfff408, type: 3}
       propertyPath: m_Name
       value: Tomato_1.1
@@ -33635,6 +33643,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 576531136}
     m_Modifications:
+    - target: {fileID: 7073966235498367918, guid: 11a4b9c2d5355a04b82710492b65e0f9, type: 3}
+      propertyPath: m_StaticShadowCaster
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8241844687156228289, guid: 11a4b9c2d5355a04b82710492b65e0f9, type: 3}
       propertyPath: m_RootOrder
       value: 35
@@ -49793,7 +49805,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1338033593}
     m_Modifications:
+    - target: {fileID: 639114889031371087, guid: 51eacbf2969540a44a0782d0707a67c2, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 807366737162061997, guid: 51eacbf2969540a44a0782d0707a67c2, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1901024537465444139, guid: 51eacbf2969540a44a0782d0707a67c2, type: 3}
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
@@ -49801,7 +49821,15 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3217087895769459571, guid: 51eacbf2969540a44a0782d0707a67c2, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5106139858004913354, guid: 51eacbf2969540a44a0782d0707a67c2, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5845269431307977248, guid: 51eacbf2969540a44a0782d0707a67c2, type: 3}
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
