@@ -52,7 +52,7 @@ public class moveCharacter : MonoBehaviour, IMoveBehavior
     {
         indicators = GetComponent<indicatorCharacter>();
         abilities = GetComponent<attackCharacter>();
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponentInChildren<Rigidbody>();
         animator = GetComponent<Animator>();
         status = GetComponent<mainCharacter>();
 

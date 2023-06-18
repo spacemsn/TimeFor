@@ -51,6 +51,13 @@ public class UIEntryPoint : MonoBehaviour
     public Transform inventoryPanel;
     public Transform mapPanel;
 
+    public Transform playerPanel;
+    public Slot ArtifactRing;
+    public Slot AmuletSlot;
+    public Slot HeaddressSlot;
+    public Slot QuickSlot1;
+    public Slot QuickSlot2;
+
     [Header("DialogPanel")]
     public Transform DialogPanel;
     public TMP_Text dialogText;
@@ -82,7 +89,7 @@ public class UIEntryPoint : MonoBehaviour
             currentCanvas.GetComponent<Canvas>().worldCamera = playerEntry.currentCamera;
             currentCanvas.gameObject.SetActive(true);
         }
-        else
+        else if(!SpawnContoller.isPlayerSceneLoaded)
         {
             currentCanvas.gameObject.SetActive(false);
         }

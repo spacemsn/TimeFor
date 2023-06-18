@@ -30,13 +30,13 @@ public class InventoryContainer : MonoBehaviour
         defaultInventory = Resources.Load<SaveData>("Inventory/Default");
 
         // Initialize inventory slots
-        for (int i = 0; i < inventory.slots.Count; i++)
+        for (int i = 0; i < inventory.inventorySlot.Count; i++)
         {
             Slot slot = inventoryPanel.transform.GetChild(i).GetComponent<Slot>();
-            slot.Id = inventory.slots[i].Id;
-            slot.item = inventory.slots[i].item;
-            slot.amount = inventory.slots[i].amount;
-            slot.isEmpty = inventory.slots[i].isEmpty;
+            slot.Id = inventory.inventorySlot[i].Id;
+            slot.item = inventory.inventorySlot[i].item;
+            slot.amount = inventory.inventorySlot[i].amount;
+            slot.isEmpty = inventory.inventorySlot[i].isEmpty;
 
             if (!slot.isEmpty)
             {
@@ -49,26 +49,26 @@ public class InventoryContainer : MonoBehaviour
     public void SaveInventory()
     {
         // Save inventory data
-        for (int i = 0; i < inventory.slots.Count; i++)
+        for (int i = 0; i < inventory.inventorySlot.Count; i++)
         {
             Slot slot = inventoryPanel.transform.GetChild(i).GetComponent<Slot>();
-            inventory.slots[i].Id = slot.Id;
-            inventory.slots[i].item = slot.item;
-            inventory.slots[i].amount = slot.amount;
-            inventory.slots[i].isEmpty = slot.isEmpty;
+            inventory.inventorySlot[i].Id = slot.Id;
+            inventory.inventorySlot[i].item = slot.item;
+            inventory.inventorySlot[i].amount = slot.amount;
+            inventory.inventorySlot[i].isEmpty = slot.isEmpty;
         }
     }
 
     public void SetDefaunt()
     {
         // Save inventory data
-        for (int i = 0; i < defaultInventory.slots.Count; i++)
+        for (int i = 0; i < defaultInventory.inventorySlot.Count; i++)
         {
             Slot slot = inventoryPanel.transform.GetChild(i).GetComponent<Slot>();
-            slot.Id = defaultInventory.slots[i].Id;
-            slot.item = defaultInventory.slots[i].item;
-            slot.amount = defaultInventory.slots[i].amount;
-            slot.isEmpty = defaultInventory.slots[i].isEmpty;
+            slot.Id = defaultInventory.inventorySlot[i].Id;
+            slot.item = defaultInventory.inventorySlot[i].item;
+            slot.amount = defaultInventory.inventorySlot[i].amount;
+            slot.isEmpty = defaultInventory.inventorySlot[i].isEmpty;
         }
     }
 }

@@ -14,6 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SensitivityY: 2
   SensitivityX: 200
-  MusicValue: 0
-  SoundValue: 0
-  allSound: 1
+  MusicValue: 1
+  SoundValue: 0.5
+  isMute: 0
+  controlls:
+    SensitivityY: 2
+    SensitivityX: 200
+    MusicValue: 1
+    SoundValue: 0.5
+    allSound: 0

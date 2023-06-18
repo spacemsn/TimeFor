@@ -2,19 +2,17 @@ using System.Data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseScript : MonoCache
+public class PauseScript : GloballSetting
 {
-    public GloballSetting setting;
-
     [Header("Меню Респавна")]
     public Transform PausePanel;
     [SerializeField] public bool isOpenPanel = false;
 
     [SerializeField] private SettingsScript settingsMenu;
+    public GloballSetting globall;
 
     private void Start()
     {
-        setting = GetComponent<GloballSetting>();
         settingsMenu = GetComponent<SettingsScript>();
     }
 
@@ -27,20 +25,21 @@ public class PauseScript : MonoCache
     {
         if (isOpenPanel)
         {
-            setting.notVisible(); setting.OpenMenu(PausePanel, isOpenPanel); OpenPanel(); setting.ResumeGame(); 
+            OpenMenu(PausePanel, isOpenPanel); OpenPanel(); ResumeGame(); notVisible();
         }
     }
 
     public void Exit()
     {
+        OpenMenu(PausePanel, isOpenPanel); 
+        OpenPanel();
+        ResumeGame();
         SceneLoad.SwitchScene("Menu");
-        setting.OpenMenu(PausePanel, isOpenPanel); OpenPanel();
-        setting.ResumeGame();
     }
 
     public void Settings()
     {
         settingsMenu.OpenMenu();
-        setting.OpenMenu(PausePanel, isOpenPanel); OpenPanel();
+        OpenMenu(PausePanel, isOpenPanel); OpenPanel();
     }
 }

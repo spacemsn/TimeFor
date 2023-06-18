@@ -2,22 +2,22 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using Unity.VisualScripting;
 /// IPointerDownHandler - Следит за нажатиями мышки по объекту на котором висит этот скрипт
 /// IPointerUpHandler - Следит за отпусканием мышки по объекту на котором висит этот скрипт
 /// IDragHandler - Следит за тем не водим ли мы нажатую мышку по объекту
 public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
     public Slot oldSlot;
-    private Transform player;
-    GameObject itemObject;
+    [SerializeField] private Transform player;
+    [SerializeField] GameObject itemObject;
 
-    private void Start()
+    private void OnEnable()
     {
-        //ПОСТАВЬТЕ ТЭГ "PLAYER" НА ОБЪЕКТЕ ПЕРСОНАЖА!
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        // Находим скрипт InventorySlot в слоте в иерархии
+        player = GameObject.FindObjectOfType<PlayerEntryPoint>().currentPlayer.transform;
         oldSlot = transform.GetComponentInParent<Slot>();
     }
+
     public void OnDrag(PointerEventData eventData)
     {
         // Если слот пустой, то мы не выполняем то что ниже return;
@@ -85,6 +85,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         // Временно храним данные newSlot в отдельных переменных
         Item item = newSlot.item;
         foodItem foodItem = newSlot.foodItem;
+        ArtifactsObject artifacts = newSlot.artifact;
         int amount = newSlot.amount;
         bool isEmpty = newSlot.isEmpty;
         GameObject icon = newSlot.icon;
@@ -93,6 +94,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         // Заменяем значения newSlot на значения oldSlot
         newSlot.item = oldSlot.item;
         newSlot.foodItem = oldSlot.foodItem;
+        newSlot.artifact = oldSlot.artifact;
         newSlot.amount = oldSlot.amount;
         if (oldSlot.isEmpty == false)
         {
@@ -112,6 +114,7 @@ public class DragAndDropItem : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         oldSlot.item = item;
         oldSlot.amount = amount;
         oldSlot.foodItem = foodItem;
+        oldSlot.artifact = artifacts;
         if (isEmpty == false)
         {
             oldSlot.SetIcon(icon.GetComponent<Image>().sprite);

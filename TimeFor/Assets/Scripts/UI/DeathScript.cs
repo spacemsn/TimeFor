@@ -48,7 +48,7 @@ public class DeathScript : MonoBehaviour
 
     public void Respawn()
     {
-        character = globallSetting.character;
+        character = globallSetting.player;
         SceneLoad.SwitchScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1f;
     }

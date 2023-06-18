@@ -74,11 +74,11 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
     public float Health
     {
         get { return health; }
-        set 
+        set
         {
             health = value;
 
-            if(value > healthMax)
+            if (value > healthMax)
             {
                 value = healthMax;
             }
@@ -92,7 +92,7 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
     public float Stamina
     {
         get { return stamina; }
-        set 
+        set
         {
             stamina = value;
 
@@ -100,7 +100,7 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
             {
                 value = staminaMax;
             }
-            else if(value < 0)
+            else if (value < 0)
             {
                 value = 0;
             }
@@ -367,6 +367,11 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
         Health += bonushealth; healthBar.value = Health;
     }
 
+    public void SetMaxHealth(float bonushealth)
+    {
+        healthMax += bonushealth; healthBar.value = Health;
+    }
+
     public void TakeStamina(float amount)
     {
         Stamina -= amount; staminaBar.value = Stamina;
@@ -375,6 +380,11 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
     public void SetStamina(float bonusstamina)
     {
         Stamina += bonusstamina; staminaBar.value = Stamina;
+    }
+
+    public void SetMaxStamina(float bonusstamina)
+    {
+        staminaMax += bonusstamina; staminaBar.value = Stamina;
     }
 
     public int GetSceneIndex()

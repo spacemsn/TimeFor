@@ -39,7 +39,7 @@ public class ItemPrefab : MonoBehaviour
         {
             Destroy(currentButton.gameObject);
         }
-        if (Player[0] != null)
+        if (Player[0] != null && Player[0].GetComponent<QuestManager>().currentQuest.questType == Quest.QuestType.CollectItems)
         {
             Player[0].GetComponent<QuestManager>().CollectItems(item.itemPrefab);
         }

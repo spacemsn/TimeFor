@@ -8,60 +8,59 @@ public class InventorySlot
 {
     public int Id;
     public Item item;
+    public foodItem foodItem;
+    public ArtifactsObject artifact;
     public int amount;
     public bool isEmpty = true;
 
-    public InventorySlot(int id, Item _item, int _amount)
-    {
-        Id = id;
-        item = _item;
-        amount = _amount;
-        isEmpty = true;
-    }
+    public ItemType slotType;
+    public ArtifactType artifactType;
+    public bool isPut = false;
+
+    public Color isPutColor;
+    public Color isTakeColor;
 }
 
-public class bookCharacter : MonoCache
+public class bookCharacter : GloballSetting
 {
     [Header("Книга")]
     [Header("Инвентарь")]
-    [SerializeField] public GameObject inventoryPage;
-    [SerializeField] public GameObject inventoryPanel;
-    [SerializeField] public List<Slot> slots = new List<Slot>();
+    [SerializeField] public Transform inventoryPage;
+    [SerializeField] public Transform inventoryPanel;
+    [SerializeField] public List<Slot> inventarySlots = new List<Slot>();
     [SerializeField] public bool isOpenInventory;
 
     [Header("Карта")]
-    [SerializeField] private GameObject mapPanel;
+    [SerializeField] public Transform mapPanel;
     [SerializeField] public bool isOpenMap;
-
-    [Header("Компоненты")]
-    [SerializeField] private CinemachineFreeLook freeLook;
-
-    [Header("Доп. скрипты")]
-    public EntryPoint EntryPoint;
 
     [Header("Сохранение инвентаря")]
     public SaveData saveInventory;
     public SaveData defaultInventory;
 
+    public GloballSetting globall;
+
+    [Header("Персонаж")]
+    [SerializeField] public Transform playerPanel;
+    [SerializeField] public List<Slot> playerSlots = new List<Slot>();
+
     private void Awake()
     {
-        EntryPoint = GetComponentInParent<EntryPoint>();
         for (int i = 0; i < inventoryPanel.transform.childCount; i++)
         {
             if (inventoryPanel.transform.GetChild(i).GetComponent<Slot>() != null)
             {
-                slots.Add(inventoryPanel.transform.GetChild(i).GetComponent<Slot>()); slots[i].GetComponent<Slot>().Id = i;
+                inventarySlots.Add(inventoryPanel.transform.GetChild(i).GetComponent<Slot>()); inventarySlots[i].GetComponent<Slot>().Id = i;
             }
         }
 
-        // Initialize inventory slots
-        for (int i = 0; i < saveInventory.slots.Count; i++)
+        for (int i = 0; i < saveInventory.inventorySlot.Count; i++)
         {
             Slot slot = inventoryPanel.transform.GetChild(i).GetComponent<Slot>();
-            slot.Id = saveInventory.slots[i].Id;
-            slot.item = saveInventory.slots[i].item;
-            slot.amount = saveInventory.slots[i].amount;
-            slot.isEmpty = saveInventory.slots[i].isEmpty;
+            slot.Id = saveInventory.inventorySlot[i].Id;
+            slot.item = saveInventory.inventorySlot[i].item;
+            slot.amount = saveInventory.inventorySlot[i].amount;
+            slot.isEmpty = saveInventory.inventorySlot[i].isEmpty;
 
             if (!slot.isEmpty)
             {
@@ -69,11 +68,47 @@ public class bookCharacter : MonoCache
                 slot.itemAmount.text = slot.amount.ToString();
             }
         }
+
+        for (int i = 0; i < playerPanel.transform.childCount; i++)
+        {
+            if (playerPanel.transform.GetChild(i).GetComponent<Slot>() != null)
+            {
+                playerSlots.Add(playerPanel.transform.GetChild(i).GetComponent<Slot>()); playerSlots[i].GetComponent<Slot>().Id = i;
+            }
+        }
+
+        for (int i = 0; i < saveInventory.playerSlots.Count; i++)
+        {
+            Slot slot = playerPanel.transform.GetChild(i).GetComponent<Slot>();
+            slot.Id = saveInventory.playerSlots[i].Id;
+            slot.item = saveInventory.playerSlots[i].item;
+            if (saveInventory.playerSlots[i].foodItem != null) { slot.foodItem = saveInventory.playerSlots[i].foodItem; }
+            else if (saveInventory.playerSlots[i].artifact != null) { slot.artifact = saveInventory.playerSlots[i].artifact; }
+            slot.amount = saveInventory.playerSlots[i].amount;
+            slot.isEmpty = saveInventory.playerSlots[i].isEmpty;
+            slot.slotType = saveInventory.playerSlots[i].slotType;
+            slot.artifactType = saveInventory.playerSlots[i].artifactType;
+            slot.isPut = saveInventory.playerSlots[i].isPut;
+
+            slot.isPutColor = saveInventory.playerSlots[i].isPutColor;
+            slot.isTakeColor = saveInventory.playerSlots[i].isTakeColor;
+
+            if (!slot.isEmpty)
+            {
+                slot.SetIcon(slot.item.icon);
+                slot.itemAmount.text = slot.amount.ToString();
+            }
+
+            if (!slot.isPut)
+            {
+                slot.SetBuffIcon();
+            }
+        }
     }
 
     public void AddItem(Item _item, int _amount)
     {
-        foreach (Slot slot in slots)
+        foreach (Slot slot in inventarySlots)
         {
             if (slot.item == _item && slot.amount + _amount <= _item.maxAmount)
             {
@@ -82,7 +117,7 @@ public class bookCharacter : MonoCache
                 return;
             }
         }
-        foreach (Slot slot in slots)
+        foreach (Slot slot in inventarySlots)
         {
             if (slot.isEmpty == true)
             {
@@ -98,75 +133,55 @@ public class bookCharacter : MonoCache
 
     public void OpenInventory()
     {
-        if (isOpenInventory == true)
-        {
-            inventoryPage.gameObject.SetActive(false);
-            isOpenInventory = false;
-            freeLook.m_XAxis.m_InputAxisName = "Mouse X";
-            freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
-            EntryPoint.player.movement.isManagement = true;
-            EntryPoint.globallSetting.globall.notVisible();
-            EntryPoint.globallSetting.globall.ResumeGame();
-        }
-        else if (isOpenInventory == false)
-        {
-            inventoryPage.gameObject.SetActive(true);
-            isOpenInventory = true;
-            freeLook.m_XAxis.m_InputAxisName = "";
-            freeLook.m_XAxis.m_InputAxisValue = 0;
-            freeLook.m_YAxis.m_InputAxisName = "";
-            freeLook.m_YAxis.m_InputAxisValue = 0;
-            EntryPoint.player.movement.isManagement = false;
-            EntryPoint.globallSetting.globall.Visible();
-            EntryPoint.globallSetting.globall.PauseGame();
-        }
+        isOpenInventory = !isOpenInventory;
     }
 
     public void OpenMap()
     {
-        if (isOpenMap == true)
-        {
-            mapPanel.gameObject.SetActive(false);
-            isOpenMap = false;
-            freeLook.m_XAxis.m_InputAxisName = "Mouse X";
-            freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
-            EntryPoint.player.movement.isManagement = true;
-        }
-        else if (isOpenMap == false)
-        {
-            mapPanel.gameObject.SetActive(true);
-            isOpenMap = true;
-            freeLook.m_XAxis.m_InputAxisName = "";
-            freeLook.m_XAxis.m_InputAxisValue = 0;
-            freeLook.m_YAxis.m_InputAxisName = "";
-            freeLook.m_YAxis.m_InputAxisValue = 0;
-            EntryPoint.player.movement.isManagement = false;
-        }
+        isOpenMap = !isOpenMap;
     }
 
     public void SaveInventory()
     {
-        // Save inventory data
-        for (int i = 0; i < saveInventory.slots.Count; i++)
+        for (int i = 0; i < saveInventory.inventorySlot.Count; i++)
         {
             Slot slot = inventoryPanel.transform.GetChild(i).GetComponent<Slot>();
-            saveInventory.slots[i].Id = slot.Id;
-            saveInventory.slots[i].item = slot.item;
-            saveInventory.slots[i].amount = slot.amount;
-            saveInventory.slots[i].isEmpty = slot.isEmpty;
+            saveInventory.inventorySlot[i].Id = slot.Id;
+            saveInventory.inventorySlot[i].item = slot.item;
+            saveInventory.inventorySlot[i].amount = slot.amount;
+            saveInventory.inventorySlot[i].isEmpty = slot.isEmpty;
+        }
+    }
+
+    public void SavePlayerArtifact()
+    {
+        for (int i = 0; i < saveInventory.playerSlots.Count; i++)
+        {
+            Slot slot = playerPanel.transform.GetChild(i).GetComponent<Slot>();
+            saveInventory.playerSlots[i].Id = slot.Id;
+            saveInventory.playerSlots[i].item = slot.item;
+            if(slot.foodItem != null) { saveInventory.playerSlots[i].foodItem = slot.foodItem; }
+            if (slot.artifact != null) { saveInventory.playerSlots[i].artifact = slot.artifact; }
+            saveInventory.playerSlots[i].amount = slot.amount;
+            saveInventory.playerSlots[i].isEmpty = slot.isEmpty;
+            saveInventory.playerSlots[i].slotType = slot.slotType;
+            saveInventory.playerSlots[i].artifactType = slot.artifactType;
+            saveInventory.playerSlots[i].isPut = slot.isPut;
+
+            saveInventory.playerSlots[i].isPutColor = slot.isPutColor;
+            saveInventory.playerSlots[i].isTakeColor = slot.isTakeColor;
         }
     }
 
     public void SetDefaunt()
     {
-        // Save inventory data
-        for (int i = 0; i < defaultInventory.slots.Count; i++)
+        for (int i = 0; i < defaultInventory.inventorySlot.Count; i++)
         {
             Slot slot = inventoryPanel.transform.GetChild(i).GetComponent<Slot>();
-            slot.Id = defaultInventory.slots[i].Id;
-            slot.item = defaultInventory.slots[i].item;
-            slot.amount = defaultInventory.slots[i].amount;
-            slot.isEmpty = defaultInventory.slots[i].isEmpty;
+            slot.Id = defaultInventory.inventorySlot[i].Id;
+            slot.item = defaultInventory.inventorySlot[i].item;
+            slot.amount = defaultInventory.inventorySlot[i].amount;
+            slot.isEmpty = defaultInventory.inventorySlot[i].isEmpty;
         }
     }
 }

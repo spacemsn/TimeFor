@@ -29,7 +29,6 @@ public class GloballEntryPoint : MonoBehaviour
             pause = currentGameObject.GetComponent<PauseScript>();
             death = currentGameObject.GetComponent<DeathScript>();
             settings = currentGameObject.GetComponent<SettingsScript>();
-            globall.EntryPoint(entryPoint);
         }
     }
 
@@ -40,6 +39,5 @@ public class GloballEntryPoint : MonoBehaviour
         pause = currentGameObject.GetComponent<PauseScript>();
         death = currentGameObject.GetComponent<DeathScript>();
         settings = currentGameObject.GetComponent<SettingsScript>();
-        globall.EntryPoint(entryPoint);
     }
 }

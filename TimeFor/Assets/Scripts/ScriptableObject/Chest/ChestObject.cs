@@ -8,7 +8,7 @@ using UnityEngine;
 public class ChestItemAmount
 {
     public int amount;
-    public foodItem prefab;
+    public Item prefab;
 }
 
 public enum ChestType { Base, Big, Bigger, theBiggest }
@@ -26,7 +26,6 @@ public class ChestObject : ScriptableObject
     public GameObject chestPrefab;
 
     [Header("Список выпающих предметов")]
-    public List<GameObject> items;
     public List<ChestItemAmount> item;
 
     [Header("Максимальное кол-во предмета в сундуке")]

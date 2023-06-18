@@ -20,5 +20,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: a919ca5af60b44845866e420b90537e7, type: 3}
   isConsumeable: 0
   changeHealth: 20
-  changeHunger: 20
-  changeThirst: 20
+  changeStamina: 5

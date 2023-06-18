@@ -9,7 +9,7 @@ public class foodItem : Item
     public bool isConsumeable;
 
     public int changeHealth;
-    public int changeHunger;
-    public int changeThirst;
+    public int changeStamina;
 }
+
 

@@ -92,12 +92,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   item: {fileID: 0}
   foodItem: {fileID: 0}
+  artifact: {fileID: 0}
   Id: 0
   amount: 0
   isEmpty: 1
   drag: {fileID: 0}
   icon: {fileID: 8601224908728133431}
   itemAmount: {fileID: 8601224908575102035}
+  slotType: 0
+  artifactType: 0
+  isPut: 0
+  isPutColor: {r: 1, g: 0.92941177, b: 0.7882353, a: 1}
+  isTakeColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &8601224908204876010
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEditor.Experimental;
 
 [Serializable]
 public class PlayerData
@@ -57,7 +58,17 @@ public class PlayerData
     public Quaternion rotation;
 
     [Header("Инвентарь")]
-    public List<InventorySlot> slots = new List<InventorySlot>();
+    public List<InventorySlot> inventorySlot = new List<InventorySlot>();
+
+    [Header("Артефакты и быстрый доступ еды")]
+    [SerializeField] public List<InventorySlot> playerSlots = new List<InventorySlot>();
+
+    [Header("Текущие усиления")]
+    public ArtifactsObject ArtifactRingObject;
+    public ArtifactsObject AmuletSlotObject;
+    public ArtifactsObject HeaddressSlotObject;
+    public foodItem QuickSlot1Object;
+    public foodItem QuickSlot2Object;
 
     public PlayerData(SaveData character)
     {
@@ -80,7 +91,14 @@ public class PlayerData
         position = character.position;
         rotation = character.rotation;
 
-        slots = new List<InventorySlot>(character.slots);
+        inventorySlot = new List<InventorySlot>(character.inventorySlot);
+        playerSlots = new List<InventorySlot>(character.playerSlots);
+
+        ArtifactRingObject = character.ArtifactRingObject;
+        AmuletSlotObject = character.AmuletSlotObject;
+        HeaddressSlotObject = character.HeaddressSlotObject;
+        QuickSlot1Object = character.QuickSlot1Object;
+        QuickSlot2Object = character.QuickSlot2Object;
     }
 
     public void LoadSave(SaveData character)
@@ -102,6 +120,12 @@ public class PlayerData
         character.debuff = debuff;
         character.position = position;
         character.rotation = rotation;
+
+        character.ArtifactRingObject = ArtifactRingObject;
+        character.AmuletSlotObject = AmuletSlotObject;
+        character.HeaddressSlotObject = HeaddressSlotObject;
+        character.QuickSlot1Object = QuickSlot1Object;
+        character.QuickSlot2Object = QuickSlot2Object;
     }
 }
 
@@ -156,13 +180,23 @@ public class SaveData : ItemObject
     public Quaternion rotation;
 
     [Header("Инвентарь")]
-    public List<InventorySlot> slots = new List<InventorySlot>();
+    public List<InventorySlot> inventorySlot = new List<InventorySlot>();
+
+    [Header("Артефакты и быстрый доступ еды")]
+    [SerializeField] public List<InventorySlot> playerSlots = new List<InventorySlot>();
+
+    [Header("Текущие усиления")]
+    public ArtifactsObject ArtifactRingObject;
+    public ArtifactsObject AmuletSlotObject;
+    public ArtifactsObject HeaddressSlotObject;
+    public foodItem QuickSlot1Object;
+    public foodItem QuickSlot2Object;
 
     // Загрузить список сохраненных игроков
     PlayerData playerData;
     public List<PlayerData> savedData;
 
-    public void SetSave(mainCharacter character, indicatorCharacter indicators, moveCharacter move)
+    public void SetSave(mainCharacter character, indicatorCharacter indicators, artifactCharacter artifact, moveCharacter move)
     {
         indicators.GetSceneIndex();
         dateSave = System.DateTime.Now.ToString();
@@ -185,12 +219,20 @@ public class SaveData : ItemObject
         rotation = move.gameObject.transform.rotation;
 
         character.book.SaveInventory();
+        character.book.SavePlayerArtifact();
+
+        ArtifactRingObject = artifact.ArtifactRingObject;
+        AmuletSlotObject = artifact.AmuletSlotObject;
+        HeaddressSlotObject = artifact.HeaddressSlotObject;
+        QuickSlot1Object = artifact.QuickSlot1Object;
+        QuickSlot2Object = artifact.QuickSlot2Object;
+
 
         playerData = new PlayerData(this);
         savedData.Add(playerData);
     }
 
-    public void LoadSave(mainCharacter character, indicatorCharacter indicators, moveCharacter move)
+    public void LoadSave(mainCharacter character, indicatorCharacter indicators, artifactCharacter artifact, moveCharacter move)
     {
         savedData[savedData.Count - 1].LoadSave(this);
 
@@ -213,5 +255,12 @@ public class SaveData : ItemObject
         move.gameObject.transform.rotation = rotation;
 
         character.book.SaveInventory();
+        character.book.SavePlayerArtifact();
+
+        artifact.ArtifactRingObject = ArtifactRingObject;
+        artifact.AmuletSlotObject = AmuletSlotObject;
+        artifact.artifacts.HeaddressSlotObject = HeaddressSlotObject;
+        artifact.artifacts.QuickSlot1Object = QuickSlot1Object;
+        artifact.artifacts.QuickSlot2Object = QuickSlot2Object;
     }
 }

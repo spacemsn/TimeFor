@@ -14,12 +14,12 @@ public class GloballSetting : MonoBehaviour
     [SerializeField] public PauseScript pauseScript;
     [SerializeField] public bookCharacter bookScript;
     [SerializeField] public DeathScript deathScript;
+    [SerializeField] public SettingsScript settingsScript;
 
     [Header("Объекты")]
-    public GameObject character;
+    public GameObject player;
 
     [Header("Управление курсором")]
-    [SerializeField] bool isVisible = true;
     [SerializeField] public CinemachineFreeLook freeLook;
 
     private void Start()
@@ -32,6 +32,7 @@ public class GloballSetting : MonoBehaviour
         if (SpawnContoller.isPlayerSceneLoaded)
         {
             freeLook = playerEntry.currentFreeLook;
+            player = playerEntry.currentPlayer;
             notVisible();
         }
         else
@@ -40,34 +41,48 @@ public class GloballSetting : MonoBehaviour
         }
     }
 
-    public void EntryPoint(EntryPoint entryPoint)
+    private void LateUpdate()
     {
-        this.entryPoint = entryPoint;
-        playerEntry = entryPoint.player;
-        uIEntry = entryPoint.UI;
-        globallEntry = entryPoint.globallSetting;
-
-        pauseScript = GetComponent<PauseScript>();
-        deathScript = GetComponent<DeathScript>();
-
-        deathScript.SetComponent(uIEntry.dealthPanel.gameObject);
-    }
-
-    private void Update()
-    {
-        if (character != null)
+        if (player != null)
         {
-            if (Input.GetKeyDown(KeyCode.Escape) && pauseScript.isOpenPanel == false)
+            if (Input.GetKeyDown(KeyCode.BackQuote) && !bookScript.isOpenInventory && !bookScript.isOpenMap && !deathScript.isOpenPanel && !settingsScript.isOpenPanel)
             {
-                OpenMenu(pauseScript.PausePanel, pauseScript.isOpenPanel); Visible(); pauseScript.OpenPanel(); PauseGame();
+                OpenMenu(pauseScript.PausePanel, pauseScript.isOpenPanel);
+
+                if (pauseScript.isOpenPanel)
+                {
+                    pauseScript.OpenPanel(); notVisible(); ResumeGame();
+                }
+                else if (!pauseScript.isOpenPanel)
+                {
+                     pauseScript.OpenPanel(); Visible(); PauseGame(); 
+                }
             }
-            else if (Input.GetKeyDown(KeyCode.Tab) && pauseScript.isOpenPanel == false)
+            else if (Input.GetKeyDown(KeyCode.Tab) && !pauseScript.isOpenPanel)
             {
-                bookScript.OpenInventory(); Visible();
+                OpenMenu(bookScript.inventoryPage, bookScript.isOpenInventory);
+
+                if (bookScript.isOpenInventory)
+                {
+                     bookScript.OpenInventory(); ResumeGame(); notVisible();
+                }
+                else if (!bookScript.isOpenInventory)
+                {
+                    bookScript.OpenInventory(); PauseGame(); Visible();
+                }
             }
-            else if ((Input.GetKeyDown(KeyCode.M) && pauseScript.isOpenPanel == false) || (Input.GetKeyDown(KeyCode.M) && pauseScript.isOpenPanel == true))
+            else if (Input.GetKeyDown(KeyCode.M) && !pauseScript.isOpenPanel)
             {
-                bookScript.OpenMap(); notVisible(); PauseGame();
+                OpenMenu(bookScript.mapPanel, bookScript.isOpenMap);
+
+                if (bookScript.isOpenMap)
+                {
+                     bookScript.OpenMap(); ResumeGame(); notVisible();
+                }
+                else if (!bookScript.isOpenMap)
+                {
+                     bookScript.OpenMap(); PauseGame(); Visible();
+                }
             }
             else if (Input.GetKeyDown(KeyCode.LeftAlt))
             {
@@ -82,27 +97,39 @@ public class GloballSetting : MonoBehaviour
 
     public void Visible()
     {
-        if (isVisible == false && freeLook != null)
+        if (freeLook != null)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            isVisible = true;
             freeLook.m_XAxis.m_InputAxisName = "";
             freeLook.m_YAxis.m_InputAxisName = "";
             freeLook.m_YAxis.m_InputAxisValue = 0;
             freeLook.m_XAxis.m_InputAxisValue = 0;
+            entryPoint.player.movement.isManagement = false;
         }
     }
 
     public void notVisible()
     {
-        if (isVisible && freeLook != null)
+        if (freeLook != null)
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            isVisible = false;
             freeLook.m_XAxis.m_InputAxisName = "Mouse X";
             freeLook.m_YAxis.m_InputAxisName = "Mouse Y";
+            entryPoint.player.movement.isManagement = true;
+        }
+    }
+
+    public void OpenMenu(Transform panel, bool isOpenPanel)
+    {
+        if (!isOpenPanel)
+        {
+            panel.gameObject.SetActive(true);
+        }
+        else if (isOpenPanel)
+        {
+            panel.gameObject.SetActive(false);
         }
     }
 
@@ -119,19 +146,5 @@ public class GloballSetting : MonoBehaviour
     public void SlowMode()
     {
         Time.timeScale = 0.5f;
-    }
-
-    public void OpenMenu(Transform panel, bool isOpenPanel)
-    {
-        if (isOpenPanel == false)
-        {
-            panel.gameObject.SetActive(true);
-            isOpenPanel = true;
-        }
-        else if (isOpenPanel == true)
-        {
-            panel.gameObject.SetActive(false);
-            isOpenPanel = false;
-        }
     }
 }

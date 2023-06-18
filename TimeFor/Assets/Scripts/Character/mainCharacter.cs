@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor.Experimental;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +16,7 @@ public class mainCharacter : MonoCache
     [Header("Компоненты")]
     public attackCharacter attack;
     public indicatorCharacter indicators;
+    public artifactCharacter artifacts;
     public moveCharacter movement;
     public bookCharacter book;
     public DialogManager dialogManager;
@@ -24,6 +26,7 @@ public class mainCharacter : MonoCache
         movement = this.GetComponent<moveCharacter>();
         attack = this.GetComponent<attackCharacter>();
         indicators = this.GetComponent<indicatorCharacter>();
+        artifacts = this.GetComponent<artifactCharacter>();
         dialogManager = this.GetComponent<DialogManager>();
     }
 

@@ -6,8 +6,8 @@ using System;
 
 public class PlayerEntryPoint : MonoBehaviour
 {
-    public static Action<mainCharacter, indicatorCharacter, moveCharacter> onSavePlayer;
-    public static Action<mainCharacter, indicatorCharacter, moveCharacter> onLoadPlayer;
+    public static Action<mainCharacter, indicatorCharacter, artifactCharacter, moveCharacter> onSavePlayer;
+    public static Action<mainCharacter, indicatorCharacter, artifactCharacter, moveCharacter> onLoadPlayer;
 
     public GameObject playerPrefab;
     public GameObject currentPlayer;
@@ -24,6 +24,7 @@ public class PlayerEntryPoint : MonoBehaviour
     [Header("Скрипты")]
     public attackCharacter attack;
     public indicatorCharacter indicators;
+    public artifactCharacter artifact;
     public mainCharacter main;
     public moveCharacter movement;
     public bookCharacter book;
@@ -61,6 +62,7 @@ public class PlayerEntryPoint : MonoBehaviour
     {
         attack = currentPlayer.GetComponent<attackCharacter>();
         indicators = currentPlayer.GetComponent<indicatorCharacter>();
+        artifact = currentPlayer.GetComponent<artifactCharacter>();
         main = currentPlayer.GetComponent<mainCharacter>();
         movement = currentPlayer.GetComponent<moveCharacter>();
         dialogManager = currentPlayer.GetComponent<DialogManager>();
@@ -69,11 +71,12 @@ public class PlayerEntryPoint : MonoBehaviour
 
         attack.GetUI(this, UIPoint);
         indicators.GetUI(this, UIPoint);
+        artifact.GetUI(this, UIPoint);
         main.GetUI(this, UIPoint);
         movement.GetUI(this, UIPoint);
         dialogManager.GetUI(this, UIPoint);
 
-        globallEntry.globall.character = currentPlayer;
+        globallEntry.globall.player = currentPlayer;
 
         currentFreeLook.gameObject.transform.position = currentPlayer.transform.position;
         currentFreeLook.gameObject.transform.rotation = currentPlayer.transform.rotation;
@@ -92,7 +95,7 @@ public class PlayerEntryPoint : MonoBehaviour
         {
             onSavePlayer += saveData.SetSave;
 
-            onSavePlayer.Invoke(main, indicators, movement);
+            onSavePlayer.Invoke(main, indicators, main.artifacts, movement);
 
             onSavePlayer -= saveData.SetSave;
         }
@@ -104,7 +107,7 @@ public class PlayerEntryPoint : MonoBehaviour
         {
             onLoadPlayer += saveData.LoadSave;
 
-            onLoadPlayer.Invoke(main, indicators, movement);
+            onLoadPlayer.Invoke(main, indicators, main.artifacts, movement);
 
             onLoadPlayer -= saveData.LoadSave;
         }
