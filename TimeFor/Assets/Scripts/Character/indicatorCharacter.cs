@@ -189,6 +189,7 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
         staminaBar.maxValue = staminaMax;
 
         health = healthMax; stamina = staminaMax;
+        healthBar.value = health; staminaBar.value = stamina;
     }
 
     public void LoadStatus()

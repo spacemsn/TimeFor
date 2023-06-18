@@ -7,11 +7,11 @@ using UnityEngine.SceneManagement;
 
 public class EnemyGameManager : MonoBehaviour
 {
-    [Header("������� ����������")]
+    [Header("Единая точка входа")]
     public PlayerEntryPoint player;
     public UIEntryPoint ui;
 
-    [Header("����� �� �����")]
+    [Header("Список врагов")]
     public List<GameObject> Enemies;
 
     private void Start()
@@ -81,6 +81,4 @@ public class EnemyGameManager : MonoBehaviour
             }
         }
     }
-
-
 }

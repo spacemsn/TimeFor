@@ -65,8 +65,11 @@ public class DayCycleManager : MonoBehaviour
         Sun.intensity = sunIntensity * SunCurve.Evaluate(TimeOfDay);
         Moon.intensity = moonIntensity * MoonCurve.Evaluate(TimeOfDay);
 
-        if(SkyboxCurve.Evaluate(TimeOfDay) > 0.5f) { timeDay = TimeDay.Day; }
-        else if(SkyboxCurve.Evaluate(TimeOfDay) < 0.5f) { timeDay = TimeDay.Night; }
+        if(SkyboxCurve.Evaluate(TimeOfDay) > 0.5f) { timeDay = TimeDay.Day; Sun.enabled = true; Moon.enabled = false; }
+        else if(SkyboxCurve.Evaluate(TimeOfDay) < 0.5f) { timeDay = TimeDay.Night; Sun.enabled = false; Moon.enabled = true; }
+
+        if (Sun.intensity > 0.3f) { Sun.enabled = true; Moon.enabled = false; }
+        else if (Moon.intensity < 0.3f) { Sun.enabled = false; Moon.enabled = true; }
     }
 
     private void SetSkybox(int index)

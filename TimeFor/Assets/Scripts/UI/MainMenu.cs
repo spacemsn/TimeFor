@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+    public static Action onNewGame;
+
     [Header("Сохранение персонажа")]
     [SerializeField] private SaveData currentSave;
 
@@ -36,6 +38,10 @@ public class MainMenu : MonoBehaviour
             Time.timeScale = 1f;
 
             currentSave.savedData.Clear();
+            if(onNewGame != null)
+            {
+                onNewGame.Invoke();
+            }
         }
         else
         {
@@ -52,6 +58,7 @@ public class MainMenu : MonoBehaviour
         Time.timeScale = 1f;
 
         currentSave.savedData.Clear();
+        onNewGame.Invoke();
     }
 
     public void Continuo()

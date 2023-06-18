@@ -15,7 +15,7 @@ public class Interactions : MonoCache
     public GameObject player;
     public RigBuilder rbBuilder;
 
-    Outline outline;
+    
 
     public enum sizeItem
     {
@@ -33,11 +33,6 @@ public class Interactions : MonoCache
 
         player = GameObject.FindGameObjectWithTag("Player");
         rbBuilder = player.GetComponent<RigBuilder>();
-
-        if(gameObject.GetComponent<Outline>() != null)
-        {
-            outline = GetComponent<Outline>();
-        }
     }
 
     public void PickUp()
@@ -59,14 +54,13 @@ public class Interactions : MonoCache
                 transform.rotation = armSmall.transform.rotation;
                 rb.isKinematic = true;
                 flag = true;
-                outline.enabled = false;
             }
         }
-        else if(size == sizeItem.large)
+        else if (size == sizeItem.large)
         {
             if (armLarge.transform.childCount < 1 && armSmall.transform.childCount < 1)
             {
-                if(this.gameObject.GetComponent<ItemPrefab>().item.type == ItemType.Weapon)
+                if (this.gameObject.GetComponent<ItemPrefab>().item.type == ItemType.Weapon)
                 {
                     //splayer.GetComponent<CharacterMove>().walkType = CharacterMove.WalkType.withWeapon;
                     player.GetComponent<Animator>().SetBool("GetWeapon", true);
@@ -80,10 +74,7 @@ public class Interactions : MonoCache
                 transform.rotation = armLarge.transform.rotation;
                 rb.isKinematic = true;
                 flag = true;
-                if (gameObject.GetComponent<Outline>() != null)
-                {
-                    outline.enabled = false;
-                }            }
+            }
         }
     }
 
@@ -101,10 +92,6 @@ public class Interactions : MonoCache
             rb.isKinematic = false;
             rb.AddForce(transform.forward * 100);
             flag = false;
-            if (gameObject.GetComponent<Outline>() != null)
-            {
-                outline.enabled = true;
-            }
         }
     }
 
@@ -123,10 +110,6 @@ public class Interactions : MonoCache
             transform.parent = null;
             rb.isKinematic = false;
             flag = false;
-            if (gameObject.GetComponent<Outline>() != null)
-            {
-                outline.enabled = true;
-            }
         }
     }
 

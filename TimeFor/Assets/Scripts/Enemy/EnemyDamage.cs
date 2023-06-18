@@ -56,8 +56,6 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
         enemyBehavior = GetComponent<EnemyBehavior>();
         animator = GetComponent<Animator>();
 
-        enemyParam.SetDamage(this);
-
         rightHand.enabled = false;
         leftHand.enabled = false;
         reactionImage.enabled = false;
@@ -71,6 +69,8 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
         damageUpSprite = Resources.Load<Sprite>("UI/Sprites/Reactions/damageUpImage");
         VisionDownSprite = Resources.Load<Sprite>("UI/Sprites/Reactions/visionDebuffImage");
         MovementDownSprite = Resources.Load<Sprite>("UI/Sprites/Reactions/movementDebuffImage");
+
+        enemyParam.SetDamage(this);
     }
 
     private void Update()
@@ -178,6 +178,7 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
         {
             hp = Mathf.RoundToInt(hp * 1.5f);
             healthBar.maxValue = hp;
+            healthBar.value = hp;
         }
         else
         {

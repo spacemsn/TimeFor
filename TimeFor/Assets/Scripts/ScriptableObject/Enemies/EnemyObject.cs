@@ -20,8 +20,13 @@ public class EnemyObject : ItemObject
 
     public void SetDamage(EnemyDamage enemy)
     {
+        MainMenu.onNewGame += NewGame;
+
         enemy.hp = hp;
         enemy.enemyDamage = enemyDamage;
+
+        enemy.healthBar.value = hp;
+        enemy.healthBar.maxValue = hp;
     }
 
     public void SetBehavior(EnemyBehavior enemy)

@@ -55,7 +55,7 @@ MonoBehaviour:
     rotation: {x: 0, y: 0, z: 0, w: 0}
     isSpawn: 0
   - indexSpanwScene: 2
-    position: {x: 85, y: 0.95, z: 85}
+    position: {x: 78.38705, y: 0.7412305, z: 88.05402}
     rotation: {x: 0, y: 0, z: 0, w: 0}
     isSpawn: 1
   - indexSpanwScene: 3
