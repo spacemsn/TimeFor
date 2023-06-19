@@ -2061,7 +2061,7 @@ GameObject:
   - component: {fileID: 1374613772676986939}
   - component: {fileID: 5461417237810408266}
   m_Layer: 3
-  m_Name: Player2.0
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2153,6 +2153,8 @@ MonoBehaviour:
   FireAttack: {fileID: 11400000, guid: 4f8ccb789fc392042b970608a74cf156, type: 2}
   AirAttack: {fileID: 11400000, guid: 47115711dab310245ba04d31ca8648ec, type: 2}
   TerraAttack: {fileID: 11400000, guid: bdf0b1ecbcdc4c442b457b69f4f5b202, type: 2}
+  currentDamage: 0
+  currentPercent: 0
   currentQuickslotID: -1
   oldQuickslotID: 0
   KeyCode1: 49
@@ -2178,12 +2180,19 @@ MonoBehaviour:
   levelPlayer: 0
   experience: 0
   experienceRequired: 100
+  elementalPoints: 2
   health: 100
   healthMax: 100
   stamina: 100
   staminaMax: 100
-  damageBase: 20
-  damagePercent: 1
+  damageBaseFire: 0
+  damageBaseWater: 0
+  damageBaseAir: 0
+  damageBaseTerra: 0
+  damagePercentFire: 0
+  damagePercentWater: 0
+  damagePercentAir: 0
+  damagePercentTerra: 0
   healthBar: {fileID: 0}
   staminaBar: {fileID: 0}
   reactionImage: {fileID: 0}

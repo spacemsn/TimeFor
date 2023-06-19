@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80773cb6690741b46ae11ff1d138d59e, type: 3}
+  m_Name: TerraCell #3
+  m_EditorClassIdentifier: 
+  type: 6
+  name: "\u0422\u0440\u0435\u0442\u044C\u044F \u0437\u0435\u043C\u043D\u0430\u044F
+    \u044F\u0447\u0435\u0439\u043A\u0430"
+  itemPrefab: {fileID: 0}
+  maxAmount: 1
+  aboutItem: 
+  icon: {fileID: 0}
+  element: {fileID: 11400000, guid: e811363f5a16c734a9a2857e0051a1e8, type: 2}
+  nextCell: {fileID: 11400000, guid: 2797e5a90f33c8e44801b98c845e53c1, type: 2}
+  levelCell: 0
+  cellType: 2
+  isOpenCell: 0
+  totemPrefab: {fileID: 0}
+  damageTotem: 20
+  timeTotem: 10

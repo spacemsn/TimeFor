@@ -41,75 +41,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405121204355195159}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7dbff30527aa074b866a9ee9ecd9268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TimeOfDay: 0.5
+  TimeOfDay: 0.65
   DayDuration: 120
-  TimeScale: 0.001
+  TimeScale: 0.005
   SunCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0.0026184395
-      value: 0.29759377
-      inSlope: 0.06283704
-      outSlope: 0.06283704
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.3288026
-    - serializedVersion: 3
-      time: 0.06971309
-      value: 0.0041684546
-      inSlope: -0.061976943
-      outSlope: -0.061976943
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.69106144
-      outWeight: 0.9239702
-    - serializedVersion: 3
-      time: 0.42770877
-      value: 0.0027412176
-      inSlope: -0.0000043135933
-      outSlope: -0.0000043135933
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.6677227
-    - serializedVersion: 3
-      time: 0.510315
-      value: 0.99452835
-      inSlope: -0.04128497
-      outSlope: -0.04128497
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.23311055
-    - serializedVersion: 3
-      time: 0.9110727
-      value: 0.9949423
-      inSlope: 0.04651894
-      outSlope: 0.04651894
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 1
-    - serializedVersion: 3
-      time: 0.9965707
-      value: 0.30312544
-      inSlope: -2.3821418
-      outSlope: -2.3821418
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.78338385
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 1
-    m_RotationOrder: 4
-  MoonCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -169,7 +109,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 1
     m_RotationOrder: 4
-  SkyboxCurve:
+  MoonCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -225,6 +165,66 @@ MonoBehaviour:
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.78338385
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 1
+    m_RotationOrder: 4
+  SkyboxCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.0041360697
+      value: 0.20659277
+      inSlope: 1.599122
+      outSlope: 1.599122
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.9239702
+    - serializedVersion: 3
+      time: 0.044074662
+      value: 0.9877755
+      inSlope: 0.06283704
+      outSlope: 0.06283704
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.3288026
+    - serializedVersion: 3
+      time: 0.42642704
+      value: 0.98263776
+      inSlope: -0.14109689
+      outSlope: -0.14109689
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.21147318
+    - serializedVersion: 3
+      time: 0.5006104
+      value: -0.0017599463
+      inSlope: -0.04128497
+      outSlope: -0.04128497
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.23311055
+    - serializedVersion: 3
+      time: 0.9462255
+      value: 0.008082442
+      inSlope: 0.04651894
+      outSlope: 0.04651894
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 1.0002787
+      value: 0.19263339
+      inSlope: 6.1248274
+      outSlope: 6.1248274
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.3881174
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 1
@@ -399,7 +399,7 @@ Light:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7401335215018543431}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0

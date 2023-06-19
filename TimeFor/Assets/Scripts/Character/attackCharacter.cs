@@ -57,6 +57,9 @@ public class attackCharacter : MonoCache
     private skillItem currentAttack;
     private GameObject currentSpell;
 
+    public float currentDamage;
+    public float currentPercent;
+
     [SerializeField] public int currentQuickslotID = -1;
     [SerializeField] public int oldQuickslotID;
 
@@ -133,34 +136,34 @@ public class attackCharacter : MonoCache
         {
             case 0:
                 {
-                    currentAttack = WaterAttack; audioSource.clip = fireSound;
+                    currentAttack = WaterAttack; audioSource.clip = fireSound; currentDamage = indicator.damageBaseFire; currentPercent = indicator.damagePercentFire;
                     QuickslotPanel.GetChild(currentQuickslotID).GetComponent<Image>().sprite = FireSelectSprite;
                     break;
                 }
 
             case 1:
-                {
-                    currentAttack = FireAttack; audioSource.clip = waterSound;
+                { 
+                    currentAttack = FireAttack; audioSource.clip = waterSound; currentDamage = indicator.damageBaseWater; currentPercent = indicator.damagePercentWater;
                     QuickslotPanel.GetChild(currentQuickslotID).GetComponent<Image>().sprite = WaterSelectSprite;
                     break;
                 }
 
             case 2:
                 {
-                    currentAttack = AirAttack; audioSource.clip = airSound;
+                    currentAttack = AirAttack; audioSource.clip = airSound; currentDamage = indicator.damageBaseAir; currentPercent = indicator.damagePercentAir;
                     QuickslotPanel.GetChild(currentQuickslotID).GetComponent<Image>().sprite = AirSelectSprite; break;
                 }
 
             case 3:
                 {
-                    currentAttack = TerraAttack; audioSource.clip = terraSound;
+                    currentAttack = TerraAttack; audioSource.clip = terraSound; currentDamage = indicator.damageBaseTerra; currentPercent = indicator.damagePercentTerra;
                     QuickslotPanel.GetChild(currentQuickslotID).GetComponent<Image>().sprite = TerraSelectSprite; break;
                 }
 
             default:
                 {
                     currentQuickslotID = oldQuickslotID;
-                    currentAttack = WaterAttack;
+                    currentAttack = WaterAttack; currentDamage = indicator.damageBaseFire; currentPercent = indicator.damagePercentFire;
                     QuickslotPanel.GetChild(currentQuickslotID).GetComponent<Image>().sprite = WaterSelectSprite; break;
                 }
         }
@@ -214,7 +217,7 @@ public class attackCharacter : MonoCache
         // Выстрел самонаводящегося снаряда в ближайшего врага
         GameObject centerOfEnemy = currentEnemy.GetComponent<EnemyBehavior>().centerOfEnemy.gameObject;
         currentSpell = Instantiate(currentAttack.itemPrefab, rightHand.position, rightHand.transform.rotation);
-        currentSpell.GetComponent<FireBall>().SetTarget(centerOfEnemy.transform, currentAttack.speed, indicator.damageBase);
+        currentSpell.GetComponent<FireBall>().SetTarget(centerOfEnemy.transform);
 
         // Запуск таймера для следующей атаки
         attacking = true;

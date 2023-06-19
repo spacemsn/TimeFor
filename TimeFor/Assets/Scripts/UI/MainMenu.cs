@@ -38,7 +38,8 @@ public class MainMenu : MonoBehaviour
             Time.timeScale = 1f;
 
             currentSave.savedData.Clear();
-            if(onNewGame != null)
+            currentSave.Defaunt();
+            if (onNewGame != null)
             {
                 onNewGame.Invoke();
             }
@@ -58,6 +59,7 @@ public class MainMenu : MonoBehaviour
         Time.timeScale = 1f;
 
         currentSave.savedData.Clear();
+        currentSave.Defaunt();
         onNewGame.Invoke();
     }
 

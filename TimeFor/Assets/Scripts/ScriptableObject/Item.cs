@@ -1,7 +1,8 @@
+using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum ItemType { Default, Food, Potion, Weapon, Skill, Artifact, Instrument }
+public enum ItemType { Default, Food, Potion, Weapon, Skill, Artifact, Element, }
 public class Item : ScriptableObject
 {
     [Header("Характеристики стандартного предмета")]
@@ -18,6 +19,7 @@ public class Item : ScriptableObject
     public int maxAmount;
 
     [Header("Описание предмета")]
+    [TextArea(order = 500)]
     public string aboutItem;
 
     [Header("Иконка предмета")]

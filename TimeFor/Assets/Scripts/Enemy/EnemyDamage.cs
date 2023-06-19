@@ -38,10 +38,10 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
     public Sprite MovementDownSprite;
 
     [Header("Статус Стихии")]
-    public IElementBehavior.Elements currentStatus;
+    public Elements currentStatus;
 
     [Header("Реакция Стихии")]
-    public IElementBehavior.Reactions reaction;
+    public Reactions reaction;
 
     [Header("Время наложения статуса")]
     public float timeStatus;
@@ -80,61 +80,61 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
 
     private void SetIcon()
     {
-        if (reaction == IElementBehavior.Reactions.Null)
+        if (reaction == Reactions.Null)
         {
             switch (currentStatus)
             {
-                case IElementBehavior.Elements.Water:
+                case Elements.Water:
                     reactionImage.sprite = WaterSprite;
                     reactionImage.enabled = true;
                     break;
 
-                case IElementBehavior.Elements.Fire:
+                case Elements.Fire:
                     reactionImage.sprite = FireSprite;
                     reactionImage.enabled = true;
                     break;
 
-                case IElementBehavior.Elements.Air:
+                case Elements.Air:
                     reactionImage.sprite = AirSprite;
                     reactionImage.enabled = true;
                     break;
 
-                case IElementBehavior.Elements.Terra:
+                case Elements.Terra:
                     reactionImage.sprite = TerraSprite;
                     reactionImage.enabled = true;
                     break;
 
-                case IElementBehavior.Elements.Null:
+                case Elements.Null:
                     reactionImage.enabled = false;
                     break;
             }
         }
-        if (currentStatus == IElementBehavior.Elements.Null)
+        if (currentStatus == Elements.Null)
         {
             switch (reaction)
             {
-                case IElementBehavior.Reactions.DamageUp:
+                case Reactions.DamageUp:
                     {
                         reactionImage.sprite = damageUpSprite;
                         reactionImage.enabled = true;
                         break;
                     }
 
-                case IElementBehavior.Reactions.MovementDown:
+                case Reactions.MovementDown:
                     {
                         reactionImage.sprite = MovementDownSprite;
                         reactionImage.enabled = true;
                         break;
                     }
 
-                case IElementBehavior.Reactions.VisionDown:
+                case Reactions.VisionDown:
                     {
                         reactionImage.sprite = VisionDownSprite;
                         reactionImage.enabled = true;
                         break;
                     }
 
-                case IElementBehavior.Reactions.Null:
+                case Reactions.Null:
                     {
                         reactionImage.enabled = false;
                         break;
@@ -208,11 +208,11 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
         leftHand.enabled = false;
     }
 
-    public void Reaction(IElementBehavior.Elements secondary, float buff, float damage)
+    public void Reaction(Elements secondary, float buff, float damage)
     {
-        if ((currentStatus == IElementBehavior.Elements.Water && secondary == IElementBehavior.Elements.Fire) || (currentStatus == IElementBehavior.Elements.Fire && secondary == IElementBehavior.Elements.Water))
+        if ((currentStatus == Elements.Water && secondary == Elements.Fire) || (currentStatus == Elements.Fire && secondary == Elements.Water))
         {
-            reaction = IElementBehavior.Reactions.DamageUp;
+            reaction = Reactions.DamageUp;
             SetDefauntStatus();
             if (runStatusCorouutine)
             {
@@ -226,9 +226,9 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
             damage *= buff;
             TakeDamage(damage);
         }
-        else if ((currentStatus == IElementBehavior.Elements.Terra && secondary == IElementBehavior.Elements.Fire) || (currentStatus == IElementBehavior.Elements.Water && secondary == IElementBehavior.Elements.Terra))
+        else if ((currentStatus == Elements.Terra && secondary == Elements.Fire) || (currentStatus == Elements.Water && secondary == Elements.Terra))
         {
-            reaction = IElementBehavior.Reactions.MovementDown;
+            reaction = Reactions.MovementDown;
             SetDefauntStatus();
             if (runStatusCorouutine)
             {
@@ -242,9 +242,9 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
             //navAgent.speed -= buff;
             TakeDamage(damage);
         }
-        else if ((currentStatus == IElementBehavior.Elements.Fire && secondary == IElementBehavior.Elements.Air) || (currentStatus == IElementBehavior.Elements.Water && secondary == IElementBehavior.Elements.Air) || (currentStatus == IElementBehavior.Elements.Terra && secondary == IElementBehavior.Elements.Air))
+        else if ((currentStatus == Elements.Fire && secondary == Elements.Air) || (currentStatus == Elements.Water && secondary == Elements.Air) || (currentStatus == Elements.Terra && secondary == Elements.Air))
         {
-            reaction = IElementBehavior.Reactions.VisionDown;
+            reaction = Reactions.VisionDown;
             SetDefauntStatus();
             if (runStatusCorouutine)
             {
@@ -279,7 +279,7 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
         runStatusCorouutine = true;
 
         yield return new WaitForSeconds(timeStatus);
-        currentStatus = IElementBehavior.Elements.Null;
+        currentStatus = Elements.Null;
         runStatusCorouutine = false;
     }
 
@@ -288,12 +288,12 @@ public class EnemyDamage : MonoBehaviour, IElementBehavior, IDamageBehavior
         runReactionCorouutine = true;
 
         yield return new WaitForSeconds(timeStatus);
-        reaction = IElementBehavior.Reactions.Null;
+        reaction = Reactions.Null;
         runReactionCorouutine = false;
     }
 
     private void SetDefauntStatus()
     {
-        currentStatus = IElementBehavior.Elements.Null;
+        currentStatus = Elements.Null;
     }
 }

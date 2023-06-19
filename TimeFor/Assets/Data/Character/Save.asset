@@ -23,12 +23,11 @@ MonoBehaviour:
   levelPlayer: 1
   experience: 0
   experienceRequired: 150
+  elementalPoints: 0
   health: 150
   healthMax: 165
   stamina: 115.00015
   staminaMax: 115
-  damageBase: 20
-  damagePercent: 1
   moveSpeed: 6.7
   runSpeed: 9.5
   jumpForce: 2.2
@@ -474,3 +473,460 @@ MonoBehaviour:
   QuickSlot1Object: {fileID: 0}
   QuickSlot2Object: {fileID: 0}
   savedData: []
+  defauntSave:
+    fileName: "\u0421\u0431\u0440\u043E\u0441 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u0439 "
+    dateSave: 
+    playerName: "\u041D\u043E\u0432\u043E\u0435 \u0441\u043E\u0445\u0440\u0430\u043D\u0435\u043D\u0438\u0435"
+    LevelScene: 0
+    levelPlayer: 0
+    experience: 0
+    experienceRequired: 100
+    elementalPoints: 2
+    health: 100
+    healthMax: 100
+    stamina: 100
+    staminaMax: 100
+    moveSpeed: 6.7
+    runSpeed: 9.5
+    jumpForce: 6.2
+    debuff: 0.15
+    smoothTime: 0
+    isManagement: 0
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    inventorySlot:
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 0
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 0, g: 0, b: 0, a: 0}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 0}
+    playerSlots:
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 5
+      artifactType: 1
+      isPut: 0
+      isPutColor: {r: 1, g: 0.92941177, b: 0.7882353, a: 1}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 1}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 5
+      artifactType: 2
+      isPut: 0
+      isPutColor: {r: 1, g: 0.92941177, b: 0.7882353, a: 1}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 1}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 5
+      artifactType: 3
+      isPut: 0
+      isPutColor: {r: 1, g: 0.92941177, b: 0.7882353, a: 1}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 1}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 1
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 1, g: 0.92941177, b: 0.7882353, a: 1}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 1}
+    - Id: 0
+      item: {fileID: 0}
+      foodItem: {fileID: 0}
+      artifact: {fileID: 0}
+      amount: 0
+      isEmpty: 1
+      slotType: 1
+      artifactType: 0
+      isPut: 0
+      isPutColor: {r: 1, g: 0.92941177, b: 0.7882353, a: 1}
+      isTakeColor: {r: 0, g: 0, b: 0, a: 1}
+    ArtifactRingObject: {fileID: 0}
+    AmuletSlotObject: {fileID: 0}
+    HeaddressSlotObject: {fileID: 0}
+    QuickSlot1Object: {fileID: 0}
+    QuickSlot2Object: {fileID: 0}

@@ -3,23 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum Elements { Water, Fire, Air, Terra, Null }
+public enum Reactions { DamageUp, MovementDown, VisionDown, Null }
 public interface IElementBehavior 
 {
-    enum Elements { Water, Fire, Air,Terra, Null }
-
-    enum Reactions { DamageUp, MovementDown, VisionDown, Null }
-
-    void Reaction(IElementBehavior.Elements secondary, float buff, float damage);
-
-    void SetIcon()
-    {
-
-    }
-
-    void SetDefauntStatus()
-    {
-
-    }
+    void Reaction(Elements secondary, float buff, float damage);
 }
 
 public interface IMoveBehavior

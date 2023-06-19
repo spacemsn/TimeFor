@@ -15,6 +15,7 @@ public class GloballSetting : MonoBehaviour
     [SerializeField] public bookCharacter bookScript;
     [SerializeField] public DeathScript deathScript;
     [SerializeField] public SettingsScript settingsScript;
+    [SerializeField] public ElementalScript elementalScript;
 
     [Header("Îáúåêòû")]
     public GameObject player;
@@ -45,7 +46,7 @@ public class GloballSetting : MonoBehaviour
     {
         if (player != null)
         {
-            if (Input.GetKeyDown(KeyCode.BackQuote) && !bookScript.isOpenInventory && !bookScript.isOpenMap && !deathScript.isOpenPanel && !settingsScript.isOpenPanel)
+            if (Input.GetKeyDown(KeyCode.BackQuote) && !bookScript.isOpenInventory && !bookScript.isOpenMap && !deathScript.isOpenPanel && !settingsScript.isOpenPanel && !elementalScript.isOpenPanel)
             {
                 OpenMenu(pauseScript.PausePanel, pauseScript.isOpenPanel);
 
@@ -58,7 +59,7 @@ public class GloballSetting : MonoBehaviour
                      pauseScript.OpenPanel(); Visible(); PauseGame(); 
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.Tab) && !pauseScript.isOpenPanel)
+            else if (Input.GetKeyDown(KeyCode.B) && !pauseScript.isOpenPanel)
             {
                 OpenMenu(bookScript.inventoryPage, bookScript.isOpenInventory);
 
@@ -82,6 +83,19 @@ public class GloballSetting : MonoBehaviour
                 else if (!bookScript.isOpenMap)
                 {
                      bookScript.OpenMap(); PauseGame(); Visible();
+                }
+            }
+            else if (Input.GetKeyDown(KeyCode.K) && !pauseScript.isOpenPanel)
+            {
+                OpenMenu(elementalScript.ElementalPanel, elementalScript.isOpenPanel);
+
+                if (elementalScript.isOpenPanel)
+                {
+                    elementalScript.OpenPanel(); ResumeGame(); notVisible();
+                }
+                else if (!elementalScript.isOpenPanel)
+                {
+                    elementalScript.OpenPanel(); PauseGame(); Visible();
                 }
             }
             else if (Input.GetKeyDown(KeyCode.LeftAlt))

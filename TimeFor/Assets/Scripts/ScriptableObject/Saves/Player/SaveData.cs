@@ -23,6 +23,8 @@ public class PlayerData
     public int experience;
     [Header("Требуемый опыт")]
     public int experienceRequired;
+    [Header("Требуемый опыт")]
+    public int elementalPoints;
     [Header("Здоровье")]
     public float health;
     [Header("Максимальное здоровье")]
@@ -32,10 +34,6 @@ public class PlayerData
     [Header("Максимальная выносливость")]
     public float staminaMax;
     [Header("Базовый урон")]
-    public float damageBase;
-    [Header("Процент от урона")]
-    public float damagePercent;
-    [Header("Характеристики игрока")]
     [Header("Скорость хотьбы")]
     public float moveSpeed;
     [Header("Скорость бега")]
@@ -78,12 +76,11 @@ public class PlayerData
         levelPlayer = character.levelPlayer;
         experience = character.experience;
         experienceRequired = character.experienceRequired;
+        elementalPoints = character.elementalPoints;
         health = character.health;
         healthMax = character.healthMax;
         stamina = character.stamina;
         staminaMax = character.staminaMax;
-        damageBase = character.damageBase;
-        damagePercent = character.damagePercent;
         moveSpeed = character.moveSpeed;
         runSpeed = character.runSpeed;
         jumpForce = character.jumpForce;
@@ -108,12 +105,11 @@ public class PlayerData
         character.levelPlayer = levelPlayer;
         character.experience = experience;
         character.experienceRequired = experienceRequired;
+        character.elementalPoints = elementalPoints;
         character.health = health;
         character.healthMax = healthMax;
         character.stamina = stamina;
         character.staminaMax = staminaMax;
-        character.damageBase = damageBase;
-        character.damagePercent = damagePercent;
         character.moveSpeed = moveSpeed;
         character.runSpeed = runSpeed;
         character.jumpForce = jumpForce;
@@ -145,6 +141,8 @@ public class SaveData : ItemObject
     public int experience;
     [Header("Требуемый опыт")]
     public int experienceRequired;
+    [Header("Требуемый опыт")]
+    public int elementalPoints;
     [Header("Здоровье")]
     public float health;
     [Header("Максимальное здоровье")]
@@ -153,10 +151,6 @@ public class SaveData : ItemObject
     public float stamina;
     [Header("Максимальная выносливость")]
     public float staminaMax;
-    [Header("Базовый урон")]
-    public float damageBase;
-    [Header("Процент от урона")]
-    public float damagePercent;
     [Header("Характеристики игрока")]
     [Header("Скорость хотьбы")]
     public float moveSpeed;
@@ -196,6 +190,8 @@ public class SaveData : ItemObject
     PlayerData playerData;
     public List<PlayerData> savedData;
 
+    public PlayerData defauntSave;
+
     public void SetSave(mainCharacter character, indicatorCharacter indicators, artifactCharacter artifact, moveCharacter move)
     {
         indicators.GetSceneIndex();
@@ -205,12 +201,11 @@ public class SaveData : ItemObject
         levelPlayer = indicators.levelPlayer;
         experience = indicators.experience;
         experienceRequired = indicators.experienceRequired;
+        elementalPoints = indicators.elementalPoints;
         health = indicators.Health;
         healthMax = indicators.healthMax;
         stamina = indicators.Stamina;
         staminaMax = indicators.staminaMax;
-        damageBase = indicators.damageBase;
-        damagePercent = indicators.damagePercent;
         moveSpeed = move.moveSpeed;
         runSpeed = move.runSpeed;
         jumpForce = move.jumpForce;
@@ -241,26 +236,26 @@ public class SaveData : ItemObject
         indicators.levelPlayer = levelPlayer;
         indicators.experience = experience;
         indicators.experienceRequired = experienceRequired;
+        indicators.elementalPoints = elementalPoints;
         indicators.health = health;
         indicators.healthMax = healthMax;
         indicators.stamina = stamina;
         indicators.staminaMax = staminaMax;
-        indicators.damageBase = damageBase;
-        indicators.damagePercent = damagePercent;
         move.moveSpeed = moveSpeed;
         move.runSpeed = runSpeed;
         move.jumpForce = jumpForce;
         move.debuff = debuff;
         move.gameObject.transform.position = position;
         move.gameObject.transform.rotation = rotation;
-
-        character.book.SaveInventory();
-        character.book.SavePlayerArtifact();
-
         artifact.ArtifactRingObject = ArtifactRingObject;
         artifact.AmuletSlotObject = AmuletSlotObject;
         artifact.artifacts.HeaddressSlotObject = HeaddressSlotObject;
         artifact.artifacts.QuickSlot1Object = QuickSlot1Object;
         artifact.artifacts.QuickSlot2Object = QuickSlot2Object;
     }
+
+    public void Defaunt()
+    {
+        defauntSave.LoadSave(this);
+    }    
 }

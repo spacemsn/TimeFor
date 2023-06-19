@@ -18,6 +18,7 @@ MonoBehaviour:
   maxAmount: 1
   aboutItem: "\u0421\u043F\u0435\u043B"
   icon: {fileID: 21300000, guid: 58cd733bcb234fd48a5afabb1df42bfa, type: 3}
-  damage: 20
+  element: 0
+  elementObject: {fileID: 11400000, guid: b7c2ab04a3d9f7349be49789b39812e4, type: 2}
   attackRollback: 1
   speed: 2

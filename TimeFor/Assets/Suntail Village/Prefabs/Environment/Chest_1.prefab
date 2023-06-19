@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chest: {fileID: 11400000, guid: e553b4c8d4a443947989670dbc3adc26, type: 2}
-  pointItem: {fileID: 0}
+  pointItem: {fileID: 2046644232954943128}
   forceItem: 30
   radius: 1.5
   maskPlayer:

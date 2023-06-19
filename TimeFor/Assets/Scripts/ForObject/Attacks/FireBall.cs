@@ -13,20 +13,12 @@ public class FireBall : MonoCache, IElementBehavior
     [SerializeField] private float scaleDuraction;
     [SerializeField] private float speed;
     [SerializeField] private float liveTime;
-    [SerializeField] private float damage;
     [SerializeField] private Vector3 EnemyPos;
 
-    [Header("Статус Стихии")]
-    public IElementBehavior.Elements status;
-
-    [Header("Реакция Стихии")]
-    public IElementBehavior.Reactions reaction;
-
-    public void SetTarget(Transform target, float speed, float damage)
+    public void SetTarget(Transform target)
     {
         this.target = target;
-        this.speed = speed;
-        this.damage = damage;
+        this.speed = skill.speed;
     }
 
     private void Start()
@@ -50,7 +42,6 @@ public class FireBall : MonoCache, IElementBehavior
 
             Vector3 direction = target.position - transform.position;
             transform.LookAt(target.position);
-            //transform.Translate(direction.normalized * speed * Time.deltaTime);
             transform.position += (direction * speed * Time.deltaTime).normalized;
         }
         else
@@ -66,7 +57,7 @@ public class FireBall : MonoCache, IElementBehavior
             EnemyDamage enemyHealth = other.GetComponent<EnemyDamage>();
             if (enemyHealth != null)
             {
-                enemyHealth.Reaction(status, 2, damage);
+                enemyHealth.Reaction(skill.element, skill.elementObject.basePersent, skill.elementObject.baseDamage);
             }
 
             if (explosionPrefab != null)
@@ -82,7 +73,7 @@ public class FireBall : MonoCache, IElementBehavior
         }
     }
 
-    public void Reaction(IElementBehavior.Elements secondary, float buff, float damage)
+    public void Reaction(Elements secondary, float buff, float damage)
     {
 
     }

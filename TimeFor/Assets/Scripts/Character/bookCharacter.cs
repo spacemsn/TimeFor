@@ -36,8 +36,6 @@ public class bookCharacter : GloballSetting
 
     [Header("Сохранение инвентаря")]
     public SaveData saveInventory;
-    public SaveData defaultInventory;
-
     public GloballSetting globall;
 
     [Header("Персонаж")]
@@ -99,7 +97,7 @@ public class bookCharacter : GloballSetting
                 slot.itemAmount.text = slot.amount.ToString();
             }
 
-            if (!slot.isPut)
+            if (slot.isPut)
             {
                 slot.SetBuffIcon();
             }
@@ -146,6 +144,7 @@ public class bookCharacter : GloballSetting
         for (int i = 0; i < saveInventory.inventorySlot.Count; i++)
         {
             Slot slot = inventoryPanel.transform.GetChild(i).GetComponent<Slot>();
+            slot.Id = i;
             saveInventory.inventorySlot[i].Id = slot.Id;
             saveInventory.inventorySlot[i].item = slot.item;
             saveInventory.inventorySlot[i].amount = slot.amount;
@@ -158,6 +157,7 @@ public class bookCharacter : GloballSetting
         for (int i = 0; i < saveInventory.playerSlots.Count; i++)
         {
             Slot slot = playerPanel.transform.GetChild(i).GetComponent<Slot>();
+            slot.Id = i;
             saveInventory.playerSlots[i].Id = slot.Id;
             saveInventory.playerSlots[i].item = slot.item;
             if(slot.foodItem != null) { saveInventory.playerSlots[i].foodItem = slot.foodItem; }
@@ -170,18 +170,6 @@ public class bookCharacter : GloballSetting
 
             saveInventory.playerSlots[i].isPutColor = slot.isPutColor;
             saveInventory.playerSlots[i].isTakeColor = slot.isTakeColor;
-        }
-    }
-
-    public void SetDefaunt()
-    {
-        for (int i = 0; i < defaultInventory.inventorySlot.Count; i++)
-        {
-            Slot slot = inventoryPanel.transform.GetChild(i).GetComponent<Slot>();
-            slot.Id = defaultInventory.inventorySlot[i].Id;
-            slot.item = defaultInventory.inventorySlot[i].item;
-            slot.amount = defaultInventory.inventorySlot[i].amount;
-            slot.isEmpty = defaultInventory.inventorySlot[i].isEmpty;
         }
     }
 }

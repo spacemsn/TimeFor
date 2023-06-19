@@ -25,6 +25,8 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
     public int experience;
     [Header("Требуемый опыт")]
     public int experienceRequired;
+    [Header("Требуемый опыт")]
+    public int elementalPoints;
     [Header("Здоровье")]
     public float health;
     [Header("Максимальное здоровье")]
@@ -33,10 +35,22 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
     public float stamina;
     [Header("Максимальная выносливость")]
     public float staminaMax;
-    [Header("Базовый урон")]
-    public float damageBase;
-    [Header("Процент от урона")]
-    public float damagePercent;
+    [Header("Базовый урон огня")]
+    public float damageBaseFire;
+    [Header("Базовый урон воды")]
+    public float damageBaseWater;
+    [Header("Базовый урон воздуха")]
+    public float damageBaseAir;
+    [Header("Базовый урон земли")]
+    public float damageBaseTerra;
+    [Header("Процент от урона огня")]
+    public float damagePercentFire;
+    [Header("Процент от урона воды")]
+    public float damagePercentWater;
+    [Header("Процент от урона воздуха")]
+    public float damagePercentAir;
+    [Header("Процент от урона земли")]
+    public float damagePercentTerra;
 
     [SerializeField] Slider healthBar;
     [SerializeField] Slider staminaBar;
@@ -57,10 +71,10 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
     public Sprite MovementDownSprite;
 
     [Header("Статус Стихии")]
-    public IElementBehavior.Elements currentStatus;
+    public Elements currentStatus;
 
     [Header("Реакция Стихии")]
-    public IElementBehavior.Reactions reaction;
+    public Reactions reaction;
 
     [Header("Время наложения статуса")]
     public float timeStatus;
@@ -174,6 +188,7 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
         experience -= experienceRequired;
         experienceRequired = Mathf.RoundToInt(experienceRequired * 1.5f);
         healthMax += 50;
+        elementalPoints++;
 
         UpdateStats();
 
@@ -203,61 +218,61 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
 
     private void SetIcon()
     {
-        if (reaction == IElementBehavior.Reactions.Null)
+        if (reaction == Reactions.Null)
         {
             switch (currentStatus)
             {
-                case IElementBehavior.Elements.Water:
+                case Elements.Water:
                     reactionImage.sprite = WaterSprite;
                     reactionImage.enabled = true;
                     break;
 
-                case IElementBehavior.Elements.Fire:
+                case Elements.Fire:
                     reactionImage.sprite = FireSprite;
                     reactionImage.enabled = true;
                     break;
 
-                case IElementBehavior.Elements.Air:
+                case Elements.Air:
                     reactionImage.sprite = AirSprite;
                     reactionImage.enabled = true;
                     break;
 
-                case IElementBehavior.Elements.Terra:
+                case Elements.Terra:
                     reactionImage.sprite = TerraSprite;
                     reactionImage.enabled = true;
                     break;
 
-                case IElementBehavior.Elements.Null:
+                case Elements.Null:
                     reactionImage.enabled = false;
                     break;
             }
         }
-        if (currentStatus == IElementBehavior.Elements.Null)
+        if (currentStatus == Elements.Null)
         {
             switch (reaction)
             {
-                case IElementBehavior.Reactions.DamageUp:
+                case Reactions.DamageUp:
                     {
                         reactionImage.sprite = damageUpSprite;
                         reactionImage.enabled = true;
                         break;
                     }
 
-                case IElementBehavior.Reactions.MovementDown:
+                case Reactions.MovementDown:
                     {
                         reactionImage.sprite = MovementDownSprite;
                         reactionImage.enabled = true;
                         break;
                     }
 
-                case IElementBehavior.Reactions.VisionDown:
+                case Reactions.VisionDown:
                     {
                         reactionImage.sprite = VisionDownSprite;
                         reactionImage.enabled = true;
                         break;
                     }
 
-                case IElementBehavior.Reactions.Null:
+                case Reactions.Null:
                     {
                         reactionImage.enabled = false;
                         break;
@@ -266,12 +281,12 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
         }
     }
 
-    public void Reaction(IElementBehavior.Elements secondary, float buff, float damage)
+    public void Reaction(Elements secondary, float buff, float damage)
     {
-        if ((currentStatus == IElementBehavior.Elements.Water && secondary == IElementBehavior.Elements.Fire) || (currentStatus == IElementBehavior.Elements.Fire && secondary == IElementBehavior.Elements.Water))
+        if ((currentStatus == Elements.Water && secondary == Elements.Fire) || (currentStatus == Elements.Fire && secondary == Elements.Water))
         {
             Debug.Log("Реация увеличения урона!");
-            reaction = IElementBehavior.Reactions.DamageUp;
+            reaction = Reactions.DamageUp;
             SetDefauntStatus();
             if (runStatusCorouutine)
             {
@@ -285,10 +300,10 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
             damage *= buff;
             TakeDamage(damage);
         }
-        else if ((currentStatus == IElementBehavior.Elements.Terra && secondary == IElementBehavior.Elements.Fire) || (currentStatus == IElementBehavior.Elements.Water && secondary == IElementBehavior.Elements.Terra))
+        else if ((currentStatus == Elements.Terra && secondary == Elements.Fire) || (currentStatus == Elements.Water && secondary == Elements.Terra))
         {
             Debug.Log("Реация оглушения движения");
-            reaction = IElementBehavior.Reactions.MovementDown;
+            reaction = Reactions.MovementDown;
             SetDefauntStatus();
             if (runStatusCorouutine)
             {
@@ -302,10 +317,10 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
             //navAgent.speed -= buff;
             TakeDamage(damage);
         }
-        else if ((currentStatus == IElementBehavior.Elements.Fire && secondary == IElementBehavior.Elements.Air) || (currentStatus == IElementBehavior.Elements.Water && secondary == IElementBehavior.Elements.Air) || (currentStatus == IElementBehavior.Elements.Terra && secondary == IElementBehavior.Elements.Air))
+        else if ((currentStatus == Elements.Fire && secondary == Elements.Air) || (currentStatus == Elements.Water && secondary == Elements.Air) || (currentStatus == Elements.Terra && secondary == Elements.Air))
         {
             Debug.Log("Реация оглушения зрения");
-            reaction = IElementBehavior.Reactions.VisionDown;
+            reaction = Reactions.VisionDown;
             SetDefauntStatus();
             if (runStatusCorouutine)
             {
@@ -340,7 +355,7 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
         runStatusCorouutine = true;
 
         yield return new WaitForSeconds(timeStatus);
-        currentStatus = IElementBehavior.Elements.Null;
+        currentStatus = Elements.Null;
         runStatusCorouutine = false;
     }
 
@@ -349,13 +364,13 @@ public class indicatorCharacter : MonoCache, IElementBehavior, IDamageBehavior
         runReactionCorouutine = true;
 
         yield return new WaitForSeconds(timeStatus);
-        reaction = IElementBehavior.Reactions.Null;
+        reaction = Reactions.Null;
         runReactionCorouutine = false;
     }
 
     void SetDefauntStatus()
     {
-        currentStatus = IElementBehavior.Elements.Null;
+        currentStatus = Elements.Null;
     }
 
     public void TakeDamage(float damage)

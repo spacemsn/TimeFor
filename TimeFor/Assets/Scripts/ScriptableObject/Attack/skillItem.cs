@@ -4,8 +4,10 @@ using UnityEngine;
 public class skillItem : Item
 {
     [Header("Характеристики скилла")]
-    [Header("Урон")]
-    public float damage;
+    [Header("Стихия")]
+    public Elements element;
+    [Header("Прокачиваемая стихия")]
+    public ElementObject elementObject;
     [Header("Откат способности")]
     public float attackRollback;
     [Header("Скорость")]
