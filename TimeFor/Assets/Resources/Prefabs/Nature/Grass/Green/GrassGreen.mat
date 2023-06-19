@@ -14,7 +14,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -36,11 +36,11 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _wind_speed: 1.2
-    - _wind_strenght: 0.2
+    - _wind_speed: 1.049
+    - _wind_strenght: 0.049
     m_Colors:
-    - _BottomColor: {r: 0.30980393, g: 0.48235297, b: 0.058823533, a: 1}
-    - _TopColor: {r: 0.3713033, g: 0.764151, b: 0.2270826, a: 1}
+    - _BottomColor: {r: 0.15056492, g: 0.2264151, b: 0.041651838, a: 1}
+    - _TopColor: {r: 0.4878371, g: 0.6415094, b: 0.31167677, a: 1}
     - _wind_ver: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7673668645451072322

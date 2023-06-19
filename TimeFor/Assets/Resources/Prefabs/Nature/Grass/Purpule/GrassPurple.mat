@@ -36,8 +36,8 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _wind_speed: 1.2
-    - _wind_strenght: 0.2
+    - _wind_speed: 0.613
+    - _wind_strenght: 0.079
     m_Colors:
     - _BottomColor: {r: 0.33002582, g: 0.32106623, b: 0.6132076, a: 1}
     - _TopColor: {r: 0.9216185, g: 0.4251958, b: 0.990566, a: 1}
