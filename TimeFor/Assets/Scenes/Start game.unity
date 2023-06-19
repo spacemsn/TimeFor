@@ -145,6 +145,7 @@ GameObject:
   - component: {fileID: 99478052}
   - component: {fileID: 99478051}
   - component: {fileID: 99478050}
+  - component: {fileID: 99478054}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -235,6 +236,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &99478054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 99478049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1606c68ef916d3f4b9445088a5dda583, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Text: {fileID: 0}
+  loadingDuration: 1
+  videoPlayer: {fileID: 1750701611}
+  isPlay: 1
 --- !u!224 &100201068 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5078523144550316069, guid: 0be8e974cf0ebe345aaecb16ac641aa7, type: 3}
@@ -416,7 +433,6 @@ GameObject:
   - component: {fileID: 673931333}
   - component: {fileID: 673931334}
   - component: {fileID: 673931332}
-  - component: {fileID: 673931330}
   - component: {fileID: 673931335}
   m_Layer: 0
   m_Name: EntryPoint
@@ -488,20 +504,6 @@ MonoBehaviour:
   UIPoint: {fileID: 0}
   globallEntry: {fileID: 0}
   enemyManager: {fileID: 0}
---- !u!114 &673931330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 673931325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1606c68ef916d3f4b9445088a5dda583, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  loadingDuration: 1
-  videoPlayer: {fileID: 1750701611}
 --- !u!114 &673931331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -918,6 +920,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6579370482850220835, guid: f01b722603901c34d8f85a62b0498bd0, type: 3}
+      propertyPath: spawnPoints.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579370482850220835, guid: f01b722603901c34d8f85a62b0498bd0, type: 3}
+      propertyPath: spawnPoints.Array.data[2].isSpawn
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579370482850220835, guid: f01b722603901c34d8f85a62b0498bd0, type: 3}
+      propertyPath: spawnPoints.Array.data[4].isSpawn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579370482850220835, guid: f01b722603901c34d8f85a62b0498bd0, type: 3}
+      propertyPath: spawnPoints.Array.data[3].position.x
+      value: 78.38705
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579370482850220835, guid: f01b722603901c34d8f85a62b0498bd0, type: 3}
+      propertyPath: spawnPoints.Array.data[3].position.y
+      value: 0.7412305
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579370482850220835, guid: f01b722603901c34d8f85a62b0498bd0, type: 3}
+      propertyPath: spawnPoints.Array.data[3].position.z
+      value: 88.05402
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579370482850220835, guid: f01b722603901c34d8f85a62b0498bd0, type: 3}
+      propertyPath: spawnPoints.Array.data[4].position.x
+      value: 425
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579370482850220835, guid: f01b722603901c34d8f85a62b0498bd0, type: 3}
+      propertyPath: spawnPoints.Array.data[4].position.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579370482850220835, guid: f01b722603901c34d8f85a62b0498bd0, type: 3}
+      propertyPath: spawnPoints.Array.data[4].position.z
+      value: 850
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579370482850220835, guid: f01b722603901c34d8f85a62b0498bd0, type: 3}
+      propertyPath: spawnPoints.Array.data[4].indexSpanwScene
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7498823233882305586, guid: f01b722603901c34d8f85a62b0498bd0, type: 3}
       propertyPath: m_Name
       value: 'Spawn Controller '
@@ -1067,7 +1109,7 @@ VideoPlayer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1750701609}
   m_Enabled: 1
-  m_VideoClip: {fileID: 32900000, guid: 3b32865ace75e1a4bb10ddf1a00c2b16, type: 3}
+  m_VideoClip: {fileID: 32900000, guid: fe10f9fc5ecf6ae46946ca70c2d80115, type: 3}
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 467437436}
@@ -1152,6 +1194,10 @@ PrefabInstance:
       propertyPath: settingsScript
       value: 
       objectReference: {fileID: 2121145851}
+    - target: {fileID: 1606003776182079933, guid: 0cbac7052562817428e7178178f60e04, type: 3}
+      propertyPath: elementalScript
+      value: 
+      objectReference: {fileID: 1950102168}
     - target: {fileID: 2885772094591834626, guid: 0cbac7052562817428e7178178f60e04, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -1521,6 +1567,14 @@ PrefabInstance:
       propertyPath: settingsScript
       value: 
       objectReference: {fileID: 2121145851}
+    - target: {fileID: 5078523144650849774, guid: 0be8e974cf0ebe345aaecb16ac641aa7, type: 3}
+      propertyPath: elementalScript
+      value: 
+      objectReference: {fileID: 1950102168}
+    - target: {fileID: 5078523144784535220, guid: 0be8e974cf0ebe345aaecb16ac641aa7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5078523144811681811, guid: 0be8e974cf0ebe345aaecb16ac641aa7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -1737,6 +1791,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 467437436}
+    - target: {fileID: 5078523145948439064, guid: 0be8e974cf0ebe345aaecb16ac641aa7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5078523145961427669, guid: 0be8e974cf0ebe345aaecb16ac641aa7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1

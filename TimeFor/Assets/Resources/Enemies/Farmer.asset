@@ -17,7 +17,7 @@ MonoBehaviour:
   objectPrefab: {fileID: 6793721673868776911, guid: be07b3c4ad2c0cc4f80d9fd21a89db62, type: 3}
   aboutObject: "\u0412\u0440\u0430\u0433"
   icon: {fileID: 0}
-  hp: -10
+  hp: 100
   baseHP: 100
   enemyDamage: 20
   baseDamage: 20

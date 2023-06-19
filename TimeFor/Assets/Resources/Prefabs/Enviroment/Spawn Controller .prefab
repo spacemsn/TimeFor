@@ -55,11 +55,15 @@ MonoBehaviour:
     rotation: {x: 0, y: 0, z: 0, w: 0}
     isSpawn: 0
   - indexSpanwScene: 2
-    position: {x: 78.38705, y: 0.7412305, z: 88.05402}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
-    isSpawn: 1
+    position: {x: 209.2363, y: 2.941244, z: 242.9125}
+    rotation: {x: 0, y: -0.5276009, z: 0, w: 0.8494924}
+    isSpawn: 0
   - indexSpanwScene: 3
-    position: {x: 425, y: 4, z: 850}
-    rotation: {x: 0, y: 0, z: 0, w: 0}
+    position: {x: 209.2363, y: 2.941244, z: 242.9125}
+    rotation: {x: 0, y: 0.52760106, z: 0, w: -0.84949225}
+    isSpawn: 1
+  - indexSpanwScene: 4
+    position: {x: 335.2484, y: 2.994473, z: 865.4806}
+    rotation: {x: 0, y: 0.7933533, z: 0, w: 0.6087614}
     isSpawn: 1
   indexScene: 0

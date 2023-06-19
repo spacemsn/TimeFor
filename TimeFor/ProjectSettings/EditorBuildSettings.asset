@@ -12,8 +12,14 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 9deacfeaebce3e34ea3bc705b41e6e98
   - enabled: 1
-    path: Assets/Scenes/LVL1.unity
+    path: Assets/Scenes/Hystory scene.unity
+    guid: de508fb9d1b7c9044ab88193e0d509dc
+  - enabled: 0
+    path: "Assets/Scenes/LVL1 \u041D\u0435 \u0438\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442\u0441\u044F.unity"
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/LVL1.unity
+    guid: b397b02c7dc1ba145a355b7961562a72
   - enabled: 1
     path: Assets/Scenes/LVL2.unity
     guid: c1c85d238c0f77c4a94eb5e106aef4fc
